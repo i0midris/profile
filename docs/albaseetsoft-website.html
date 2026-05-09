@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>برامج محاسبية وأنظمة ERP في اليمن | البسيط سوفت صنعاء</title>
+  <meta name="description" content="البسيط سوفت — شركة رائدة في تطوير أنظمة ERP والمحاسبة وإدارة المخزون في اليمن. برامج متخصصة للصيدليات والمطاعم والسوبرماركت والمدارس. خبرة +10 سنوات.">
+  <meta name="keywords" content="برنامج محاسبي اليمن, نظام ERP صنعاء, برنامج مستودعات, نظام صيدلية, برنامج مطعم, شركة برمجيات اليمن">
+  <meta property="og:title" content="البسيط سوفت | أنظمة ERP والمحاسبة في اليمن">
+  <meta property="og:description" content="حلول برمجية متكاملة للشركات اليمنية — أنظمة ERP، محاسبة، مستودعات، صيدليات، مطاعم وأكثر.">
+  <meta property="og:url" content="https://albaseetsoft-ye.com">
+  <link rel="canonical" href="https://albaseetsoft-ye.com/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"LocalBusiness","name":"شركة البسيط سوفت للأنظمة والتطبيقات","url":"https://albaseetsoft-ye.com","telephone":"+967777335118","email":"info@albaseetsoft-ye.com","address":{"@type":"PostalAddress","addressCountry":"YE","addressLocality":"صنعاء"},"description":"شركة متخصصة في تطوير أنظمة ERP والمحاسبة وتطبيقات الأعمال في اليمن"}
+  </script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'IBM Plex Sans Arabic','Tajawal',sans-serif;color:#0A2540;background:#fff;direction:rtl;line-height:1.7;overflow-x:hidden}
+:root{--primary:#0A2540;--primary-light:#1a3d6e;--accent:#00C896;--accent-dark:#009e78;--accent2:#F5A623;--surface:#F7F9FC;--surface2:#EEF2F7;--white:#fff;--text:#0A2540;--text-muted:#5a6a7e;--border:#DDE4EE;--shadow:0 4px 24px rgba(10,37,64,.08);--shadow-lg:0 16px 48px rgba(10,37,64,.14);--radius:16px;--radius-sm:10px}
+h1,h2,h3,h4,h5,h6{font-family:'Tajawal',sans-serif;font-weight:800;line-height:1.2;color:var(--primary)}
+h1{font-size:clamp(2rem,5vw,3.5rem)}h2{font-size:clamp(1.6rem,3.5vw,2.4rem)}h3{font-size:clamp(1.1rem,2vw,1.5rem)}
+p{color:var(--text-muted);line-height:1.8}a{text-decoration:none;color:inherit;cursor:pointer}
+
+/* PAGE SYSTEM */
+.page{display:none;animation:fadeIn .4s ease}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;right:0;left:0;z-index:1000;background:rgba(255,255,255,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:72px;transition:box-shadow .3s}
+.navbar.scrolled{box-shadow:var(--shadow)}
+.nav-logo{display:flex;align-items:center;gap:12px;cursor:pointer}
+.nav-logo-icon{width:42px;height:42px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Tajawal',sans-serif;font-weight:900;color:#fff;font-size:1.3rem}
+.nav-logo span{font-family:'Tajawal',sans-serif;font-weight:800;font-size:1.2rem;color:var(--primary)}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
+.nav-links a{font-size:.95rem;font-weight:500;color:var(--text-muted);transition:color .2s;position:relative;cursor:pointer}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;right:0;left:0;height:2px;background:var(--accent);border-radius:2px;transform:scaleX(0);transition:transform .2s}
+.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+.nav-links a:hover,.nav-links a.active{color:var(--primary)}
+.nav-cta{background:var(--accent)!important;color:#fff!important;padding:10px 24px;border-radius:50px;font-weight:700!important;transition:background .2s,transform .2s!important}
+.nav-cta:hover{background:var(--accent-dark)!important;transform:translateY(-1px)}
+.nav-cta::after{display:none!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;width:24px;height:2px;background:var(--primary);border-radius:2px;transition:.3s}
+.mobile-menu{display:none;position:fixed;top:72px;right:0;left:0;background:#fff;border-bottom:1px solid var(--border);padding:1.5rem 5%;flex-direction:column;gap:1rem;z-index:999}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-size:1rem;font-weight:500;color:var(--text-muted);padding:.5rem 0;border-bottom:1px solid var(--border);cursor:pointer}
+
+/* HERO */
+.hero{min-height:100vh;padding:120px 5% 80px;display:flex;align-items:center;background:linear-gradient(135deg,#0A2540 0%,#1a3d6e 50%,#0d4f8c 100%);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/svg%3E")}
+.hero-glow{position:absolute;top:-200px;left:-200px;width:600px;height:600px;background:radial-gradient(circle,rgba(0,200,150,.15) 0%,transparent 70%);border-radius:50%}
+.hero-glow2{position:absolute;bottom:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(circle,rgba(245,166,35,.1) 0%,transparent 70%);border-radius:50%}
+.hero-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,200,150,.15);border:1px solid rgba(0,200,150,.3);color:#00C896;padding:8px 16px;border-radius:50px;font-size:.85rem;font-weight:600;margin-bottom:1.5rem}
+.hero-badge span{width:8px;height:8px;background:#00C896;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.3)}}
+.hero h1{color:#fff;margin-bottom:1.5rem}
+.hero h1 em{color:var(--accent);font-style:normal}
+.hero-desc{color:rgba(255,255,255,.75);font-size:1.1rem;margin-bottom:2.5rem;max-width:480px}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{background:var(--accent);color:#fff;padding:14px 32px;border-radius:50px;font-weight:700;font-size:1rem;font-family:'Tajawal',sans-serif;transition:.2s;display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer}
+.btn-primary:hover{background:var(--accent-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,200,150,.3)}
+.btn-outline{background:transparent;color:#fff;padding:14px 32px;border-radius:50px;font-weight:700;font-size:1rem;font-family:'Tajawal',sans-serif;transition:.2s;display:inline-flex;align-items:center;gap:8px;border:2px solid rgba(255,255,255,.3);cursor:pointer}
+.btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.08)}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:3rem}
+.hero-stat{text-align:center;padding:16px;background:rgba(255,255,255,.07);border-radius:var(--radius-sm);border:1px solid rgba(255,255,255,.1)}
+.hero-stat-num{font-family:'Tajawal',sans-serif;font-size:2rem;font-weight:900;color:var(--accent);display:block}
+.hero-stat-label{font-size:.8rem;color:rgba(255,255,255,.6);margin-top:2px}
+.hero-visual{display:flex;flex-direction:column;gap:16px}
+.hero-card{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:var(--radius);padding:20px 24px;backdrop-filter:blur(10px)}
+.hero-card-icon{width:44px;height:44px;background:var(--accent);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:1.3rem}
+.hero-card h4{color:#fff;font-size:1rem;margin-bottom:4px}
+.hero-card p{color:rgba(255,255,255,.6);font-size:.85rem;line-height:1.5;margin:0}
+
+/* SECTIONS */
+.section{padding:100px 5%}
+.section-alt{background:var(--surface)}
+.section-center{text-align:center}
+.container{max-width:1200px;margin:0 auto}
+.section-tag{display:inline-block;background:rgba(0,200,150,.1);color:var(--accent-dark);padding:6px 16px;border-radius:50px;font-size:.85rem;font-weight:700;margin-bottom:1rem;border:1px solid rgba(0,200,150,.2)}
+.section-title{margin-bottom:1rem}
+.section-subtitle{color:var(--text-muted);font-size:1.1rem;max-width:600px;margin:0 auto 3rem}
+
+/* GRIDS */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:40px;align-items:center}
+
+/* CARDS */
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:28px;transition:.3s}
+.card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px);border-color:var(--accent)}
+.card-icon{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:1rem}
+.card-icon.green{background:rgba(0,200,150,.1)}
+.card-icon.blue{background:rgba(10,37,64,.08)}
+.card-icon.amber{background:rgba(245,166,35,.12)}
+.card h3{margin-bottom:.5rem;font-size:1.1rem}
+.card p{font-size:.92rem}
+
+/* FEATURE LIST */
+.feature-list{list-style:none;display:flex;flex-direction:column;gap:12px}
+.feature-list li{display:flex;align-items:flex-start;gap:12px;font-size:.95rem;color:var(--text-muted)}
+.feature-list li::before{content:'✓';width:24px;height:24px;min-width:24px;background:rgba(0,200,150,.12);color:var(--accent-dark);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.75rem;margin-top:2px}
+
+/* STATS BAR */
+.stats-bar{background:var(--primary);padding:60px 5%}
+.stats-bar .container{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+.stat-item-num{font-family:'Tajawal',sans-serif;font-size:2.8rem;font-weight:900;color:var(--accent)}
+.stat-item-label{color:rgba(255,255,255,.65);font-size:.9rem;margin-top:4px}
+
+/* SYSTEM CARDS */
+.system-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:.3s}
+.system-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-4px)}
+.system-card-header{padding:24px;background:linear-gradient(135deg,var(--primary),var(--primary-light))}
+.system-card-header h3{color:#fff;font-size:1.05rem;margin-bottom:4px}
+.system-card-header p{color:rgba(255,255,255,.65);font-size:.85rem;margin:0}
+.system-card-body{padding:24px}
+.system-card-body ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.system-card-body ul li{display:flex;align-items:center;gap:8px;font-size:.88rem;color:var(--text-muted)}
+.system-card-body ul li::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%;flex-shrink:0}
+.system-card-footer{padding:16px 24px;border-top:1px solid var(--border)}
+.system-card-footer a{color:var(--accent-dark);font-size:.9rem;font-weight:600;display:flex;align-items:center;gap:6px;cursor:pointer}
+
+/* FEATURE GRID */
+.feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:3rem}
+.feature-item{background:var(--surface);border-radius:var(--radius-sm);padding:20px;display:flex;gap:14px;align-items:flex-start;transition:.2s;border:1px solid transparent}
+.feature-item:hover{border-color:var(--accent);background:#fff}
+.feature-item-icon{font-size:1.5rem;min-width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:rgba(0,200,150,.1);border-radius:8px}
+.feature-item h4{font-size:.95rem;margin-bottom:2px}
+.feature-item p{font-size:.83rem;margin:0;color:var(--text-muted)}
+
+/* PAGE HERO */
+.page-hero{padding:140px 5% 80px;background:linear-gradient(135deg,var(--primary) 0%,var(--primary-light) 100%);text-align:center;position:relative;overflow:hidden}
+.page-hero h1{color:#fff;margin-bottom:1rem}
+.page-hero p{color:rgba(255,255,255,.7);font-size:1.1rem;max-width:600px;margin:0 auto}
+.breadcrumb{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:1.5rem}
+.breadcrumb a{color:rgba(255,255,255,.6);font-size:.9rem;cursor:pointer}
+.breadcrumb span{color:rgba(255,255,255,.4)}
+.breadcrumb .current{color:var(--accent);font-size:.9rem}
+
+/* VALUE CARDS */
+.value-card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:28px;text-align:center;transition:.3s}
+.value-card:hover{box-shadow:var(--shadow);transform:translateY(-4px)}
+.value-icon{font-size:2.5rem;margin-bottom:1rem}
+.value-card h3{font-size:1.1rem;margin-bottom:.5rem}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:60px;align-items:start}
+.contact-info-item{display:flex;gap:16px;align-items:flex-start;margin-bottom:28px}
+.contact-icon{width:48px;height:48px;min-width:48px;background:rgba(0,200,150,.1);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem}
+.contact-info-item h4{font-size:1rem;margin-bottom:4px}
+.contact-info-item p,.contact-info-item a{font-size:.92rem;color:var(--text-muted)}
+.contact-form{background:var(--surface);border-radius:var(--radius);padding:36px;border:1px solid var(--border)}
+.form-group{margin-bottom:20px}
+.form-group label{display:block;font-size:.9rem;font-weight:600;margin-bottom:8px;color:var(--text)}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:'IBM Plex Sans Arabic',sans-serif;font-size:.95rem;color:var(--text);background:#fff;transition:.2s;direction:rtl}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(0,200,150,.12)}
+.form-group textarea{min-height:120px;resize:vertical}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.social-links{display:flex;gap:12px;flex-wrap:wrap;margin-top:1.5rem}
+.social-link{width:42px;height:42px;background:var(--surface2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:.2s;border:1px solid var(--border);color:var(--text-muted)}
+.social-link:hover{background:var(--accent);color:#fff;border-color:var(--accent);transform:translateY(-2px)}
+
+/* FOOTER */
+footer{background:var(--primary);color:#fff;padding:60px 5% 30px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-brand p{color:rgba(255,255,255,.6);font-size:.9rem;margin:1rem 0;max-width:280px}
+.footer-col h4{font-size:1rem;margin-bottom:1rem;color:#fff}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.footer-col ul li a{color:rgba(255,255,255,.6);font-size:.9rem;transition:.2s;cursor:pointer}
+.footer-col ul li a:hover{color:var(--accent)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-bottom p{color:rgba(255,255,255,.5);font-size:.85rem}
+.footer-social{display:flex;gap:10px}
+.footer-social a{width:36px;height:36px;background:rgba(255,255,255,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;transition:.2s;color:rgba(255,255,255,.6);cursor:pointer}
+.footer-social a:hover{background:var(--accent);color:#fff}
+
+/* CTA SECTION */
+.cta-section{padding:80px 5%;text-align:center;background:linear-gradient(135deg,var(--primary),var(--primary-light))}
+.cta-section h2{color:#fff;margin-bottom:1rem}
+.cta-section p{color:rgba(255,255,255,.7);margin-bottom:2rem;max-width:500px;margin-left:auto;margin-right:auto}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+
+/* RESPONSIVE */
+@media(max-width:1024px){.footer-grid{grid-template-columns:1fr 1fr}.hero-inner{grid-template-columns:1fr}.hero-visual{display:none}.hero-stats{grid-template-columns:repeat(3,1fr)}.stats-bar .container{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.nav-links{display:none}.hamburger{display:flex}.grid-3{grid-template-columns:1fr}.grid-2{grid-template-columns:1fr}.contact-grid{grid-template-columns:1fr}.feature-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.hero-stats{grid-template-columns:1fr}.hero-btns{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="nav-logo" onclick="showPage('home')">
+    <div class="nav-logo-icon">ب</div>
+    <span>البسيط سوفت</span>
+  </div>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" data-page="home">الرئيسية</a></li>
+    <li><a onclick="showPage('about')" data-page="about">من نحن</a></li>
+    <li><a onclick="showPage('systems')" data-page="systems">الأنظمة</a></li>
+    <li><a onclick="showPage('products')" data-page="products">المنتجات</a></li>
+    <li><a onclick="showPage('contact')" data-page="contact" class="nav-cta">تواصل معنا</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="القائمة">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a onclick="showPage('home');closeMobile()">الرئيسية</a>
+  <a onclick="showPage('about');closeMobile()">من نحن</a>
+  <a onclick="showPage('systems');closeMobile()">الأنظمة</a>
+  <a onclick="showPage('products');closeMobile()">المنتجات</a>
+  <a onclick="showPage('contact');closeMobile()">تواصل معنا</a>
+</div>
+
+<!-- ═══════════════════ PAGE: HOME ═══════════════════ -->
+<div class="page active" id="page-home">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow"></div>
+    <div class="hero-glow2"></div>
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge"><span></span> الشركة الرائدة في اليمن</div>
+        <h1>أنظمة <em>ERP</em> ذكية<br>تُدير أعمالك بكفاءة</h1>
+        <p class="hero-desc">حلول برمجية متكاملة مصممة خصيصاً للشركات اليمنية — من المحاسبة والمستودعات إلى نقاط البيع وإدارة الموارد البشرية.</p>
+        <div class="hero-btns">
+          <button class="btn-primary" onclick="showPage('contact')">ابدأ الآن مجاناً ←</button>
+          <button class="btn-outline" onclick="showPage('systems')">استعرض الأنظمة</button>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><span class="hero-stat-num">200+</span><span class="hero-stat-label">عميل راضٍ</span></div>
+          <div class="hero-stat"><span class="hero-stat-num">14</span><span class="hero-stat-label">وكيل في اليمن</span></div>
+          <div class="hero-stat"><span class="hero-stat-num">10+</span><span class="hero-stat-label">سنوات خبرة</span></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card"><div class="hero-card-icon">📊</div><h4>إدارة مالية متكاملة</h4><p>تقارير لحظية، فواتير آلية، وإدارة كاملة للحسابات</p></div>
+        <div class="hero-card"><div class="hero-card-icon">📦</div><h4>مراقبة المخزون</h4><p>تتبع دقيق للمخزون والمستودعات بكل فروعك</p></div>
+        <div class="hero-card"><div class="hero-card-icon">📱</div><h4>تطبيق الجوال</h4><p>إدارة أعمالك من أي مكان — يعمل Online وOffline</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="container">
+      <div><div class="stat-item-num">4000+</div><div class="stat-item-label">إجمالي التنزيلات</div></div>
+      <div><div class="stat-item-num">200+</div><div class="stat-item-label">عميل سعيد</div></div>
+      <div><div class="stat-item-num">5</div><div class="stat-item-label">شراكات عالمية</div></div>
+      <div><div class="stat-item-num">14</div><div class="stat-item-label">وكيل معتمد</div></div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-center">
+        <span class="section-tag">خدماتنا</span>
+        <h2 class="section-title">حلول تقنية لكل قطاع</h2>
+        <p class="section-subtitle">نقدم منظومة متكاملة من الأنظمة والتطبيقات المصممة لتلبية احتياجات الشركات اليمنية</p>
+      </div>
+      <div class="grid-3">
+        <div class="card"><div class="card-icon green">🏢</div><h3>تطوير أنظمة ERP</h3><p>أنظمة تخطيط موارد المؤسسات التي تدير جميع عملياتك في نظام واحد متكامل وسهل الاستخدام.</p></div>
+        <div class="card"><div class="card-icon blue">📱</div><h3>تطوير التطبيقات</h3><p>تطبيقات هواتف ذكية تساعد شركتك على تقديم خدماتها بشكل أفضل وأسرع لعملائها.</p></div>
+        <div class="card"><div class="card-icon amber">🛒</div><h3>المتاجر الإلكترونية</h3><p>متاجر إلكترونية متكاملة مرتبطة بالأنظمة الإدارية لإدارة الطلبات والمبيعات بسهولة.</p></div>
+        <div class="card"><div class="card-icon green">🖥️</div><h3>أنظمة نقاط البيع POS</h3><p>حلول نقاط بيع متطورة للمتاجر والمطاعم والشركات التجارية بواجهة سهلة الاستخدام.</p></div>
+        <div class="card"><div class="card-icon blue">⚙️</div><h3>إدارة الأعمال</h3><p>حلول متكاملة لإدارة الحسابات، المخازن، المبيعات، الموارد البشرية، وعلاقات العملاء.</p></div>
+        <div class="card"><div class="card-icon amber">🔒</div><h3>الأمن السيبراني</h3><p>حماية شاملة لبياناتك وأنظمتك من التهديدات الإلكترونية مع الامتثال لأعلى معايير الأمن.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US -->
+  <section class="section">
+    <div class="container">
+      <div class="grid-2">
+        <div>
+          <span class="section-tag">لماذا نحن؟</span>
+          <h2 style="margin-bottom:1.5rem;">الشريك التقني الموثوق لأعمالك</h2>
+          <p style="margin-bottom:2rem;">نؤمن بأن التكنولوجيا يجب أن تكون في متناول الجميع، ولذلك نبني أنظمة سهلة وقوية تناسب البيئة اليمنية.</p>
+          <ul class="feature-list">
+            <li>حلول تقنية متكاملة ومرنة وقابلة للتطوير</li>
+            <li>واجهات استخدام سهلة لا تحتاج تدريباً معقداً</li>
+            <li>دعم فني مستمر على مدار الساعة</li>
+            <li>تحديثات دورية مجانية للأنظمة</li>
+            <li>خبرة 10+ سنوات في تطوير حلول الأعمال</li>
+            <li>14 وكيلاً معتمداً في محافظات اليمن</li>
+          </ul>
+          <button class="btn-primary" style="margin-top:2rem;" onclick="showPage('about')">اعرف أكثر عنّا ←</button>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-content:start;">
+          <div style="background:var(--surface);border-radius:var(--radius);padding:24px;text-align:center;border:1px solid var(--border);"><div style="font-size:2.5rem;margin-bottom:.5rem;">🎯</div><h4 style="font-size:1rem;margin-bottom:.3rem;">جودة واحترافية</h4><p style="font-size:.85rem;">معايير عالمية في كل ما نصنعه</p></div>
+          <div style="background:var(--surface);border-radius:var(--radius);padding:24px;text-align:center;border:1px solid var(--border);"><div style="font-size:2.5rem;margin-bottom:.5rem;">💡</div><h4 style="font-size:1rem;margin-bottom:.3rem;">ابتكار مستمر</h4><p style="font-size:.85rem;">نواكب أحدث التقنيات دائماً</p></div>
+          <div style="background:var(--surface);border-radius:var(--radius);padding:24px;text-align:center;border:1px solid var(--border);"><div style="font-size:2.5rem;margin-bottom:.5rem;">🛡️</div><h4 style="font-size:1rem;margin-bottom:.3rem;">موثوقية وأمان</h4><p style="font-size:.85rem;">بياناتك في أيدٍ أمينة</p></div>
+          <div style="background:var(--surface);border-radius:var(--radius);padding:24px;text-align:center;border:1px solid var(--border);"><div style="font-size:2.5rem;margin-bottom:.5rem;">🤝</div><h4 style="font-size:1rem;margin-bottom:.3rem;">دعم العملاء</h4><p style="font-size:.85rem;">نحن معك في كل خطوة</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <h2>هل أنت مستعد لتطوير أعمالك؟</h2>
+      <p>تواصل معنا اليوم واحصل على استشارة مجانية لاختيار النظام الأنسب لعملك</p>
+      <div class="cta-btns">
+        <button class="btn-primary" onclick="showPage('contact')">تواصل معنا الآن</button>
+        <a href="tel:+967777335118" class="btn-outline">📞 00967-777335118</a>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-home -->
+
+<!-- ═══════════════════ PAGE: ABOUT ═══════════════════ -->
+<div class="page" id="page-about">
+
+  <section class="page-hero">
+    <div class="breadcrumb"><a onclick="showPage('home')">الرئيسية</a><span>/</span><span class="current">من نحن</span></div>
+    <h1>من نحن</h1>
+    <p>شركة رائدة في تطوير الأنظمة الإدارية وحلول ERP للشركات اليمنية منذ أكثر من 10 سنوات</p>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid-2">
+        <div>
+          <span class="section-tag">قصتنا</span>
+          <h2 style="margin-bottom:1.5rem;">نبني مستقبل الأعمال الرقمية في اليمن</h2>
+          <p style="margin-bottom:1rem;">شركة البسيط سوفت للأنظمة والتطبيقات شركة متخصصة في تطوير الأنظمة الإدارية وتطبيقات الأعمال والحلول الرقمية التي تساعد الشركات والمؤسسات على إدارة أعمالها بكفاءة أعلى وتحقيق نمو مستدام.</p>
+          <p>نقدم حلولاً تقنية متطورة تعتمد على أحدث التقنيات في مجال تطوير البرمجيات وأنظمة ERP والتطبيقات الذكية، بهدف دعم الشركات في التحول الرقمي وتنظيم العمليات التشغيلية.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:2rem;">
+            <div style="background:var(--surface);border-radius:var(--radius-sm);padding:20px;text-align:center;border:1px solid var(--border);"><div style="font-family:'Tajawal',sans-serif;font-size:2.2rem;font-weight:900;color:var(--accent);">10+</div><div style="font-size:.9rem;color:var(--text-muted);">سنوات خبرة</div></div>
+            <div style="background:var(--surface);border-radius:var(--radius-sm);padding:20px;text-align:center;border:1px solid var(--border);"><div style="font-family:'Tajawal',sans-serif;font-size:2.2rem;font-weight:900;color:var(--accent);">200+</div><div style="font-size:.9rem;color:var(--text-muted);">عميل راضٍ</div></div>
+            <div style="background:var(--surface);border-radius:var(--radius-sm);padding:20px;text-align:center;border:1px solid var(--border);"><div style="font-family:'Tajawal',sans-serif;font-size:2.2rem;font-weight:900;color:var(--accent);">14</div><div style="font-size:.9rem;color:var(--text-muted);">وكيل معتمد</div></div>
+            <div style="background:var(--surface);border-radius:var(--radius-sm);padding:20px;text-align:center;border:1px solid var(--border);"><div style="font-family:'Tajawal',sans-serif;font-size:2.2rem;font-weight:900;color:var(--accent);">5</div><div style="font-size:.9rem;color:var(--text-muted);">شراكات عالمية</div></div>
+          </div>
+        </div>
+        <div style="background:linear-gradient(135deg,var(--primary),var(--primary-light));border-radius:var(--radius);padding:40px;display:flex;flex-direction:column;gap:24px;">
+          <div><div style="font-size:2rem;margin-bottom:.5rem;">🏢</div><h3 style="color:#fff;font-size:1.1rem;margin-bottom:.5rem;">الأنظمة الإدارية والمحاسبية</h3><p style="color:rgba(255,255,255,.65);font-size:.9rem;">هي الأساس الذي تبنى عليه أي شركة، فهي تدير الأموال والموظفين والمخزون وتساعد في اتخاذ القرارات الصحيحة.</p></div>
+          <div><div style="font-size:2rem;margin-bottom:.5rem;">📱</div><h3 style="color:#fff;font-size:1.1rem;margin-bottom:.5rem;">التطبيقات الذكية</h3><p style="color:rgba(255,255,255,.65);font-size:.9rem;">أدوات تجعل العمل أسهل وأسرع مع الوصول إلى بياناتك من أي مكان وفي أي وقت.</p></div>
+          <div><div style="font-size:2rem;margin-bottom:.5rem;">🔒</div><h3 style="color:#fff;font-size:1.1rem;margin-bottom:.5rem;">الأمن السيبراني</h3><p style="color:rgba(255,255,255,.65);font-size:.9rem;">الدرع الواقي الذي يحمي شركتك من الهجمات الإلكترونية وسرقة البيانات.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="grid-2" style="gap:32px;">
+        <div class="card" style="border-right:4px solid var(--accent);">
+          <div style="font-size:2.5rem;margin-bottom:1rem;">🎯</div>
+          <h3 style="margin-bottom:1rem;">رؤيتنا</h3>
+          <p>أن نكون من الشركات الرائدة في مجال تطوير الأنظمة الإدارية والتطبيقات الرقمية في المنطقة، وأن نقدم حلولاً تقنية مبتكرة تساهم في تطوير الأعمال ورفع كفاءة المؤسسات.</p>
+        </div>
+        <div class="card" style="border-right:4px solid var(--accent2);">
+          <div style="font-size:2.5rem;margin-bottom:1rem;">🚀</div>
+          <h3 style="margin-bottom:1rem;">رسالتنا</h3>
+          <p>توفير حلول تقنية متكاملة وموثوقة تساعد الشركات على إدارة أعمالها بكفاءة، وتحقيق أعلى مستويات الأداء من خلال أنظمة ذكية وسهلة الاستخدام.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-center">
+        <span class="section-tag">قيمنا</span>
+        <h2 class="section-title">ما يميّزنا</h2>
+        <p class="section-subtitle">نلتزم بمجموعة من القيم التي تشكل أساس عملنا وعلاقتنا مع عملائنا</p>
+      </div>
+      <div class="grid-3">
+        <div class="value-card"><div class="value-icon">🏆</div><h3>الجودة والاحترافية</h3><p style="font-size:.9rem;">نلتزم بأعلى معايير الجودة في كل منتج نبنيه وكل خدمة نقدمها.</p></div>
+        <div class="value-card"><div class="value-icon">💡</div><h3>الابتكار والتطوير</h3><p style="font-size:.9rem;">نواكب أحدث التقنيات ونطور حلولنا باستمرار لنبقى في طليعة السوق.</p></div>
+        <div class="value-card"><div class="value-icon">🛡️</div><h3>الموثوقية والأمان</h3><p style="font-size:.9rem;">بياناتك وبيانات عملاؤك في أمان تام مع أعلى معايير الحماية الرقمية.</p></div>
+        <div class="value-card"><div class="value-icon">🤝</div><h3>دعم العملاء</h3><p style="font-size:.9rem;">فريق دعم متخصص يرافقك من التركيب حتى التشغيل الكامل وما بعده.</p></div>
+        <div class="value-card"><div class="value-icon">✨</div><h3>الشفافية والمصداقية</h3><p style="font-size:.9rem;">علاقتنا مع عملائنا مبنية على الصراحة والوضوح الكامل في كل تعاملاتنا.</p></div>
+        <div class="value-card"><div class="value-icon">🌍</div><h3>التوسع والنمو</h3><p style="font-size:.9rem;">شراكات عالمية تمكّننا من تقديم أفضل التقنيات لعملائنا في اليمن.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <h2>انضم إلى شبكة شركائنا</h2>
+      <p>سواء كنت تبحث عن فرصة وظيفية، شراكة تجارية، أو وكالة توزيع — نحن نرحب بك</p>
+      <div class="cta-btns">
+        <button class="btn-primary" onclick="showPage('contact')">تواصل معنا ←</button>
+        <button class="btn-outline" onclick="showPage('contact')">طلبات التوظيف</button>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-about -->
+
+<!-- ═══════════════════ PAGE: SYSTEMS ═══════════════════ -->
+<div class="page" id="page-systems">
+
+  <section class="page-hero">
+    <div class="breadcrumb"><a onclick="showPage('home')">الرئيسية</a><span>/</span><span class="current">الأنظمة والتطبيقات</span></div>
+    <h1>أنظمة وتطبيقات متخصصة</h1>
+    <p>منظومة متكاملة من الأنظمة المصممة خصيصاً لكل قطاع من قطاعات الأعمال في اليمن</p>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-center">
+        <span class="section-tag">الأنظمة المحاسبية</span>
+        <h2 class="section-title">أنظمة المحاسبة والإدارة المالية</h2>
+        <p class="section-subtitle">حلول محاسبية شاملة تناسب مختلف أنواع الأعمال والقطاعات التجارية</p>
+      </div>
+      <div class="grid-3">
+        <div class="system-card">
+          <div class="system-card-header"><div style="font-size:1.8rem;margin-bottom:8px;">📊</div><h3>نظام المحاسبة والمستودعات</h3><p>للشركات التجارية والصناعية</p></div>
+          <div class="system-card-body"><ul><li>إدارة الحسابات والسجلات المالية</li><li>تتبع المخزون والمستودعات</li><li>إدارة المبيعات والمشتريات</li><li>تقارير مالية لحظية</li><li>ربط متعدد الفروع</li><li>نقاط بيع POS مدمجة</li></ul></div>
+          <div class="system-card-footer"><a onclick="showPage('contact')">طلب عرض تجريبي ←</a></div>
+        </div>
+        <div class="system-card">
+          <div class="system-card-header"><div style="font-size:1.8rem;margin-bottom:8px;">🛒</div><h3>نظام السوبرماركت والبقالة</h3><p>لمحلات التجزئة والبقالات</p></div>
+          <div class="system-card-body"><ul><li>كاشير سريع وسهل الاستخدام</li><li>إدارة المنتجات والأسعار</li><li>تتبع المخزون لحظياً</li><li>إدارة العروض والخصومات</li><li>تقارير المبيعات اليومية</li><li>ربط مع باركود Scanner</li></ul></div>
+          <div class="system-card-footer"><a onclick="showPage('contact')">طلب عرض تجريبي ←</a></div>
+        </div>
+        <div class="system-card">
+          <div class="system-card-header"><div style="font-size:1.8rem;margin-bottom:8px;">💊</div><h3>نظام الصيدليات</h3><p>للصيدليات في اليمن</p></div>
+          <div class="system-card-body"><ul><li>إدارة المخزون الدوائي</li><li>تتبع انتهاء الصلاحيات</li><li>إدارة الوصفات الطبية</li><li>المبيعات والفواتير الآلية</li><li>يعمل بدون إنترنت</li><li>تقارير تحليلية متكاملة</li></ul></div>
+          <div class="system-card-footer"><a onclick="showPage('contact')">طلب عرض تجريبي ←</a></div>
+        </div>
+        <div class="system-card">
+          <div class="system-card-header"><div style="font-size:1.8rem;margin-bottom:8px;">🍽️</div><h3>نظام المطاعم والكفتيريا</h3><p>لجميع أنواع المطاعم</p></div>
+          <div class="system-card-body"><ul><li>إدارة الطلبات والطاولات</li><li>كاشير المطعم الذكي</li><li>إدارة مخزون المطبخ</li><li>قائمة طعام رقمية</li><li>تقارير الإيرادات اليومية</li><li>إدارة الموظفين والورديات</li></ul></div>
+          <div class="system-card-footer"><a onclick="showPage('contact')">طلب عرض تجريبي ←</a></div>
+        </div>
+        <div class="system-card">
+          <div class="system-card-header"><div style="font-size:1.8rem;margin-bottom:8px;">💇</div><h3>مراكز وصالونات التجميل</h3><p>لصالونات الحلاقة والتجميل</p></div>
+          <div class="system-card-body"><ul><li>إدارة المواعيد والحجوزات</li><li>ملفات العملاء والتاريخ</li><li>إدارة الخدمات والأسعار</li><li>إدارة المنتجات والمخزون</li><li>نقاط البيع والفواتير</li></ul></div>
+          <div class="system-card-footer"><a onclick="showPage('contact')">طلب عرض تجريبي ←</a></div>
+        </div>
+        <div class="system-card">
+          <div class="system-card-header"><div style="font-size:1.8rem;margin-bottom:8px;">🏋️</div><h3>النادي الرياضي والمشتركين</h3><p>للأندية الرياضية والجيمات</p></div>
+          <div class="system-card-body"><ul><li>إدارة اشتراكات الأعضاء</li><li>تتبع الحضور والغياب</li><li>إدارة الخدمات والخطط</li><li>التجديد التلقائي للاشتراكات</li><li>تقارير المبيعات والأعضاء</li></ul></div>
+          <div class="system-card-footer"><a onclick="showPage('contact')">طلب عرض تجريبي ←</a></div>
+        </div>
+        <div class="system-card">
+          <div class="system-card-header"><div style="font-size:1.8rem;margin-bottom:8px;">🏫</div><h3>نظام إدارة المدارس</h3><p>لجميع المراحل الدراسية</p></div>
+          <div class="system-card-body"><ul><li>إدارة بيانات الطلاب والمعلمين</li><li>جداول الحصص والامتحانات</li><li>إدارة الرسوم الدراسية</li><li>الحضور والغياب الإلكتروني</li><li>شهادات وتقارير الطلاب</li></ul></div>
+          <div class="system-card-footer"><a onclick="showPage('contact')">طلب عرض تجريبي ←</a></div>
+        </div>
+        <div class="system-card">
+          <div class="system-card-header"><div style="font-size:1.8rem;margin-bottom:8px;">📁</div><h3>نظام الأرشفة الإلكترونية</h3><p>للمؤسسات والشركات الكبرى</p></div>
+          <div class="system-card-body"><ul><li>أرشفة الوثائق والمستندات</li><li>إدارة البريد الوارد والصادر</li><li>نظام سير العمل الآلي</li><li>صلاحيات وصول متعددة</li><li>بحث سريع في الأرشيف</li></ul></div>
+          <div class="system-card-footer"><a onclick="showPage('contact')">طلب عرض تجريبي ←</a></div>
+        </div>
+        <div class="system-card">
+          <div class="system-card-header"><div style="font-size:1.8rem;margin-bottom:8px;">☕</div><h3>نظام البن والبهارات والمكسرات</h3><p>لمحلات البن والتوابل</p></div>
+          <div class="system-card-body"><ul><li>إدارة أصناف البن والبهارات</li><li>إدارة الوزن والمقاييس</li><li>تتبع المخزون والتواريخ</li><li>فواتير المبيعات</li><li>تقارير الحركة اليومية</li></ul></div>
+          <div class="system-card-footer"><a onclick="showPage('contact')">طلب عرض تجريبي ←</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- APPS -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-center">
+        <span class="section-tag">التطبيقات</span>
+        <h2 class="section-title">تطبيقات الجوال للأعمال</h2>
+        <p class="section-subtitle">إدارة أعمالك من هاتفك في أي مكان وأي وقت</p>
+      </div>
+      <div class="grid-3">
+        <div class="card" style="text-align:center;"><div style="font-size:3rem;margin-bottom:1rem;">📱</div><h3>تطبيق البسيط المستقل</h3><p style="margin-bottom:1.5rem;font-size:.9rem;">نظام محاسبة كامل في جيبك — يعمل Online وOffline مع مزامنة تلقائية للبيانات.</p><ul class="feature-list" style="text-align:right;"><li>تسجيل المبيعات والمشتريات</li><li>إدارة المخزون بالجوال</li><li>تقارير فورية</li></ul></div>
+        <div class="card" style="text-align:center;"><div style="font-size:3rem;margin-bottom:1rem;">🚗</div><h3>تطبيق البسيط للمندوب</h3><p style="margin-bottom:1.5rem;font-size:.9rem;">يمكّن مندوبي المبيعات من إدارة طلباتهم وعملائهم ميدانياً بكفاءة عالية.</p><ul class="feature-list" style="text-align:right;"><li>تسجيل الطلبات الميدانية</li><li>متابعة العملاء</li><li>عرض المنتجات والأسعار</li></ul></div>
+        <div class="card" style="text-align:center;"><div style="font-size:3rem;margin-bottom:1rem;">👔</div><h3>تطبيق المدير العام</h3><p style="margin-bottom:1.5rem;font-size:.9rem;">لوحة تحكم شاملة تمنح المدير رؤية كاملة لأداء الشركة من مكان واحد.</p><ul class="feature-list" style="text-align:right;"><li>تقارير الأداء اللحظية</li><li>متابعة الفروع والمندوبين</li><li>قرارات مبنية على البيانات</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <h2>لا تجد النظام المناسب؟</h2>
+      <p>نطور أنظمة مخصصة حسب احتياجات شركتك بالضبط — تواصل معنا للحصول على استشارة مجانية</p>
+      <div class="cta-btns"><button class="btn-primary" onclick="showPage('contact')">تواصل مع فريقنا ←</button></div>
+    </div>
+  </section>
+
+</div><!-- /page-systems -->
+
+<!-- ═══════════════════ PAGE: PRODUCTS ═══════════════════ -->
+<div class="page" id="page-products">
+
+  <section class="page-hero">
+    <div class="breadcrumb"><a onclick="showPage('home')">الرئيسية</a><span>/</span><span class="current">المنتجات</span></div>
+    <h1>ERP ENOUGH SYSTEM</h1>
+    <p>النظام الأشمل لإدارة موارد المؤسسات — كل ما تحتاجه في منصة واحدة متكاملة</p>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid-2">
+        <div>
+          <span class="section-tag">المنتج الرئيسي</span>
+          <h2 style="margin-bottom:1.5rem;">نظام واحد يكفي لإدارة كل شيء</h2>
+          <p style="margin-bottom:1rem;">ERP ENOUGH SYSTEM هو نظام متكامل لإدارة موارد المؤسسات مصمم خصيصاً لاحتياجات الشركات اليمنية. يجمع في منصة واحدة كل الأدوات التي تحتاجها لإدارة أعمالك بكفاءة عالية.</p>
+          <p style="margin-bottom:2rem;">من المحاسبة إلى إدارة الموارد البشرية، ومن نقاط البيع إلى المتجر الإلكتروني — كل شيء مترابط ومتزامن في الوقت الفعلي.</p>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <button class="btn-primary" onclick="showPage('contact')">جرّب مجاناً ←</button>
+            <button style="background:transparent;color:var(--primary);padding:14px 32px;border-radius:50px;font-weight:700;font-size:1rem;font-family:'Tajawal',sans-serif;transition:.2s;display:inline-flex;align-items:center;gap:8px;border:2px solid var(--border);cursor:pointer;" onclick="showPage('contact')">طلب عرض تجريبي</button>
+          </div>
+        </div>
+        <div style="background:linear-gradient(135deg,var(--primary),var(--primary-light));border-radius:var(--radius);padding:36px;color:#fff;">
+          <h3 style="color:#fff;margin-bottom:1.5rem;font-size:1.2rem;">لماذا ERP ENOUGH؟</h3>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:14px;">
+            <li style="display:flex;gap:12px;align-items:flex-start;"><span style="min-width:24px;height:24px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#fff;">✓</span><span style="color:rgba(255,255,255,.8);font-size:.95rem;">منصة واحدة لجميع عمليات الشركة</span></li>
+            <li style="display:flex;gap:12px;align-items:flex-start;"><span style="min-width:24px;height:24px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#fff;">✓</span><span style="color:rgba(255,255,255,.8);font-size:.95rem;">يعمل Online وOffline بدون انقطاع</span></li>
+            <li style="display:flex;gap:12px;align-items:flex-start;"><span style="min-width:24px;height:24px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#fff;">✓</span><span style="color:rgba(255,255,255,.8);font-size:.95rem;">واجهة عربية سهلة ولا تحتاج تدريباً</span></li>
+            <li style="display:flex;gap:12px;align-items:flex-start;"><span style="min-width:24px;height:24px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#fff;">✓</span><span style="color:rgba(255,255,255,.8);font-size:.95rem;">إشعارات واتساب وSMS تلقائية</span></li>
+            <li style="display:flex;gap:12px;align-items:flex-start;"><span style="min-width:24px;height:24px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#fff;">✓</span><span style="color:rgba(255,255,255,.8);font-size:.95rem;">تحديثات مجانية دورية</span></li>
+            <li style="display:flex;gap:12px;align-items:flex-start;"><span style="min-width:24px;height:24px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#fff;">✓</span><span style="color:rgba(255,255,255,.8);font-size:.95rem;">متجر إلكتروني مرتبط بالنظام</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-center">
+        <span class="section-tag">مميزات النظام</span>
+        <h2 class="section-title">كل ما تحتاجه في مكان واحد</h2>
+        <p class="section-subtitle">13 وحدة متكاملة تغطي جميع جوانب إدارة الأعمال</p>
+      </div>
+      <div class="feature-grid">
+        <div class="feature-item"><div class="feature-item-icon">💰</div><div><h4>إدارة الحسابات</h4><p>حسابات عامة، ميزانية، قوائم مالية</p></div></div>
+        <div class="feature-item"><div class="feature-item-icon">📈</div><div><h4>إدارة المبيعات</h4><p>فواتير، عروض أسعار، وتتبع المبيعات</p></div></div>
+        <div class="feature-item"><div class="feature-item-icon">🛍️</div><div><h4>إدارة المشتريات</h4><p>طلبيات، استلام بضاعة، وأوامر الشراء</p></div></div>
+        <div class="feature-item"><div class="feature-item-icon">📦</div><div><h4>إدارة المخازن</h4><p>جرد، تحركات، وتنبيهات الحد الأدنى</p></div></div>
+        <div class="feature-item"><div class="feature-item-icon">🏗️</div><div><h4>إدارة الأصول</h4><p>تتبع الأصول الثابتة والإهلاك</p></div></div>
+        <div class="feature-item"><div class="feature-item-icon">👥</div><div><h4>الموارد البشرية</h4><p>موظفون، رواتب، حضور وغياب</p></div></div>
+        <div class="feature-item"><div class="feature-item-icon">🖥️</div><div><h4>نقاط البيع POS</h4><p>كاشير سريع يعمل Offline</p></div></div>
+        <div class="feature-item"><div class="feature-item-icon">🤝</div><div><h4>نظام CRM</h4><p>إدارة علاقات العملاء والمتابعة</p></div></div>
+        <div class="feature-item"><div class="feature-item-icon">🏭</div><div><h4>نظام التصنيع</h4><p>أوامر الإنتاج وإدارة المواد</p></div></div>
+        <div class="feature-item"><div class="feature-item-icon">🔧</div><div><h4>نظام التفكيك</h4><p>تفكيك المنتجات وإعادة الاستخدام</p></div></div>
+        <div class="feature-item"><div class="feature-item-icon">💬</div><div><h4>إشعارات WhatsApp وSMS</h4><p>إشعارات تلقائية للعملاء والإدارة</p></div></div>
+        <div class="feature-item"><div class="feature-item-icon">🌐</div><div><h4>متجر إلكتروني</h4><p>مرتبط بالنظام مباشرة</p></div></div>
+        <div class="feature-item"><div class="feature-item-icon">📱</div><div><h4>تطبيق الجوال</h4><p>إدارة من أي مكان Online وOffline</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:var(--accent);padding:80px 5%;text-align:center;">
+    <div class="container">
+      <h2 style="color:#fff;margin-bottom:1rem;">جاهز لتجربة ERP ENOUGH؟</h2>
+      <p style="color:rgba(255,255,255,.85);margin-bottom:2rem;max-width:500px;margin-left:auto;margin-right:auto;">احصل على نسخة تجريبية مجانية وشاهد كيف يحول النظام طريقة إدارة أعمالك</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+        <button style="background:#fff;color:var(--accent-dark);padding:14px 32px;border-radius:50px;font-weight:700;font-size:1rem;font-family:'Tajawal',sans-serif;border:none;cursor:pointer;" onclick="showPage('contact')">ابدأ النسخة التجريبية ←</button>
+        <a href="tel:+967777335118" class="btn-outline">📞 اتصل بنا الآن</a>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-products -->
+
+<!-- ═══════════════════ PAGE: CONTACT ═══════════════════ -->
+<div class="page" id="page-contact">
+
+  <section class="page-hero">
+    <div class="breadcrumb"><a onclick="showPage('home')">الرئيسية</a><span>/</span><span class="current">تواصل معنا</span></div>
+    <h1>تواصل معنا</h1>
+    <p>فريقنا مستعد للإجابة على جميع استفساراتك — نرد خلال 24 ساعة</p>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid">
+        <div>
+          <span class="section-tag">معلومات التواصل</span>
+          <h2 style="margin-bottom:2rem;">نحن هنا لمساعدتك</h2>
+          <div class="contact-info-item"><div class="contact-icon">📞</div><div><h4>الهاتف</h4><a href="tel:+967777335118">00967-777335118</a></div></div>
+          <div class="contact-info-item"><div class="contact-icon">📧</div><div><h4>البريد الإلكتروني</h4><a href="mailto:info@albaseetsoft-ye.com">info@albaseetsoft-ye.com</a></div></div>
+          <div class="contact-info-item"><div class="contact-icon">📍</div><div><h4>الموقع</h4><p>اليمن — صنعاء</p></div></div>
+          <div class="contact-info-item"><div class="contact-icon">🌐</div><div><h4>الموقع الإلكتروني</h4><a href="https://albaseetsoft-ye.com" target="_blank">albaseetsoft-ye.com</a></div></div>
+          <h4 style="margin-bottom:1rem;">تابعنا على</h4>
+          <div class="social-links">
+            <a class="social-link" href="https://www.facebook.com/albaseetsoft.ye" target="_blank" title="فيسبوك">f</a>
+            <a class="social-link" href="https://www.linkedin.com/company/albaseetsoft/" target="_blank" title="لينكد إن">in</a>
+            <a class="social-link" href="https://www.tiktok.com/@albaseetsoft" target="_blank" title="تيك توك">tt</a>
+            <a class="social-link" href="https://instagram.com/albaseet_soft" target="_blank" title="إنستغرام">ig</a>
+            <a class="social-link" href="https://x.com/albaseetsoft" target="_blank" title="X">𝕏</a>
+            <a class="social-link" href="https://www.youtube.com/@AlbaseetSoft" target="_blank" title="يوتيوب">▶</a>
+          </div>
+        </div>
+        <div>
+          <div class="contact-form">
+            <h3 style="margin-bottom:1.5rem;">أرسل لنا رسالة</h3>
+            <form id="contactForm">
+              <div class="form-row">
+                <div class="form-group"><label>الاسم الكامل</label><input type="text" placeholder="أدخل اسمك" required></div>
+                <div class="form-group"><label>رقم الهاتف</label><input type="tel" placeholder="00967-7XXXXXXXX"></div>
+              </div>
+              <div class="form-group"><label>البريد الإلكتروني</label><input type="email" placeholder="example@domain.com"></div>
+              <div class="form-group"><label>موضوع الرسالة</label>
+                <select><option value="">اختر الموضوع</option><option>استفسار عن نظام ERP</option><option>طلب عرض تجريبي</option><option>دعم فني</option><option>الوكالة والتوزيع</option><option>طلب توظيف</option><option>أخرى</option></select>
+              </div>
+              <div class="form-group"><label>رسالتك</label><textarea placeholder="اكتب رسالتك هنا..."></textarea></div>
+              <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">إرسال الرسالة ←</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-center">
+        <span class="section-tag">انضم إلينا</span>
+        <h2 class="section-title">طلبات التوظيف</h2>
+        <p class="section-subtitle">نبحث دائماً عن كفاءات متميزة تؤمن بقوة التكنولوجيا في تطوير الأعمال</p>
+      </div>
+      <div class="grid-3">
+        <div class="card" style="text-align:center;"><div style="font-size:2.5rem;margin-bottom:1rem;">💻</div><h3>مطور برمجيات</h3><p style="font-size:.9rem;margin-bottom:1.5rem;">خبرة في تطوير تطبيقات ويب وجوال، إلمام بتقنيات حديثة.</p><a href="mailto:info@albaseetsoft-ye.com?subject=طلب توظيف - مطور برمجيات" class="btn-primary" style="font-size:.9rem;padding:10px 20px;">تقدم الآن</a></div>
+        <div class="card" style="text-align:center;"><div style="font-size:2.5rem;margin-bottom:1rem;">📊</div><h3>محلل أعمال</h3><p style="font-size:.9rem;margin-bottom:1.5rem;">خبرة في تحليل متطلبات الأعمال وتصميم حلول ERP.</p><a href="mailto:info@albaseetsoft-ye.com?subject=طلب توظيف - محلل أعمال" class="btn-primary" style="font-size:.9rem;padding:10px 20px;">تقدم الآن</a></div>
+        <div class="card" style="text-align:center;"><div style="font-size:2.5rem;margin-bottom:1rem;">🎯</div><h3>مندوب مبيعات</h3><p style="font-size:.9rem;margin-bottom:1.5rem;">خبرة في مبيعات البرمجيات وبناء علاقات العملاء في اليمن.</p><a href="mailto:info@albaseetsoft-ye.com?subject=طلب توظيف - مندوب مبيعات" class="btn-primary" style="font-size:.9rem;padding:10px 20px;">تقدم الآن</a></div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-contact -->
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:1rem;"><div style="width:38px;height:38px;background:var(--accent);border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Tajawal',sans-serif;font-weight:900;color:#fff;font-size:1.1rem;">ب</div><span style="font-family:'Tajawal',sans-serif;font-weight:800;font-size:1.1rem;">البسيط سوفت</span></div>
+        <p>شركة رائدة في تطوير الأنظمة الإدارية وحلول ERP في اليمن منذ أكثر من 10 سنوات.</p>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/albaseetsoft.ye" target="_blank">f</a>
+          <a href="https://www.linkedin.com/company/albaseetsoft/" target="_blank">in</a>
+          <a href="https://www.tiktok.com/@albaseetsoft" target="_blank">tt</a>
+          <a href="https://instagram.com/albaseet_soft" target="_blank">ig</a>
+          <a href="https://www.youtube.com/@AlbaseetSoft" target="_blank">▶</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>الأنظمة</h4>
+        <ul>
+          <li><a onclick="showPage('systems')">نظام المحاسبة</a></li>
+          <li><a onclick="showPage('systems')">نظام الصيدليات</a></li>
+          <li><a onclick="showPage('systems')">نظام المطاعم</a></li>
+          <li><a onclick="showPage('systems')">نظام المدارس</a></li>
+          <li><a onclick="showPage('systems')">نقاط البيع POS</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>الشركة</h4>
+        <ul>
+          <li><a onclick="showPage('about')">من نحن</a></li>
+          <li><a onclick="showPage('about')">رؤيتنا ورسالتنا</a></li>
+          <li><a onclick="showPage('about')">قيمنا</a></li>
+          <li><a onclick="showPage('products')">المنتجات</a></li>
+          <li><a onclick="showPage('contact')">وظائف</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>تواصل معنا</h4>
+        <ul>
+          <li><a href="tel:+967777335118">00967-777335118</a></li>
+          <li><a href="mailto:info@albaseetsoft-ye.com">info@albaseetsoft-ye.com</a></li>
+          <li><a>اليمن — صنعاء</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 جميع الحقوق محفوظة — شركة البسيط سوفت للأنظمة والتطبيقات</p>
+      <p style="color:rgba(255,255,255,.4);font-size:.8rem;">albaseetsoft-ye.com</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.classList.toggle('active', a.dataset.page === name);
+  });
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+// Navbar scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// Hamburger
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('mobileMenu').classList.toggle('open');
+});
+
+function closeMobile() {
+  document.getElementById('mobileMenu').classList.remove('open');
+}
+
+// Contact form
+const form = document.getElementById('contactForm');
+if (form) {
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const btn = form.querySelector('button[type=submit]');
+    btn.textContent = 'تم الإرسال بنجاح ✓';
+    btn.style.background = '#0F6E56';
+    setTimeout(() => { btn.textContent = 'إرسال الرسالة ←'; btn.style.background = ''; form.reset(); }, 3000);
+  });
+}
+</script>
+</body>
+</html>
