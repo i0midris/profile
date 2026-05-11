@@ -30,6 +30,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{{ $pageDescription }}">
+    <meta name="ahrefs-site-verification" content="8612ba2161fb0cb28e8b4941a5842b4ebb4e8dc31ede567922fc151640f311c7">
     <title>{{ $pageTitle }}</title>
 
     <link rel="canonical" href="{{ $canonicalUrl }}">
