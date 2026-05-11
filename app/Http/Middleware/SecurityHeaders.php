@@ -11,8 +11,8 @@ class SecurityHeaders
     /**
      * Add baseline security headers to all responses.
      *
-     * The current frontend relies on inline scripts/styles and Alpine-style
-     * inline handlers, so CSP keeps unsafe-inline for compatibility.
+     * The current frontend keeps inline styles for design-heavy sections,
+     * but script execution is restricted to same-origin files.
      */
     public function handle(Request $request, Closure $next): Response
     {
@@ -27,7 +27,7 @@ class SecurityHeaders
             "base-uri 'self'",
             "object-src 'none'",
             "frame-ancestors 'self'",
-            "script-src 'self' 'unsafe-inline'",
+            "script-src 'self'",
             "style-src 'self' 'unsafe-inline'",
             "img-src 'self' data: https:",
             "font-src 'self' data: https:",
@@ -54,4 +54,3 @@ class SecurityHeaders
         return $response;
     }
 }
-

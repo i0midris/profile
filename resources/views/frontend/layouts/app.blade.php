@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}"
+      dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}"
+      data-theme-label-system="{{ __('frontend.system_mode') }}"
+      data-theme-label-light="{{ __('frontend.light_mode') }}"
+      data-theme-label-dark="{{ __('frontend.dark_mode') }}">
 
 <head>
     @php
@@ -53,23 +57,6 @@
     @if($settings->favicon_url ?? false)
         <link rel="icon" href="{{ $settings->favicon_url }}" type="image/x-icon">
     @endif
-
-    <script>
-        (function() {
-            var storedTheme = localStorage.getItem('site-theme');
-            var preference = storedTheme === 'light' || storedTheme === 'dark' || storedTheme === 'system'
-                ? storedTheme
-                : 'system';
-            var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            var theme = preference === 'system'
-                ? (prefersDark ? 'dark' : 'light')
-                : preference;
-
-            document.documentElement.classList.remove('theme-light', 'theme-dark');
-            document.documentElement.classList.add(theme === 'dark' ? 'theme-dark' : 'theme-light');
-            document.documentElement.setAttribute('data-theme-preference', preference);
-        })();
-    </script>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
@@ -135,11 +122,11 @@
                 <!-- Language Switcher + Theme Selector -->
                 <div class="hidden md:flex items-center gap-2.5 flex-shrink-0">
                     <div class="nav-control-shell" role="group" aria-label="Language switcher">
-                        <button onclick="switchLocale('en')"
+                        <button type="button" data-locale-switch="en"
                                 class="nav-pill-button {{ app()->getLocale() === 'en' ? 'is-active' : '' }}">
                             {{ __('frontend.language_en') }}
                         </button>
-                        <button onclick="switchLocale('ar')"
+                        <button type="button" data-locale-switch="ar"
                                 class="nav-pill-button {{ app()->getLocale() === 'ar' ? 'is-active' : '' }}">
                             {{ __('frontend.language_ar') }}
                         </button>
@@ -172,15 +159,15 @@
                              class="nav-theme-menu"
                              role="menu">
                             <button type="button" class="nav-theme-option" data-theme-option="system" role="menuitemradio"
-                                    aria-checked="false" @click="setTheme('system'); menuOpen = false">
+                                    aria-checked="false" @click="menuOpen = false">
                                 {{ __('frontend.system_mode') }}
                             </button>
                             <button type="button" class="nav-theme-option" data-theme-option="light" role="menuitemradio"
-                                    aria-checked="false" @click="setTheme('light'); menuOpen = false">
+                                    aria-checked="false" @click="menuOpen = false">
                                 {{ __('frontend.light_mode') }}
                             </button>
                             <button type="button" class="nav-theme-option" data-theme-option="dark" role="menuitemradio"
-                                    aria-checked="false" @click="setTheme('dark'); menuOpen = false">
+                                    aria-checked="false" @click="menuOpen = false">
                                 {{ __('frontend.dark_mode') }}
                             </button>
                         </div>
@@ -190,11 +177,11 @@
                 <!-- Mobile Language Switcher + Theme Dropdown -->
                 <div class="md:hidden me-2 flex items-center gap-1">
                     <div class="nav-control-shell p-0.5 rounded-lg" role="group" aria-label="Language switcher">
-                        <button onclick="switchLocale('en')"
+                        <button type="button" data-locale-switch="en"
                                 class="nav-pill-button text-xs px-2 py-1 {{ app()->getLocale() === 'en' ? 'is-active' : '' }}">
                             {{ __('frontend.language_en') }}
                         </button>
-                        <button onclick="switchLocale('ar')"
+                        <button type="button" data-locale-switch="ar"
                                 class="nav-pill-button text-xs px-2 py-1 {{ app()->getLocale() === 'ar' ? 'is-active' : '' }}">
                             {{ __('frontend.language_ar') }}
                         </button>
@@ -227,15 +214,15 @@
                              class="nav-theme-menu"
                              role="menu">
                             <button type="button" class="nav-theme-option" data-theme-option="system" role="menuitemradio"
-                                    aria-checked="false" @click="setTheme('system'); menuOpen = false">
+                                    aria-checked="false" @click="menuOpen = false">
                                 {{ __('frontend.system_mode') }}
                             </button>
                             <button type="button" class="nav-theme-option" data-theme-option="light" role="menuitemradio"
-                                    aria-checked="false" @click="setTheme('light'); menuOpen = false">
+                                    aria-checked="false" @click="menuOpen = false">
                                 {{ __('frontend.light_mode') }}
                             </button>
                             <button type="button" class="nav-theme-option" data-theme-option="dark" role="menuitemradio"
-                                    aria-checked="false" @click="setTheme('dark'); menuOpen = false">
+                                    aria-checked="false" @click="menuOpen = false">
                                 {{ __('frontend.dark_mode') }}
                             </button>
                         </div>
@@ -441,93 +428,6 @@
             </div>
         </div>
     </footer>
-    <style>
-        [x-cloak] {
-            display: none !important;
-        }
-    </style>
-    <script>
-        function switchLocale(locale) {
-            var currentPath = window.location.pathname.replace(/^\/(en|ar)(?=\/|$)/, '');
-            if (currentPath === '') {
-                currentPath = '/';
-            }
-            window.location.href = '/' + locale + currentPath + window.location.search + window.location.hash;
-        }
-
-        function getSystemTheme() {
-            var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            return prefersDark ? 'dark' : 'light';
-        }
-
-        function resolveTheme(themePreference) {
-            return themePreference === 'system' ? getSystemTheme() : themePreference;
-        }
-
-        var themeLabels = {
-            system: @json(__('frontend.system_mode')),
-            light: @json(__('frontend.light_mode')),
-            dark: @json(__('frontend.dark_mode'))
-        };
-
-        function getThemeLabel(themePreference) {
-            return themeLabels[themePreference] || themeLabels.system;
-        }
-
-        function syncThemeDropdown(themePreference) {
-            var themeLabel = getThemeLabel(themePreference);
-
-            var labels = document.querySelectorAll('[data-theme-current]');
-            labels.forEach(function(labelElement) {
-                labelElement.textContent = themeLabel;
-            });
-
-            var options = document.querySelectorAll('[data-theme-option]');
-            options.forEach(function(optionElement) {
-                var isActive = optionElement.getAttribute('data-theme-option') === themePreference;
-                optionElement.classList.toggle('is-active', isActive);
-                optionElement.setAttribute('aria-checked', isActive ? 'true' : 'false');
-            });
-        }
-
-        function applyTheme(themePreference) {
-            var resolvedTheme = resolveTheme(themePreference);
-            var html = document.documentElement;
-            html.classList.remove('theme-light', 'theme-dark');
-            html.classList.add(resolvedTheme === 'dark' ? 'theme-dark' : 'theme-light');
-            html.setAttribute('data-theme-preference', themePreference);
-            localStorage.setItem('site-theme', themePreference);
-            syncThemeDropdown(themePreference);
-        }
-
-        function setTheme(themePreference) {
-            var normalizedTheme = themePreference === 'light' || themePreference === 'dark' || themePreference === 'system'
-                ? themePreference
-                : 'system';
-            applyTheme(normalizedTheme);
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            var currentPreference = document.documentElement.getAttribute('data-theme-preference') || 'system';
-            applyTheme(currentPreference);
-
-            if (window.matchMedia) {
-                var mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-                var onSystemThemeChange = function() {
-                    var selectedTheme = localStorage.getItem('site-theme') || 'system';
-                    if (selectedTheme === 'system') {
-                        applyTheme('system');
-                    }
-                };
-
-                if (typeof mediaQuery.addEventListener === 'function') {
-                    mediaQuery.addEventListener('change', onSystemThemeChange);
-                } else if (typeof mediaQuery.addListener === 'function') {
-                    mediaQuery.addListener(onSystemThemeChange);
-                }
-            }
-        });
-    </script>
 </body>
 
 </html>
