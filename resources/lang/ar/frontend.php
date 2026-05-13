@@ -16,6 +16,7 @@ return array (
   'contact' => 'اتصل بنا',
   'contact_discuss_requirements' => 'تواصل معنا لمناقشة متطلباتك المحددة وكيف يمكننا المساعدة.',
   'contact_form_success' => 'شكرا لرسالتك! سنعود إليك قريبا.',
+  'new_contact_message_subject' => 'تم استلام رسالة تواصل جديدة',
   'contact_message_required' => 'يرجى كتابة رسالتك.',
   'contact_message_min' => 'يجب أن تحتوي الرسالة على 10 أحرف على الأقل.',
   'contact_rate_limited' => 'تم إرسال رسائل كثيرة جدًا. يرجى الانتظار دقيقة ثم المحاولة مرة أخرى.',

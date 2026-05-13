@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Mail\ContactMessageNotification;
 use App\Models\AboutSection;
 use App\Models\CompanySetting;
 use App\Models\ContactMessage;
@@ -14,6 +15,8 @@ use App\Models\Service;
 use App\Models\TeamMember;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class PageController extends Controller
@@ -183,7 +186,20 @@ class PageController extends Controller
             'message.required' => __('frontend.contact_message_required'),
         ]);
 
-        ContactMessage::create(collect($validated)->except(['company', 'form_started_at'])->all());
+        $contactMessage = ContactMessage::create(collect($validated)->except(['company', 'form_started_at'])->all());
+
+        $recipientEmail = CompanySetting::getSettings()->email;
+        if (!empty($recipientEmail) && filter_var($recipientEmail, FILTER_VALIDATE_EMAIL)) {
+            try {
+                Mail::to($recipientEmail)->send(new ContactMessageNotification($contactMessage));
+            } catch (\Throwable $exception) {
+                Log::error('Failed to send contact message notification email.', [
+                    'contact_message_id' => $contactMessage->id,
+                    'recipient' => $recipientEmail,
+                    'error' => $exception->getMessage(),
+                ]);
+            }
+        }
 
         return back()->with('success', __('frontend.contact_form_success'));
     }

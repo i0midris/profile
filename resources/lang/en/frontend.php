@@ -16,6 +16,7 @@ return array (
   'contact' => 'Contact',
   'contact_discuss_requirements' => 'Contact us to discuss your specific requirements and how we can help.',
   'contact_form_success' => 'Thank you for your message! We will get back to you soon.',
+  'new_contact_message_subject' => 'New contact message received',
   'contact_message_required' => 'Please enter your message.',
   'contact_message_min' => 'Your message must be at least 10 characters.',
   'contact_rate_limited' => 'Too many messages sent. Please wait a minute and try again.',

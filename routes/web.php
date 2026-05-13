@@ -102,7 +102,7 @@ Route::get('/', function () {
 // Admin Auth (Guest)
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
-    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/login', [AuthController::class, 'login'])->middleware('throttle:admin-login');
 });
 
 // Admin Panel (Authenticated)
