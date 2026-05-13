@@ -33,7 +33,7 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => 'en|ar'], 'middlew
         Route::get('/portfolio', 'portfolio')->name('portfolio');
         Route::get('/testimonials', 'testimonials')->name('testimonials');
         Route::get('/contact', 'contact')->name('contact');
-        Route::post('/contact', 'sendMessage')->name('contact.send');
+        Route::post('/contact', 'sendMessage')->middleware('throttle:contact-form')->name('contact.send');
         Route::post('/jobs/apply', 'applyForJob')->name('jobs.apply');
     });
 });

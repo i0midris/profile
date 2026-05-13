@@ -1,2 +1,3 @@
 User-agent: *
 Disallow:
+Sitemap: https://albaseetsoft-ye.com/sitemap.xml

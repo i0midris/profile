@@ -148,15 +148,42 @@ class PageController extends Controller
     {
         $this->ensurePageIsVisible('contact');
 
+        // Honeypot: bots usually fill hidden fields.
+        if ($request->filled('company')) {
+            return back()->with('success', __('frontend.contact_form_success'));
+        }
+
+        // Timing trap: reject submissions sent too quickly.
+        $formStartedAt = (int) $request->input('form_started_at', 0);
+        if ($formStartedAt <= 0 || now()->timestamp - $formStartedAt < 3) {
+            return back()
+                ->withErrors(['contact' => __('frontend.contact_submit_too_fast')])
+                ->withInput();
+        }
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'nullable|string|max:50',
             'subject' => 'nullable|string|max:255',
-            'message' => 'required|string',
+            'message' => [
+                'required',
+                'string',
+                function (string $attribute, mixed $value, \Closure $fail): void {
+                    $normalizedMessage = preg_replace('/\s+/u', '', (string) $value) ?? '';
+
+                    if (mb_strlen($normalizedMessage, 'UTF-8') < 10) {
+                        $fail(__('frontend.contact_message_min'));
+                    }
+                },
+            ],
+            'company' => 'nullable|string|max:0',
+            'form_started_at' => 'required|integer',
+        ], [
+            'message.required' => __('frontend.contact_message_required'),
         ]);
 
-        ContactMessage::create($validated);
+        ContactMessage::create(collect($validated)->except(['company', 'form_started_at'])->all());
 
         return back()->with('success', __('frontend.contact_form_success'));
     }

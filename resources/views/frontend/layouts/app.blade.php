@@ -25,6 +25,26 @@
         $defaultDescription = $settings->description ?? __('frontend.meta_description_fallback');
         $pageDescription = trim($__env->yieldContent('meta_description', $defaultDescription));
         $visiblePages = $visiblePages ?? $settings->getVisiblePages();
+
+        $sameAs = array_values(array_filter([
+            $settings->facebook ?? null,
+            $settings->twitter ?? null,
+            $settings->instagram ?? null,
+            $settings->linkedin ?? null,
+        ]));
+
+        $organizationSchema = array_filter([
+            '@context' => 'https://schema.org',
+            '@type' => 'Organization',
+            'name' => $settings->company_name ?? config('app.name'),
+            'url' => url('/'),
+            'logo' => $settings->logo_url ?? null,
+            'description' => $settings->description ?? null,
+            'email' => $settings->email ?? null,
+            'telephone' => $settings->phone ?? null,
+            'address' => $settings->address ?? null,
+            'sameAs' => !empty($sameAs) ? $sameAs : null,
+        ], fn ($value) => $value !== null && $value !== '' && $value !== []);
     @endphp
 
     <meta charset="UTF-8">
@@ -49,6 +69,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ $pageTitle }}">
     <meta name="twitter:description" content="{{ $pageDescription }}">
+    <script type="application/ld+json">{!! json_encode($organizationSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
 
     @if($settings->favicon_url ?? false)
         <link rel="icon" href="{{ $settings->favicon_url }}" type="image/x-icon">

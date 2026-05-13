@@ -150,9 +150,20 @@
                                 {{ session('success') }}
                             </div>
                         @endif
+                        @if($errors->has('contact'))
+                            <div class="mb-6 p-4 rounded-lg bg-red-500/20 border border-red-500/30 text-red-300">
+                                {{ $errors->first('contact') }}
+                            </div>
+                        @endif
 
                         <form method="POST" action="{{ route('contact.send', ['locale' => app()->getLocale()]) }}" class="space-y-6">
                             @csrf
+                            <input type="hidden" name="form_started_at" value="{{ now()->timestamp }}">
+                            <div class="hidden" aria-hidden="true">
+                                <label for="company">{{ __('frontend.company_fallback') }}</label>
+                                <input type="text" id="company" name="company" value="{{ old('company') }}" tabindex="-1"
+                                    autocomplete="off">
+                            </div>
 
                             <div class="grid md:grid-cols-2 gap-6">
                                 <div>
