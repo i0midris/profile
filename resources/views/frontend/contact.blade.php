@@ -156,7 +156,7 @@
                             </div>
                         @endif
 
-                        <form method="POST" action="{{ route('contact.send', ['locale' => app()->getLocale()]) }}" class="space-y-6">
+                        <form id="contact-form" method="POST" action="{{ route('contact.send', ['locale' => app()->getLocale()]) }}" class="space-y-6">
                             @csrf
                             <input type="hidden" name="form_started_at" value="{{ now()->timestamp }}">
                             <div class="hidden" aria-hidden="true">
@@ -205,7 +205,10 @@
                                         class="text-red-400">*</span></label>
                                 <textarea id="message" name="message" rows="5" required
                                     class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all resize-none"
+                                    minlength="10"
+                                    data-min-message="{{ __('frontend.contact_message_min') }}"
                                     placeholder="{{ __('frontend.placeholder_message') }}">{{ old('message') }}</textarea>
+                                <p id="message-client-error" class="mt-1 text-sm text-red-400 hidden"></p>
                                 @error('message')<p class="mt-1 text-sm text-red-400">{{ $message }}</p>@enderror
                             </div>
 
@@ -219,4 +222,43 @@
             </div>
         </div>
     </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('contact-form');
+            if (!form) return;
+
+            const messageField = document.getElementById('message');
+            const messageClientError = document.getElementById('message-client-error');
+            if (!messageField || !messageClientError) return;
+
+            const minMessage = messageField.dataset.minMessage || 'Message is too short.';
+
+            const validateMessage = function() {
+                const normalized = (messageField.value || '').replace(/\s+/gu, '');
+                const isValid = normalized.length >= 10;
+
+                if (!isValid) {
+                    messageField.setCustomValidity(minMessage);
+                    messageClientError.textContent = minMessage;
+                    messageClientError.classList.remove('hidden');
+                } else {
+                    messageField.setCustomValidity('');
+                    messageClientError.textContent = '';
+                    messageClientError.classList.add('hidden');
+                }
+
+                return isValid;
+            };
+
+            messageField.addEventListener('input', validateMessage);
+
+            form.addEventListener('submit', function(event) {
+                if (!validateMessage()) {
+                    event.preventDefault();
+                    messageField.reportValidity();
+                }
+            });
+        });
+    </script>
 @endsection

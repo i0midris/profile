@@ -191,7 +191,9 @@ class PageController extends Controller
         $recipientEmail = CompanySetting::getSettings()->email;
         if (!empty($recipientEmail) && filter_var($recipientEmail, FILTER_VALIDATE_EMAIL)) {
             try {
-                Mail::to($recipientEmail)->send(new ContactMessageNotification($contactMessage));
+                // Keep contact submissions responsive when SMTP is slow/unreachable.
+                config(['mail.mailers.smtp.timeout' => 4]);
+                Mail::mailer('smtp')->to($recipientEmail)->send(new ContactMessageNotification($contactMessage));
             } catch (\Throwable $exception) {
                 Log::error('Failed to send contact message notification email.', [
                     'contact_message_id' => $contactMessage->id,
