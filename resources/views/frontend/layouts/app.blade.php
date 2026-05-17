@@ -51,6 +51,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{{ $pageDescription }}">
     <meta name="ahrefs-site-verification" content="8612ba2161fb0cb28e8b4941a5842b4ebb4e8dc31ede567922fc151640f311c7">
+    <script src="https://analytics.ahrefs.com/analytics.js" data-key="zxwGslkfws+WzfA0w9dGNA" async></script>
+    <script>
+  var ahrefs_analytics_script = document.createElement('script');
+  ahrefs_analytics_script.async = true;
+  ahrefs_analytics_script.src = 'https://analytics.ahrefs.com/analytics.js';
+  ahrefs_analytics_script.setAttribute('data-key', 'zxwGslkfws+WzfA0w9dGNA');
+  document.getElementsByTagName('head')[0].appendChild(ahrefs_analytics_script);
+</script>
     <title>{{ $pageTitle }}</title>
 
     <link rel="canonical" href="{{ $canonicalUrl }}">
