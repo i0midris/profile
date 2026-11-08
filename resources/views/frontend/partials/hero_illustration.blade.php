@@ -53,7 +53,7 @@
         </div>
         {{-- Label pill --}}
         <div style="margin-top:10px;background:rgba(26,46,109,.55);border:1px solid rgba(59,111,212,.25);border-radius:20px;padding:4px 14px;display:inline-block;backdrop-filter:blur(10px);">
-            <p style="font-size:9px;color:rgba(255,255,255,.65);margin:0;white-space:nowrap;letter-spacing:.7px;text-transform:uppercase;">{{ __('frontend.hero_hub_label') }}</p>
+            <p style="font-size:9.5px;color:rgba(255,255,255,.85);margin:0;white-space:nowrap;letter-spacing:.7px;text-transform:uppercase;">{{ __('frontend.hero_hub_label') }}</p>
         </div>
     </div>
 
@@ -65,7 +65,7 @@
                     <svg width="19" height="19" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="6" height="5" rx="1"/><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="16" y="3" width="6" height="5" rx="1"/><rect x="2" y="10" width="6" height="5" rx="1"/><rect x="9" y="10" width="6" height="5" rx="1"/><rect x="16" y="10" width="6" height="5" rx="1"/><rect x="2" y="17" width="6" height="4" rx="1"/><rect x="9" y="17" width="6" height="4" rx="1"/></svg>
                 </div>
                 <div>
-                    <p style="font-size:9px;color:rgba(255,255,255,.4);margin:0;text-transform:uppercase;letter-spacing:.5px;">{{ __('frontend.hero_erp_label') }}</p>
+                    <p style="font-size:9px;color:rgba(255,255,255,.72);margin:0;text-transform:uppercase;letter-spacing:.5px;">{{ __('frontend.hero_erp_label') }}</p>
                     <p style="font-size:14px;color:white;font-weight:700;margin:2px 0 0;line-height:1.2;">{{ __('frontend.hero_erp_title') }}</p>
                 </div>
             </div>
@@ -76,11 +76,11 @@
             ] as $mp)
             <div style="display:flex;align-items:center;gap:7px;padding:5px 0;{{ !$loop->last ? 'border-bottom:1px solid rgba(255,255,255,.05);' : '' }}">
                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="{{ $mp[1] }}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
-                <span style="font-size:10px;color:rgba(255,255,255,.6);">{{ $mp[0] }}</span>
+                <span style="font-size:10px;color:rgba(255,255,255,.8);">{{ $mp[0] }}</span>
             </div>
             @endforeach
             <div style="margin-top:10px;padding-top:9px;border-top:1px solid rgba(255,255,255,.06);">
-                <span style="font-size:9px;color:#E4191F;font-weight:700;">{{ __('frontend.hero_erp_all_in_one') }}</span>
+                <span style="font-size:9.5px;color:#ff8a8d;font-weight:700;">{{ __('frontend.hero_erp_all_in_one') }}</span>
             </div>
         </div>
     </div>
@@ -93,7 +93,7 @@
                     <svg width="19" height="19" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
                 </div>
                 <div>
-                    <p style="font-size:9px;color:rgba(255,255,255,.4);margin:0;text-transform:uppercase;letter-spacing:.5px;">{{ __('frontend.hero_cloud_label') }}</p>
+                    <p style="font-size:9px;color:rgba(255,255,255,.72);margin:0;text-transform:uppercase;letter-spacing:.5px;">{{ __('frontend.hero_cloud_label') }}</p>
                     <p style="font-size:14px;color:white;font-weight:700;margin:2px 0 0;line-height:1.2;">{{ __('frontend.hero_cloud_title') }}</p>
                 </div>
             </div>
@@ -105,12 +105,12 @@
             ] as $cs)
             <div style="display:flex;align-items:center;gap:7px;padding:5px 0;{{ !$loop->last ? 'border-bottom:1px solid rgba(255,255,255,.05);' : '' }}">
                 <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="{{ $cs[1] }}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
-                <span style="font-size:10px;color:rgba(255,255,255,.6);">{{ $cs[0] }}</span>
+                <span style="font-size:10px;color:rgba(255,255,255,.8);">{{ $cs[0] }}</span>
             </div>
             @endforeach
             {{-- Status footer --}}
             <div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;padding-top:9px;border-top:1px solid rgba(255,255,255,.06);">
-                <span style="font-size:9px;color:rgba(255,255,255,.3);">{{ __('frontend.hero_cloud_status') }}</span>
+                <span style="font-size:9.5px;color:rgba(255,255,255,.7);">{{ __('frontend.hero_cloud_status') }}</span>
                 <span style="display:flex;align-items:center;gap:4px;font-size:9px;color:#4ade80;font-weight:800;">
                     <span style="width:6px;height:6px;border-radius:50%;background:#4ade80;display:inline-block;animation:hiw-blink 1.5s ease-in-out infinite;flex-shrink:0;"></span>
                     {{ __('frontend.hero_cloud_operational') }}
@@ -127,7 +127,7 @@
                     <svg width="19" height="19" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </div>
                 <div style="flex:1;">
-                    <p style="font-size:9px;color:rgba(255,255,255,.4);margin:0;text-transform:uppercase;letter-spacing:.5px;">{{ __('frontend.hero_cyber_label') }}</p>
+                    <p style="font-size:9px;color:rgba(255,255,255,.72);margin:0;text-transform:uppercase;letter-spacing:.5px;">{{ __('frontend.hero_cyber_label') }}</p>
                     <p style="font-size:14px;color:white;font-weight:700;margin:2px 0 0;line-height:1.2;">{{ __('frontend.hero_cyber_title') }}</p>
                 </div>
                 <div style="background:rgba(74,222,128,.12);border:1px solid rgba(74,222,128,.35);border-radius:7px;padding:3px 8px;flex-shrink:0;">
@@ -139,7 +139,7 @@
             </div>
             <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px;padding-top:12px;border-top:1px solid rgba(255,255,255,.06);">
                 @foreach([__('frontend.hero_cyber_encryption'), __('frontend.hero_cyber_permissions'), __('frontend.hero_cyber_backup')] as $feature)
-                    <span style="font-size:9px;color:rgba(255,255,255,.65);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:999px;padding:3px 9px;white-space:nowrap;">{{ $feature }}</span>
+                    <span style="font-size:9.5px;color:rgba(255,255,255,.82);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:999px;padding:3px 9px;white-space:nowrap;">{{ $feature }}</span>
                 @endforeach
             </div>
         </div>
@@ -150,7 +150,7 @@
     <div style="position:absolute;top:43%;left:-2px;transform:translateY(-50%);z-index:4;animation:hiw-float 6s ease-in-out infinite;animation-delay:1s;">
         <div style="background:rgba(8,18,52,.9);border:1px solid rgba(228,25,31,.3);border-radius:14px;padding:9px 15px;backdrop-filter:blur(14px);text-align:center;box-shadow:0 6px 24px rgba(0,0,0,.4);">
             <p style="font-size:21px;font-weight:900;color:white;margin:0;line-height:1;">{{ $about->happy_clients }}+</p>
-            <p style="font-size:8px;color:rgba(255,255,255,.42);margin:3px 0 0;text-transform:uppercase;letter-spacing:.6px;">{{ __('frontend.hero_stat_clients') }}</p>
+            <p style="font-size:9px;color:rgba(255,255,255,.75);margin:3px 0 0;text-transform:uppercase;letter-spacing:.6px;">{{ __('frontend.hero_stat_clients') }}</p>
         </div>
     </div>
     @endif
@@ -158,7 +158,7 @@
     <div style="position:absolute;top:43%;right:-2px;transform:translateY(-50%);z-index:4;animation:hiw-float 6s ease-in-out infinite;animation-delay:3.5s;">
         <div style="background:rgba(8,18,52,.9);border:1px solid rgba(59,111,212,.3);border-radius:14px;padding:9px 15px;backdrop-filter:blur(14px);text-align:center;box-shadow:0 6px 24px rgba(0,0,0,.4);">
             <p style="font-size:21px;font-weight:900;color:white;margin:0;line-height:1;">{{ $about->years_experience }}+</p>
-            <p style="font-size:8px;color:rgba(255,255,255,.42);margin:3px 0 0;text-transform:uppercase;letter-spacing:.6px;">{{ __('frontend.years_experience') }}</p>
+            <p style="font-size:9px;color:rgba(255,255,255,.75);margin:3px 0 0;text-transform:uppercase;letter-spacing:.6px;">{{ __('frontend.years_experience') }}</p>
         </div>
     </div>
     @endif

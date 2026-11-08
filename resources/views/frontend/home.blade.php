@@ -145,7 +145,7 @@
                                         <svg width="16" height="16" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="6" height="5" rx="1"/><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="16" y="3" width="6" height="5" rx="1"/><rect x="2" y="10" width="6" height="5" rx="1"/><rect x="9" y="10" width="6" height="5" rx="1"/><rect x="16" y="10" width="6" height="5" rx="1"/><rect x="2" y="17" width="6" height="4" rx="1"/><rect x="9" y="17" width="6" height="4" rx="1"/></svg>
                                     </div>
                                     <div>
-                                        <p style="font-size:8.5px;color:rgba(255,255,255,.38);margin:0;text-transform:uppercase;letter-spacing:.5px;">{{ __('frontend.hero_erp_label') }}</p>
+                                        <p style="font-size:9px;color:rgba(255,255,255,.72);margin:0;text-transform:uppercase;letter-spacing:.5px;">{{ __('frontend.hero_erp_label') }}</p>
                                         <p style="font-size:12px;color:white;font-weight:700;margin:1px 0 0;">{{ __('frontend.hero_erp_title') }}</p>
                                     </div>
                                 </div>
@@ -165,7 +165,7 @@
                                         <svg width="16" height="16" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
                                     </div>
                                     <div>
-                                        <p style="font-size:8.5px;color:rgba(255,255,255,.38);margin:0;text-transform:uppercase;letter-spacing:.5px;">{{ __('frontend.hero_cloud_label') }}</p>
+                                        <p style="font-size:9px;color:rgba(255,255,255,.72);margin:0;text-transform:uppercase;letter-spacing:.5px;">{{ __('frontend.hero_cloud_label') }}</p>
                                         <p style="font-size:12px;color:white;font-weight:700;margin:1px 0 0;">{{ __('frontend.hero_cloud_title') }}</p>
                                     </div>
                                 </div>
@@ -187,7 +187,7 @@
                                         <svg width="16" height="16" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                     </div>
                                     <div style="flex:1;">
-                                        <p style="font-size:8.5px;color:rgba(255,255,255,.38);margin:0;text-transform:uppercase;letter-spacing:.5px;">{{ __('frontend.hero_cyber_label') }}</p>
+                                        <p style="font-size:9px;color:rgba(255,255,255,.72);margin:0;text-transform:uppercase;letter-spacing:.5px;">{{ __('frontend.hero_cyber_label') }}</p>
                                         <p style="font-size:12px;color:white;font-weight:700;margin:1px 0 0;">{{ __('frontend.hero_cyber_title') }}</p>
                                     </div>
                                     <div style="background:rgba(74,222,128,.12);border:1px solid rgba(74,222,128,.3);border-radius:6px;padding:2px 7px;">
@@ -196,7 +196,7 @@
                                 </div>
                                 <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px;">
                                     @foreach([__('frontend.hero_cyber_encryption'), __('frontend.hero_cyber_permissions')] as $feature)
-                                        <span style="font-size:8.5px;color:rgba(255,255,255,.65);background:rgba(255,255,255,.04);border-radius:8px;padding:5px 8px;white-space:nowrap;">{{ $feature }}</span>
+                                        <span style="font-size:9px;color:rgba(255,255,255,.82);background:rgba(255,255,255,.04);border-radius:8px;padding:5px 8px;white-space:nowrap;">{{ $feature }}</span>
                                     @endforeach
                                 </div>
                             </div>

@@ -716,7 +716,7 @@
 
     .theme-light .site-footer-bottom {
         border-top-color: rgb(var(--brand-secondary-rgb) / 0.24);
-        color: rgb(var(--brand-main-rgb) / 0.62);
+        color: rgb(var(--brand-main-rgb) / 0.78);
     }
 
     .theme-light .glass-dark {
@@ -736,12 +736,20 @@
         box-shadow: 0 10px 28px rgb(var(--brand-main-rgb) / 0.12);
     }
 
+    /* ── Contrast (WCAG AA ≥ 4.5:1 for body text) — step 2.4 ───────────── */
+    .theme-dark .text-white\/40 { color: rgb(255 255 255 / 0.66) !important; }
+    .theme-dark .text-white\/50 { color: rgb(255 255 255 / 0.7) !important; }
+    .theme-dark .text-white\/60 { color: rgb(255 255 255 / 0.74) !important; }
+    .theme-dark .placeholder-white\/40::placeholder { color: rgb(255 255 255 / 0.55) !important; }
+    .theme-dark .text-primary-400 { color: color-mix(in srgb, white 62%, var(--brand-main)) !important; }
+    .theme-dark .hover\:text-primary-300:hover { color: color-mix(in srgb, white 78%, var(--brand-main)) !important; }
+
     .theme-light .text-white { color: rgb(var(--brand-main-rgb) / 0.96) !important; }
     .theme-light .text-white\/80 { color: rgb(var(--brand-main-rgb) / 0.8) !important; }
     .theme-light .text-white\/70 { color: rgb(var(--brand-main-rgb) / 0.7) !important; }
-    .theme-light .text-white\/60 { color: rgb(var(--brand-main-rgb) / 0.62) !important; }
-    .theme-light .text-white\/50 { color: rgb(var(--brand-main-rgb) / 0.52) !important; }
-    .theme-light .text-white\/40 { color: rgb(var(--brand-main-rgb) / 0.42) !important; }
+    .theme-light .text-white\/60 { color: rgb(var(--brand-main-rgb) / 0.76) !important; }
+    .theme-light .text-white\/50 { color: rgb(var(--brand-main-rgb) / 0.72) !important; }
+    .theme-light .text-white\/40 { color: rgb(var(--brand-main-rgb) / 0.68) !important; }
     .theme-light .text-white\/30 { color: rgb(var(--brand-main-rgb) / 0.32) !important; }
     .theme-light .text-white\/20 { color: rgb(var(--brand-main-rgb) / 0.22) !important; }
 
@@ -752,7 +760,7 @@
 
     .theme-light .bg-white\/5 { background-color: rgb(var(--brand-main-rgb) / 0.045) !important; }
     .theme-light .border-white\/10 { border-color: rgb(var(--brand-main-rgb) / 0.14) !important; }
-    .theme-light .placeholder-white\/40::placeholder { color: rgb(var(--brand-main-rgb) / 0.42) !important; }
+    .theme-light .placeholder-white\/40::placeholder { color: rgb(var(--brand-main-rgb) / 0.6) !important; }
 
     .theme-light .from-dark-900 {
         --tw-gradient-from: rgb(255 255 255 / 0.96) var(--tw-gradient-from-position) !important;
