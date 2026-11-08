@@ -23,9 +23,7 @@
     <section class="pb-24 pt-14">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             @php
-                $whatsappNumber = $settings->whatsapp ?: $settings->phone;
-                $whatsappDigits = $whatsappNumber ? preg_replace('/\D+/', '', $whatsappNumber) : null;
-                $whatsappUrl = $whatsappDigits ? 'https://wa.me/' . $whatsappDigits : null;
+                $whatsappUrl = \App\Support\PhoneNumber::whatsappUrl($settings->whatsapp ?: $settings->phone);
             @endphp
 
             <div class="grid lg:grid-cols-3 gap-12">
@@ -62,7 +60,8 @@
                             </div>
                             <div>
                                 <h3 class="text-white font-semibold mb-1">{{ __('frontend.phone') }}</h3>
-                                <p class="text-white/60">{{ $settings->phone }}</p>
+                                <a href="{{ \App\Support\PhoneNumber::telUrl($settings->phone) }}" dir="ltr"
+                                    class="text-white/60 hover:text-primary-400 transition-colors">{{ \App\Support\PhoneNumber::display($settings->phone) }}</a>
                             </div>
                         </div>
                     @endif

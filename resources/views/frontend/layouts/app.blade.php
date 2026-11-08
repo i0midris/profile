@@ -41,7 +41,7 @@
             'logo' => $settings->logo_url ?? null,
             'description' => $settings->description ?? null,
             'email' => $settings->email ?? null,
-            'telephone' => $settings->phone ?? null,
+            'telephone' => \App\Support\PhoneNumber::e164($settings->phone ?? null),
             'address' => $settings->address ?? null,
             'sameAs' => !empty($sameAs) ? $sameAs : null,
         ], fn ($value) => $value !== null && $value !== '' && $value !== []);
@@ -335,9 +335,7 @@
                 <!-- Company Info -->
                 <div class="site-footer-block site-footer-brand md:col-span-2">
                     @php
-                        $footerWhatsappNumber = $settings->whatsapp ?: $settings->phone;
-                        $footerWhatsappDigits = $footerWhatsappNumber ? preg_replace('/\D+/', '', $footerWhatsappNumber) : null;
-                        $footerWhatsappUrl = $footerWhatsappDigits ? 'https://wa.me/' . $footerWhatsappDigits : null;
+                        $footerWhatsappUrl = \App\Support\PhoneNumber::whatsappUrl($settings->whatsapp ?: $settings->phone);
                     @endphp
 
                     <div class="flex items-center gap-3 mb-4">
@@ -444,7 +442,7 @@
                                             d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                     </svg>
                                 </span>
-                                <span class="site-footer-muted">{{ $settings->phone }}</span>
+                                <a href="{{ \App\Support\PhoneNumber::telUrl($settings->phone) }}" class="site-footer-contact-link" dir="ltr">{{ \App\Support\PhoneNumber::display($settings->phone) }}</a>
                             </li>
                         @endif
                         @if($settings->address ?? false)
