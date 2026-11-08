@@ -1107,7 +1107,7 @@
 @keyframes hww-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 @keyframes hww-ring { 0% { opacity: .9; transform: scale(.9); } 80%, 100% { opacity: 0; transform: scale(1.25); } }
 @keyframes hww-spin { to { transform: rotate(360deg); } }
-@media (prefers-reduced-motion: reduce) { .hww-icon, .hww-ring, .hww-spin { animation: none; } .hww-line animate { display: none; } }
+
 
 /* -- Mobile contact bar (phones only) -- */
 .mobile-contact-bar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 45; display: grid; grid-template-columns: repeat(3, 1fr);
@@ -1166,7 +1166,7 @@
 @keyframes sc-road { to { stroke-dashoffset: -32; } }
 @keyframes sc-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1.5px); } }
 @keyframes sc-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
-@media (prefers-reduced-motion: reduce) { .sector-scene * { animation: none !important; } }
+
 
 /* -- FAQ page & teaser -- */
 .faq-q-icon { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 34px; height: 34px; border-radius: 11px;
@@ -1221,4 +1221,5 @@
 @keyframes fi-pulse-s { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
 @keyframes fi-ring { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(1.6); opacity: 0; } }
 @keyframes fi-msg { 0%, 8% { opacity: 0; transform: translateY(8px); } 16%, 88% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; } }
-@media (prefers-reduced-motion: reduce) { .faq-illustration *, .faq-illustration animateMotion, .faq-illustration animate { animation: none !important; } }
+/* Decorative, small and slow: these loops keep running even when the OS asks for reduced motion
+   (Windows "Animation effects" off). Page-wide entrance slides (AOS) still respect that setting. */
