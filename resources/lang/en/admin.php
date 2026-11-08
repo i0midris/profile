@@ -134,7 +134,7 @@ return array (
   'placeholder_instagram' => 'https://instagram.com/...',
   'placeholder_linkedin' => 'https://linkedin.com/company/...',
   'placeholder_password' => '••••••••',
-  'placeholder_phone' => '+1 (555) 123-4567',
+  'placeholder_phone' => '+967 777 123 456',
   'placeholder_job_type' => 'e.g., Full-time, Part-time, Remote',
   'placeholder_experience_level' => 'e.g., Junior, Mid-level, Senior',
   'placeholder_position' => 'e.g., CEO, Developer',
@@ -268,4 +268,6 @@ return array (
     'job_application_deleted' => 'Job application deleted successfully!',
     'job_application_status_updated' => 'Job application status updated successfully!',
   ),
+  'reply_whatsapp' => 'Reply on WhatsApp',
+  'call_phone' => 'Call',
 );

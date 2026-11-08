@@ -89,7 +89,7 @@ return [
     // Placeholders
     'placeholder_name' => 'أحمد محمد',
     'placeholder_email' => 'ahmed@example.com',
-    'placeholder_phone' => '+966 50 123 4567',
+    'placeholder_phone' => '+967 777 123 456',
     'placeholder_subject' => 'استفسار عن مشروع',
     'placeholder_message' => 'أخبرنا عن مشروعك...',
 

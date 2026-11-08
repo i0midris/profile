@@ -13,9 +13,11 @@
                     </div>
                     <div>
                         <h3 class="text-xl font-semibold text-white">{{ $message->name }}</h3>
-                        <p class="text-white/60">{{ $message->email }}</p>
+                        @if($message->email)
+                            <p class="text-white/60">{{ $message->email }}</p>
+                        @endif
                         @if($message->phone)
-                            <p class="text-white/40 text-sm">{{ $message->phone }}</p>
+                            <p class="text-white/40 text-sm" dir="ltr">{{ $message->phone }}</p>
                         @endif
                     </div>
                 </div>
@@ -51,10 +53,23 @@
                 </span>
             @endif
 
-            <a href="mailto:{{ $message->email }}"
-                class="px-6 py-3 rounded-lg glass text-white font-medium hover:bg-white/10 transition-colors">
-                {{ __('admin.send_email') }}
-            </a>
+            @if($message->email)
+                <a href="mailto:{{ $message->email }}"
+                    class="px-6 py-3 rounded-lg glass text-white font-medium hover:bg-white/10 transition-colors">
+                    {{ __('admin.send_email') }}
+                </a>
+            @endif
+
+            @if($message->phone)
+                <a href="{{ \App\Support\PhoneNumber::whatsappUrl($message->phone) }}" target="_blank" rel="noopener noreferrer"
+                    class="px-6 py-3 rounded-lg glass text-white font-medium hover:bg-white/10 transition-colors">
+                    {{ __('admin.reply_whatsapp') }}
+                </a>
+                <a href="{{ \App\Support\PhoneNumber::telUrl($message->phone) }}"
+                    class="px-6 py-3 rounded-lg glass text-white font-medium hover:bg-white/10 transition-colors">
+                    {{ __('admin.call_phone') }}
+                </a>
+            @endif
 
             <a href="{{ route('admin.messages.index') }}"
                 class="px-6 py-3 rounded-lg bg-white/5 text-white/70 hover:bg-white/10 hover:text-white transition-colors font-medium">

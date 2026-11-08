@@ -174,21 +174,24 @@
                                     @error('name')<p class="mt-1 text-sm text-red-400">{{ $message }}</p>@enderror
                                 </div>
                                 <div>
-                                    <label for="email" class="block text-sm font-medium text-white/80 mb-2">{{ __('frontend.email_address') }}
-                                        <span class="text-red-400">*</span></label>
-                                    <input type="email" id="email" name="email" value="{{ old('email') }}" required
-                                        class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all"
-                                        placeholder="{{ __('frontend.placeholder_email') }}">
-                                    @error('email')<p class="mt-1 text-sm text-red-400">{{ $message }}</p>@enderror
+                                    <label for="phone" class="block text-sm font-medium text-white/80 mb-2">{{ __('frontend.phone_number') }}
+                                        <span class="text-white/40 text-xs">({{ __('frontend.whatsapp') }})</span></label>
+                                    <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" dir="ltr" inputmode="tel" autocomplete="tel"
+                                        aria-describedby="contact-method-hint"
+                                        class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all {{ app()->isLocale('ar') ? 'text-right' : '' }}"
+                                        placeholder="{{ __('frontend.placeholder_phone') }}">
+                                    @error('phone')<p class="mt-1 text-sm text-red-400">{{ $message }}</p>@enderror
                                 </div>
                             </div>
 
                             <div class="grid md:grid-cols-2 gap-6">
                                 <div>
-                                    <label for="phone" class="block text-sm font-medium text-white/80 mb-2">{{ __('frontend.phone_number') }}</label>
-                                    <input type="text" id="phone" name="phone" value="{{ old('phone') }}"
+                                    <label for="email" class="block text-sm font-medium text-white/80 mb-2">{{ __('frontend.email_address') }}</label>
+                                    <input type="email" id="email" name="email" value="{{ old('email') }}" autocomplete="email"
+                                        aria-describedby="contact-method-hint"
                                         class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all"
-                                        placeholder="{{ __('frontend.placeholder_phone') }}">
+                                        placeholder="{{ __('frontend.placeholder_email') }}">
+                                    @error('email')<p class="mt-1 text-sm text-red-400">{{ $message }}</p>@enderror
                                 </div>
                                 <div>
                                     <label for="subject"
@@ -199,6 +202,11 @@
                                 </div>
                             </div>
 
+                            <p id="contact-method-hint" class="-mt-3 text-sm text-white/50">
+                                <span class="text-red-400">*</span> {{ __('frontend.contact_phone_or_email_hint') }}
+                            </p>
+                            <p id="contact-method-client-error" class="-mt-3 text-sm text-red-400 hidden"></p>
+
                             <div>
                                 <label for="message" class="block text-sm font-medium text-white/80 mb-2">{{ __('frontend.message') }} <span
                                         class="text-red-400">*</span></label>
@@ -206,6 +214,7 @@
                                     class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all resize-none"
                                     minlength="10"
                                     data-min-message="{{ __('frontend.contact_message_min') }}"
+                                    data-contact-required="{{ __('frontend.contact_phone_or_email_required') }}"
                                     placeholder="{{ __('frontend.placeholder_message') }}">{{ old('message') }}</textarea>
                                 <p id="message-client-error" class="mt-1 text-sm text-red-400 hidden"></p>
                                 @error('message')<p class="mt-1 text-sm text-red-400">{{ $message }}</p>@enderror
@@ -250,9 +259,35 @@
                 return isValid;
             };
 
+            // Phone OR email: at least one of them is required.
+            const phoneField = document.getElementById('phone');
+            const emailField = document.getElementById('email');
+            const contactClientError = document.getElementById('contact-method-client-error');
+            const contactRequired = messageField.dataset.contactRequired || 'Please enter a phone number or an email.';
+
+            const validateContactMethod = function() {
+                const hasContact = (phoneField.value || '').trim() !== '' || (emailField.value || '').trim() !== '';
+                phoneField.setCustomValidity(hasContact ? '' : contactRequired);
+                contactClientError.textContent = hasContact ? '' : contactRequired;
+                contactClientError.classList.toggle('hidden', hasContact);
+                return hasContact;
+            };
+
             messageField.addEventListener('input', validateMessage);
+            [phoneField, emailField].forEach(function(field) {
+                field.addEventListener('input', function() {
+                    if (!contactClientError.classList.contains('hidden')) {
+                        validateContactMethod();
+                    }
+                });
+            });
 
             form.addEventListener('submit', function(event) {
+                if (!validateContactMethod()) {
+                    event.preventDefault();
+                    phoneField.reportValidity();
+                    return;
+                }
                 if (!validateMessage()) {
                     event.preventDefault();
                     messageField.reportValidity();

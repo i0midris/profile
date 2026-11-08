@@ -166,8 +166,9 @@ class PageController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phone' => 'nullable|string|max:50',
+            // Either a phone number or an email is enough to get back to the visitor.
+            'email' => 'nullable|required_without:phone|email|max:255',
+            'phone' => ['nullable', 'required_without:email', 'string', 'max:50', 'regex:/^[0-9+\-\s()]{6,}$/'],
             'subject' => 'nullable|string|max:255',
             'message' => [
                 'required',
@@ -184,6 +185,9 @@ class PageController extends Controller
             'form_started_at' => 'required|integer',
         ], [
             'message.required' => __('frontend.contact_message_required'),
+            'email.required_without' => __('frontend.contact_phone_or_email_required'),
+            'phone.required_without' => __('frontend.contact_phone_or_email_required'),
+            'phone.regex' => __('frontend.contact_phone_invalid'),
         ]);
 
         $contactMessage = ContactMessage::create(collect($validated)->except(['company', 'form_started_at'])->all());

@@ -62,7 +62,7 @@ return array (
   'placeholder_email' => 'ahmed@example.com',
   'placeholder_message' => 'أخبرنا عن مشروعك...',
   'placeholder_name' => 'أحمد محمد',
-  'placeholder_phone' => '+966 50 123 4567',
+  'placeholder_phone' => '+967 777 123 456',
   'placeholder_subject' => 'استفسار عن مشروع',
   'portfolio' => 'المعرض',
   'open_positions' => 'الوظائف المتاحة',
@@ -137,4 +137,7 @@ return array (
   'hero_cyber_encryption' => 'تشفير البيانات',
   'hero_cyber_permissions' => 'صلاحيات المستخدمين',
   'hero_cyber_backup' => 'نسخ احتياطي',
+  'contact_phone_or_email_hint' => 'يكفي رقم الهاتف أو البريد الإلكتروني للتواصل معك.',
+  'contact_phone_or_email_required' => 'يرجى كتابة رقم الهاتف أو البريد الإلكتروني حتى نتمكن من الرد عليك.',
+  'contact_phone_invalid' => 'يرجى كتابة رقم هاتف صحيح.',
 );

@@ -64,7 +64,7 @@
                                             <span class="w-2 h-2 rounded-full bg-primary-500"></span>
                                         @endif
                                     </div>
-                                    <p class="text-white/50 text-sm">{{ $message->email }}</p>
+                                    <p class="text-white/50 text-sm" dir="ltr">{{ $message->email ?: \App\Support\PhoneNumber::display($message->phone) }}</p>
                                 </div>
                             </div>
                         </td>

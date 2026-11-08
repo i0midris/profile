@@ -89,7 +89,7 @@ return [
     // Placeholders
     'placeholder_name' => 'John Doe',
     'placeholder_email' => 'john@example.com',
-    'placeholder_phone' => '+1 (555) 123-4567',
+    'placeholder_phone' => '+967 777 123 456',
     'placeholder_subject' => 'Project Inquiry',
     'placeholder_message' => 'Tell us about your project...',
 

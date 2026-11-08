@@ -62,7 +62,7 @@ return array (
   'placeholder_email' => 'john@example.com',
   'placeholder_message' => 'Tell us about your project...',
   'placeholder_name' => 'John Doe',
-  'placeholder_phone' => '+1 (555) 123-4567',
+  'placeholder_phone' => '+967 777 123 456',
   'placeholder_subject' => 'Project Inquiry',
   'portfolio' => 'Portfolio',
   'open_positions' => 'Open Positions',
@@ -137,4 +137,7 @@ return array (
   'hero_cyber_encryption' => 'Data encryption',
   'hero_cyber_permissions' => 'User permissions',
   'hero_cyber_backup' => 'Backups',
+  'contact_phone_or_email_hint' => 'A phone number or an email is enough for us to reach you.',
+  'contact_phone_or_email_required' => 'Please enter a phone number or an email so we can reply to you.',
+  'contact_phone_invalid' => 'Please enter a valid phone number.',
 );

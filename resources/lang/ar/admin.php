@@ -134,7 +134,7 @@ return array (
   'placeholder_instagram' => 'https://instagram.com/...',
   'placeholder_linkedin' => 'https://linkedin.com/company/...',
   'placeholder_password' => '••••••••',
-  'placeholder_phone' => '+966 50 123 4567',
+  'placeholder_phone' => '+967 777 123 456',
   'placeholder_job_type' => 'مثال: دوام كامل، دوام جزئي، عن بُعد',
   'placeholder_experience_level' => 'مثال: مبتدئ، متوسط، خبير',
   'placeholder_position' => 'مثال: CEO, Developer',
@@ -268,4 +268,6 @@ return array (
     'job_application_deleted' => 'تم حذف طلب التوظيف بنجاح!',
     'job_application_status_updated' => 'تم تحديث حالة طلب التوظيف بنجاح!',
   ),
+  'reply_whatsapp' => 'الرد عبر واتساب',
+  'call_phone' => 'اتصال',
 );
