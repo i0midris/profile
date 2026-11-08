@@ -144,4 +144,6 @@ return array (
   'seo_services_description' => 'ERP, accounting and inventory systems, POS systems, mobile apps, e-commerce stores and cybersecurity solutions for businesses in Yemen.',
   'seo_contact_description' => 'Contact Albaseet Soft in Sanaa by phone, WhatsApp or email, and request a demo of our accounting and POS systems.',
   'seo_about_description' => 'Learn about Albaseet Soft, a Yemeni company building ERP, accounting, POS and business applications.',
+  'menu' => 'Menu',
+  'appearance' => 'Appearance',
 );

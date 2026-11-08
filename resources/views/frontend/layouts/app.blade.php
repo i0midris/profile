@@ -128,7 +128,7 @@
                         </div>
                     @endif
                     <span
-                        class="text-white font-bold text-lg sm:text-xl truncate">{{ $settings->company_name ?? __('frontend.company_fallback') }}</span>
+                        class="text-white font-bold text-base sm:text-xl truncate">{{ $settings->company_name ?? __('frontend.company_fallback') }}</span>
                 </a>
 
                 <!-- Desktop Navigation -->
@@ -220,8 +220,8 @@
                     </div>
                 </div>
 
-                <!-- Mobile Language Switcher + Theme Dropdown -->
-                <div class="md:hidden me-2 flex items-center gap-1">
+                <!-- Mobile Language Switcher (theme choice lives in the mobile menu to leave room for the company name) -->
+                <div class="md:hidden ms-auto me-1 flex items-center gap-1 flex-shrink-0">
                     <div class="nav-control-shell p-0.5 rounded-lg" role="group" aria-label="Language switcher">
                         <button onclick="switchLocale('en')"
                                 class="nav-pill-button text-xs px-2 py-1 {{ app()->getLocale() === 'en' ? 'is-active' : '' }}">
@@ -232,51 +232,11 @@
                             {{ __('frontend.language_ar') }}
                         </button>
                     </div>
-                    <div class="nav-control-shell nav-theme-dropdown nav-theme-dropdown-compact"
-                         x-data="{ menuOpen: false }"
-                         @click.outside="menuOpen = false"
-                         @keydown.escape.window="menuOpen = false">
-                        <button type="button"
-                                class="nav-theme-trigger"
-                                @click="menuOpen = !menuOpen"
-                                :aria-expanded="menuOpen.toString()"
-                                aria-haspopup="menu">
-                            <span class="nav-theme-icon" aria-hidden="true">
-                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
-                                        d="M21 12.79A9 9 0 1111.21 3c0 0 0 0 0 0A7 7 0 0021 12.79z" />
-                                </svg>
-                            </span>
-                            <span class="nav-theme-current" data-theme-current>{{ __('frontend.system_mode') }}</span>
-                            <svg class="nav-theme-chevron" :class="{ 'rotate-180': menuOpen }" viewBox="0 0 12 12" fill="none"
-                                 aria-hidden="true">
-                                <path d="M2.25 4.5L6 8.25L9.75 4.5" stroke="currentColor" stroke-width="1.5"
-                                    stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </button>
-                        <div x-cloak
-                             x-show="menuOpen"
-                             x-transition.origin.top.right
-                             class="nav-theme-menu"
-                             role="menu">
-                            <button type="button" class="nav-theme-option" data-theme-option="system" role="menuitemradio"
-                                    aria-checked="false" @click="setTheme('system'); menuOpen = false">
-                                {{ __('frontend.system_mode') }}
-                            </button>
-                            <button type="button" class="nav-theme-option" data-theme-option="light" role="menuitemradio"
-                                    aria-checked="false" @click="setTheme('light'); menuOpen = false">
-                                {{ __('frontend.light_mode') }}
-                            </button>
-                            <button type="button" class="nav-theme-option" data-theme-option="dark" role="menuitemradio"
-                                    aria-checked="false" @click="setTheme('dark'); menuOpen = false">
-                                {{ __('frontend.dark_mode') }}
-                            </button>
-                        </div>
-                    </div>
                 </div>
 
                 <!-- Mobile Menu Button -->
-                <button @click="open = !open" class="md:hidden p-2 text-white flex-shrink-0">
+                <button @click="open = !open" class="md:hidden p-2 text-white flex-shrink-0"
+                        :aria-expanded="open.toString()" aria-controls="mobile-menu" aria-label="{{ __('frontend.menu') }}">
                     <svg x-show="!open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16M4 18h16" />
@@ -289,7 +249,7 @@
             </div>
 
             <!-- Mobile Navigation -->
-            <div x-show="open" x-transition class="md:hidden pb-4">
+            <div id="mobile-menu" x-show="open" x-transition class="md:hidden pb-4">
                 <div class="flex flex-col gap-2">
                     <a href="{{ route('home', ['locale' => app()->getLocale()]) }}"
                         class="px-4 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/5 transition-colors">{{ __('frontend.home') }}</a>
@@ -321,6 +281,15 @@
                         <a href="{{ route('contact', ['locale' => app()->getLocale()]) }}"
                             class="px-4 py-2 rounded-lg gradient-primary text-white text-center mt-2">{{ __('frontend.contact') }}</a>
                     @endif
+                    <div class="flex items-center justify-between gap-3 px-4 pt-3 mt-1 border-t border-white/10">
+                        <span class="text-white/70 text-sm">{{ __('frontend.appearance') }}</span>
+                        <div class="nav-control-shell p-0.5 rounded-lg" role="group" aria-label="{{ __('frontend.appearance') }}">
+                            @foreach(['system' => 'frontend.system_mode', 'light' => 'frontend.light_mode', 'dark' => 'frontend.dark_mode'] as $themeOption => $themeLabel)
+                                <button type="button" class="nav-pill-button text-xs px-2.5 py-1" data-theme-option="{{ $themeOption }}"
+                                        aria-checked="false" role="radio" @click="setTheme('{{ $themeOption }}')">{{ __($themeLabel) }}</button>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

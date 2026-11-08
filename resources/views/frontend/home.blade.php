@@ -14,7 +14,8 @@
     
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative">
         <div class="grid lg:grid-cols-2 gap-12 items-center">
-            <div data-aos="fade-right">
+            {{-- Above the fold: no entrance animation, so the heading is visible and in place immediately (fixes mobile clipping, faster LCP). --}}
+            <div>
                 @if($hero->subtitle ?? false)
                     <span class="inline-flex items-center px-4 py-2 rounded-full bg-primary-500/10 text-primary-400 text-sm font-medium mb-6">
                         <span class="w-2 h-2 bg-primary-400 rounded-full me-2 animate-pulse"></span>
@@ -27,7 +28,7 @@
                     $heroTitleEscaped = e($heroTitle);
                     $heroTitleHighlighted = preg_replace('/([^\s]+)\s*$/u', '<span class="gradient-text">$1</span>', $heroTitleEscaped);
                 @endphp
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                <h1 class="text-[2rem] leading-snug sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white md:leading-tight mb-6 break-words">
                     {!! $heroTitleHighlighted !!}
                 </h1>
                 
@@ -49,7 +50,7 @@
                 </div>
             </div>
             
-            <div data-aos="fade-left" class="hidden lg:block">
+            <div class="hidden lg:block">
                 <div class="relative">
                     @if($hero->foreground_image_url ?? false)
                         <img src="{{ $hero->foreground_image_url }}" alt="{{ __('frontend.hero_image_alt') }}" class="relative z-10 animate-float">
