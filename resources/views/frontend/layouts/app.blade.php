@@ -123,7 +123,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="min-h-screen flex flex-col overflow-x-hidden">
+<body class="min-h-screen flex flex-col overflow-x-hidden has-mobile-bar">
     <!-- Navigation -->
     <nav class="glass-dark fixed top-0 left-0 right-0 z-50" x-data="{ open: false }">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -144,11 +144,11 @@
                         </div>
                     @endif
                     <span
-                        class="text-white font-bold text-base sm:text-xl truncate">{{ $settings->company_name ?? __('frontend.company_fallback') }}</span>
+                        class="text-white font-bold text-base sm:text-xl truncate lg:overflow-visible lg:whitespace-nowrap">{{ $settings->company_name ?? __('frontend.company_fallback') }}</span>
                 </a>
 
                 <!-- Desktop Navigation -->
-                <div class="hidden md:flex items-center gap-8">
+                <div class="hidden lg:flex items-center gap-6 xl:gap-8">
                     <a href="{{ route('home', ['locale' => app()->getLocale()]) }}"
                         class="text-white/80 hover:text-white transition-colors {{ request()->routeIs('home') ? 'text-white font-medium' : '' }}">{{ __('frontend.home') }}</a>
                     @if($visiblePages['about'] ?? true)
@@ -167,21 +167,24 @@
                         <a href="{{ route('blog', ['locale' => app()->getLocale()]) }}"
                             class="text-white/80 hover:text-white transition-colors {{ request()->routeIs('blog*') ? 'text-white font-medium' : '' }}">{{ __('frontend.blog') }}</a>
                     @endif
-                    @if($visiblePages['team'] ?? true)
-                        <a href="{{ route('team', ['locale' => app()->getLocale()]) }}"
-                            class="text-white/80 hover:text-white transition-colors {{ request()->routeIs('team') ? 'text-white font-medium' : '' }}">{{ __('frontend.team') }}</a>
-                    @endif
-                    @if($visiblePages['jobs'] ?? true)
-                        <a href="{{ route('jobs', ['locale' => app()->getLocale()]) }}"
-                            class="text-white/80 hover:text-white transition-colors {{ request()->routeIs('jobs') ? 'text-white font-medium' : '' }}">{{ __('frontend.jobs') }}</a>
-                    @endif
-                    @if($visiblePages['portfolio'] ?? true)
-                        <a href="{{ route('portfolio', ['locale' => app()->getLocale()]) }}"
-                            class="text-white/80 hover:text-white transition-colors {{ request()->routeIs('portfolio') ? 'text-white font-medium' : '' }}">{{ __('frontend.portfolio') }}</a>
-                    @endif
-                    @if($visiblePages['testimonials'] ?? true)
-                        <a href="{{ route('testimonials', ['locale' => app()->getLocale()]) }}"
-                            class="text-white/80 hover:text-white transition-colors {{ request()->routeIs('testimonials') ? 'text-white font-medium' : '' }}">{{ __('frontend.testimonials') }}</a>
+                    @php
+                        $morePages = collect(['team' => 'frontend.team', 'portfolio' => 'frontend.portfolio', 'testimonials' => 'frontend.testimonials', 'jobs' => 'frontend.jobs'])
+                            ->filter(fn ($label, $page) => $visiblePages[$page] ?? true);
+                    @endphp
+                    @if($morePages->isNotEmpty())
+                        <div class="relative" x-data="{ more: false }" @click.outside="more = false" @keydown.escape.window="more = false">
+                            <button type="button" @click="more = !more" :aria-expanded="more.toString()" aria-haspopup="menu"
+                                class="inline-flex items-center gap-1 text-white/80 hover:text-white transition-colors {{ request()->routeIs('team', 'portfolio*', 'testimonials', 'jobs') ? 'text-white font-medium' : '' }}">
+                                {{ __('frontend.more') }}
+                                <svg aria-hidden="true" class="w-4 h-4 transition-transform" :class="{ 'rotate-180': more }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            </button>
+                            <div x-cloak x-show="more" x-transition.origin.top class="nav-theme-menu nav-more-menu" role="menu">
+                                @foreach($morePages as $page => $label)
+                                    <a href="{{ route($page, ['locale' => app()->getLocale()]) }}" role="menuitem"
+                                        class="nav-theme-option {{ request()->routeIs($page . '*') ? 'is-active' : '' }}">{{ __($label) }}</a>
+                                @endforeach
+                            </div>
+                        </div>
                     @endif
                     @if($visiblePages['contact'] ?? true)
                         <a href="{{ route('contact', ['locale' => app()->getLocale()]) }}"
@@ -190,7 +193,7 @@
                 </div>
 
                 <!-- Language Switcher + Theme Selector -->
-                <div class="hidden md:flex items-center gap-2.5 flex-shrink-0">
+                <div class="hidden lg:flex items-center gap-2.5 flex-shrink-0">
                     <div class="nav-control-shell" role="group" aria-label="Language switcher">
                         <button onclick="switchLocale('en')"
                                 class="nav-pill-button {{ app()->getLocale() === 'en' ? 'is-active' : '' }}">
@@ -245,7 +248,7 @@
                 </div>
 
                 <!-- Mobile Language Switcher (theme choice lives in the mobile menu to leave room for the company name) -->
-                <div class="md:hidden ms-auto me-1 flex items-center gap-1 flex-shrink-0">
+                <div class="lg:hidden ms-auto me-1 flex items-center gap-1 flex-shrink-0">
                     <div class="nav-control-shell p-0.5 rounded-lg" role="group" aria-label="Language switcher">
                         <button onclick="switchLocale('en')"
                                 class="nav-pill-button text-xs px-2 py-1 {{ app()->getLocale() === 'en' ? 'is-active' : '' }}">
@@ -259,7 +262,7 @@
                 </div>
 
                 <!-- Mobile Menu Button -->
-                <button @click="open = !open" class="md:hidden p-2 text-white flex-shrink-0"
+                <button @click="open = !open" class="lg:hidden p-2 text-white flex-shrink-0"
                         :aria-expanded="open.toString()" aria-controls="mobile-menu" aria-label="{{ __('frontend.menu') }}">
                     <svg aria-hidden="true" x-show="!open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -273,7 +276,7 @@
             </div>
 
             <!-- Mobile Navigation -->
-            <div id="mobile-menu" x-show="open" x-transition class="md:hidden pb-4">
+            <div id="mobile-menu" x-show="open" x-transition class="lg:hidden pb-4">
                 <div class="flex flex-col gap-2">
                     <a href="{{ route('home', ['locale' => app()->getLocale()]) }}"
                         class="px-4 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/5 transition-colors">{{ __('frontend.home') }}</a>
@@ -485,11 +488,26 @@
     @if($floatingWhatsappUrl)
         <a href="{{ $floatingWhatsappUrl }}?text={{ rawurlencode(__('frontend.whatsapp_general_message')) }}" target="_blank" rel="noopener noreferrer"
             id="floating-whatsapp" data-track="whatsapp_click" aria-label="{{ __('frontend.chat_on_whatsapp') }}"
-            class="fixed bottom-5 end-5 z-40 w-14 h-14 rounded-full flex items-center justify-center text-white shadow-lg hover:scale-105 transition-transform"
+            class="hidden md:flex fixed bottom-5 end-5 z-40 w-14 h-14 rounded-full items-center justify-center text-white shadow-lg hover:scale-105 transition-transform"
             style="background:#25D366;box-shadow:0 8px 24px rgb(37 211 102 / .35)">
             <svg aria-hidden="true" class="w-7 h-7" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 8.01 0C3.65 0 .095 3.55.094 7.91c0 1.394.365 2.753 1.058 3.95L0 16l4.203-1.102a7.938 7.938 0 0 0 3.806.98h.003c4.36 0 7.916-3.55 7.917-7.91a7.85 7.85 0 0 0-2.328-5.642ZM8.013 14.6h-.003a6.65 6.65 0 0 1-3.394-.93l-.243-.145-2.493.654.666-2.433-.158-.25a6.61 6.61 0 0 1-1.013-3.542c.002-3.655 2.98-6.63 6.64-6.63a6.6 6.6 0 0 1 4.715 1.958 6.6 6.6 0 0 1 1.944 4.72c-.001 3.656-2.98 6.63-6.64 6.63Z"/><path d="M11.67 9.756c-.2-.1-1.173-.578-1.354-.644-.18-.067-.312-.1-.444.1-.132.2-.51.644-.625.778-.115.133-.23.15-.428.05-.2-.1-.842-.31-1.603-.987-.592-.527-.992-1.178-1.108-1.378-.115-.2-.012-.307.087-.406.09-.09.2-.233.297-.35.1-.116.133-.2.2-.333.066-.133.033-.25-.017-.35-.05-.1-.444-1.066-.608-1.46-.16-.383-.323-.33-.444-.336l-.378-.006c-.133 0-.35.05-.534.25s-.7.683-.7 1.666.716 1.934.816 2.067c.1.133 1.41 2.15 3.416 3.015.477.206.85.329 1.14.42.479.152.915.13 1.26.079.384-.058 1.173-.478 1.338-.939.166-.462.166-.856.116-.939-.05-.083-.182-.133-.38-.233Z"/></svg>
         </a>
     @endif
+    <nav class="mobile-contact-bar" aria-label="{{ __('frontend.quick_contact') }}">
+        @if($settings->phone ?? false)
+            <a href="{{ \App\Support\PhoneNumber::telUrl($settings->phone) }}">
+                <svg aria-hidden="true" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                {{ __('frontend.call_us') }}
+            </a>
+        @endif
+        @if($floatingWhatsappUrl)
+            <a href="{{ $floatingWhatsappUrl }}?text={{ rawurlencode(__('frontend.whatsapp_general_message')) }}" target="_blank" rel="noopener noreferrer" class="is-whatsapp" data-track="mobile_bar">
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 8.01 0C3.65 0 .095 3.55.094 7.91c0 1.394.365 2.753 1.058 3.95L0 16l4.203-1.102a7.938 7.938 0 0 0 3.806.98h.003c4.36 0 7.916-3.55 7.917-7.91a7.85 7.85 0 0 0-2.328-5.642Z"/></svg>
+                {{ __('frontend.whatsapp') }}
+            </a>
+        @endif
+        <a href="{{ route('demo', ['locale' => app()->getLocale()]) }}" class="gradient-primary">{{ __('frontend.demo_short') }}</a>
+    </nav>
     <style>
         [x-cloak] {
             display: none !important;

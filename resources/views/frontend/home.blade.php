@@ -97,6 +97,8 @@
 </section>
 @endif
 
+@include('frontend.partials.how_we_work')
+
 <!-- Products Preview (appears once products are published from the dashboard) -->
 @if($products->count() > 0)
 <section class="py-24 relative">
