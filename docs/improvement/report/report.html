@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>تقرير إنجاز تحسين موقع البسيط سوفت</title>
+<style>
+  @page { size: A4; margin: 0; }
+  :root {
+    --navy: #1e4e8c; --navy-soft: #f3f5fa; --red: #c8232c; --red-soft: #fbeef0;
+    --ink: #2f333b; --muted: #6b7280; --line: #e3e7ef; --green: #1f7a4d; --green-soft: #e7f5ee;
+    --amber: #b45309; --amber-soft: #fdf3e2; --blue: #2459a6; --blue-soft: #e8effa;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #fff; }
+  body { font-family: "Segoe UI", Tahoma, Arial, sans-serif; color: var(--ink); font-size: 10.2pt; line-height: 1.75; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page { width: 210mm; height: 297mm; position: relative; overflow: hidden; page-break-after: always; padding: 20mm 17mm 18mm; }
+  .page:last-child { page-break-after: auto; }
+
+  /* ---------- Cover ---------- */
+  .cover { padding: 0; text-align: center; }
+  .cover .bar-navy { position: absolute; top: 0; left: 0; width: 58%; height: 7mm; background: var(--navy); z-index: 2; }
+  .cover .bar-red { position: absolute; top: 0; right: 0; width: 42%; height: 7mm; background: var(--red); z-index: 2; }
+  .cover .circle-a { position: absolute; top: -40mm; right: -40mm; width: 100mm; height: 100mm; border-radius: 50%; background: var(--navy-soft); }
+  .cover .circle-b { position: absolute; bottom: -40mm; left: -35mm; width: 70mm; height: 70mm; border-radius: 50%; background: var(--red-soft); }
+  .cover .inner { position: relative; padding: 36mm 30mm 0; }
+  .cover img.logo { width: 34mm; height: 34mm; object-fit: contain; }
+  .cover .company { color: #a5141d; font-weight: 600; font-size: 11.5pt; margin-top: 12mm; }
+  .cover .pill { display: inline-block; margin-top: 4mm; border: 1px solid #d5d9e2; border-radius: 999px; padding: 1mm 5mm; font-size: 8.8pt; color: #4b5563; }
+  .cover h1 { color: var(--navy); font-size: 28pt; line-height: 1.45; font-weight: 700; margin-top: 11mm; }
+  .cover .sub { color: #4b5563; font-size: 11.2pt; margin: 6mm auto 0; max-width: 140mm; }
+  .cover .rule { width: 80mm; height: 1.2mm; border-radius: 1mm; margin: 10mm auto 0; background: linear-gradient(90deg, var(--red), var(--navy)); }
+  .cover table.meta { width: 138mm; margin: 10mm auto 0; border-collapse: collapse; font-size: 10.4pt; }
+  .cover table.meta td { padding: 2.1mm 4mm; border-bottom: 1px solid var(--line); text-align: right; }
+  .cover table.meta tr:nth-child(even) td { background: var(--navy-soft); }
+  .cover table.meta td.k { color: var(--navy); font-weight: 700; width: 46mm; }
+  .cover .note { position: absolute; bottom: 14mm; left: 0; right: 0; font-size: 8.4pt; color: var(--muted); }
+  .cover .note b { color: var(--navy); }
+
+  /* ---------- Inner pages ---------- */
+  .hdr { display: flex; justify-content: space-between; align-items: flex-end; font-size: 8.8pt; color: #7b8190; margin-bottom: 9mm; }
+  .hdr .title { color: var(--navy); padding-bottom: 1.4mm; border-bottom: 2px solid var(--navy); }
+  .foot { position: absolute; bottom: 9mm; left: 17mm; right: 17mm; border-top: 1px solid var(--line); padding-top: 3mm; text-align: center; font-size: 8.6pt; color: #8a90a0; }
+
+  .sec { display: flex; justify-content: space-between; align-items: center; margin: 2mm 0 4mm; }
+  .sec h2 { display: flex; align-items: center; gap: 3mm; color: var(--navy); font-size: 15pt; font-weight: 700; }
+  .sec h2 .num { display: inline-flex; align-items: center; justify-content: center; width: 7.5mm; height: 7.5mm; border-radius: 1.6mm; background: var(--navy); color: #fff; font-size: 10.5pt; }
+  .sec .tag { color: var(--red); font-weight: 600; font-size: 8.6pt; }
+  p.lead { text-align: justify; margin-bottom: 4mm; font-size: 9.8pt; line-height: 1.7; }
+  b.hl { color: var(--ink); }
+
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3.5mm; margin-bottom: 4mm; }
+  .stat { border: 1px solid var(--line); border-radius: 2.5mm; padding: 2.2mm 2mm; text-align: center; background: #fbfcfe; }
+  .stat .n { color: var(--red); font-weight: 700; font-size: 15pt; line-height: 1.3; }
+  .stat .n.green { color: var(--green); }
+  .stat .l { font-size: 8.2pt; color: #5b6170; line-height: 1.45; }
+
+  table.grid { width: 100%; border-collapse: collapse; font-size: 8.5pt; line-height: 1.5; }
+  table.grid th { background: var(--navy-soft); color: var(--navy); font-weight: 700; text-align: right; padding: 1.6mm 2.2mm; border: 1px solid var(--line); }
+  table.grid td { padding: 1.35mm 2.2mm; border: 1px solid var(--line); vertical-align: top; }
+  table.grid td.n { width: 6mm; text-align: center; color: #8a90a0; }
+  table.grid td.axis { color: var(--navy); font-weight: 600; width: 24mm; }
+  table.grid td.st { width: 23mm; text-align: center; vertical-align: middle; }
+  table.grid tr.cat td { background: var(--red-soft); color: #8f1a21; font-weight: 700; padding: 0.9mm 2.2mm; }
+  .pill { display: inline-block; border-radius: 999px; padding: 0.2mm 2.6mm; font-size: 7.8pt; font-weight: 600; white-space: nowrap; }
+  .pill.done { background: var(--green-soft); color: var(--green); }
+  .pill.server { background: var(--amber-soft); color: var(--amber); }
+  .pill.content { background: var(--blue-soft); color: var(--blue); }
+
+  .phase { border: 1px solid var(--line); border-radius: 3mm; background: #fbfcfe; padding: 3.5mm 5mm 4mm; margin-bottom: 4.2mm; }
+  .phase .ph { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2.2mm; }
+  .phase h3 { color: var(--navy); font-size: 11.6pt; font-weight: 700; }
+  .phase .badge { background: var(--red); color: #fff; border-radius: 999px; padding: 0.3mm 3.5mm; font-size: 8pt; font-weight: 600; }
+  .phase .badge.g { background: var(--green); }
+  .phase ul { columns: 2; column-gap: 9mm; list-style: none; font-size: 9pt; line-height: 1.6; }
+  .phase li { break-inside: avoid; padding-right: 4mm; position: relative; margin-bottom: 1.4mm; }
+  .phase li::before { content: ""; position: absolute; right: 0; top: 2.2mm; width: 1.6mm; height: 1.6mm; border-radius: 0.3mm; background: var(--red); }
+  .phase li b { color: var(--navy); }
+
+  h4.mini { display: flex; align-items: center; gap: 2mm; color: var(--navy); font-size: 11.2pt; margin: 5mm 0 2.5mm; }
+  h4.mini::before { content: ""; width: 2mm; height: 2mm; border-radius: 0.5mm; background: var(--red); }
+  table.wide td.axis { width: 44mm; }
+  table.wide td, table.wide th { padding-top: 1.2mm; padding-bottom: 1.2mm; }
+  td.good { color: var(--green); font-weight: 700; }
+  td.before { color: #8f1a21; }
+
+  .callout { border-right: 1.4mm solid var(--navy); background: var(--navy-soft); border-radius: 1.5mm; padding: 3.2mm 4.5mm; font-size: 9pt; line-height: 1.7; margin-top: 5mm; }
+  .callout b { color: var(--navy); }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
+  .box { border: 1px solid var(--line); border-radius: 3mm; padding: 3.5mm 4.5mm; }
+  .box h5 { color: var(--navy); font-size: 10.4pt; margin-bottom: 1.8mm; }
+  .box ol, .box ul { padding-right: 4.5mm; font-size: 8.9pt; line-height: 1.65; }
+  .box li { margin-bottom: 0.8mm; }
+  .ltr { direction: ltr; unicode-bidi: embed; font-family: Consolas, "Segoe UI", monospace; font-size: 0.92em; }
+</style>
+</head>
+<body>
+
+<!-- ============================ Page 1: Cover ============================ -->
+<section class="page cover">
+  <div class="bar-navy"></div><div class="bar-red"></div>
+  <div class="circle-a"></div>
+  <div class="circle-b"></div>
+  <div class="inner">
+    <img class="logo" src="img_p1_7.png" alt="Albaseet Soft">
+    <div class="company">شركة البسيط سوفت (Al Baseet Soft)</div>
+    <div class="pill">تقرير إنجاز · نوفمبر 2026</div>
+    <h1>تقرير إنجاز خطة تحسين<br>الموقع الإلكتروني</h1>
+    <p class="sub">ما تم تنفيذه على موقع albaseetsoft-ye.com وفق خطة التحسين المرحلية: الإصلاحات السريعة، والسرعة وتجربة الجوال، والمحتوى وتحويل الزوار إلى عملاء</p>
+    <div class="rule"></div>
+    <table class="meta">
+      <tr><td class="k">الطالب</td><td>عبدالسلام عارف سلطان</td></tr>
+      <tr><td class="k">الأستاذ المشرف</td><td>الأستاذ إدريس الشباطي</td></tr>
+      <tr><td class="k">الجهة</td><td>شركة البسيط سوفت — صنعاء، الجمهورية اليمنية</td></tr>
+      <tr><td class="k">المستودع / الفرع</td><td><span class="ltr">i0midris/profile</span> — فرع <span class="ltr">abdalsalam</span></td></tr>
+      <tr><td class="k">المرجع</td><td>تقرير فحص الموقع وخطة تحسينه — 7 نوفمبر 2026</td></tr>
+      <tr><td class="k">تاريخ التقرير</td><td>8 نوفمبر 2026</td></tr>
+    </table>
+  </div>
+  <div class="note">وثيقة داخلية تُقدَّم إلى <b>الأستاذ المشرف وإدارة الشركة</b> — كل بند مسجَّل في commit مستقل على الفرع، ومُختبَر آلياً وفي المتصفح.</div>
+</section>
+
+<!-- ============================ Page 2: Summary ============================ -->
+<section class="page">
+  <div class="hdr"><span class="title">تقرير إنجاز خطة تحسين الموقع — نوفمبر 2026</span><span>شركة البسيط سوفت</span></div>
+
+  <div class="sec"><h2><span class="num">1</span> ملخص الإنجاز</h2><span class="tag">ما الذي تغيّر</span></div>
+  <p class="lead">نُفّذت الخطة بمراحلها الثلاث على فرع مستقل (<span class="ltr">abdalsalam</span>)، خطوةً خطوة، ولكل خطوة commit يحمل رقمها. عولجت <b class="hl">الملاحظات الاثنتا عشرة</b> كلها في الكود، وبُنيت أقسام المحتوى الجديدة في الموقع ولوحة التحكم. <b class="hl">لم يُضف أي محتوى أو رقم مخترع</b>: الأقسام الجديدة تظهر تلقائياً عند نشر محتوى حقيقي، وبعض البنود يكتمل أثرها بعد النشر (القسم 4).</p>
+
+  <div class="stats">
+    <div class="stat"><div class="n green">21 / 21</div><div class="l">بنداً من الخطة نُفِّذ<br>في الكود</div></div>
+    <div class="stat"><div class="n green">12 / 12</div><div class="l">ملاحظة من تقرير الفحص<br>عولجت</div></div>
+    <div class="stat"><div class="n">53</div><div class="l">اختباراً آلياً ناجحاً<br>(كان 2 فقط)</div></div>
+    <div class="stat"><div class="n">25</div><div class="l">commit على الفرع<br>114 ملفاً تغيّر</div></div>
+  </div>
+
+  <table class="grid">
+    <tr><th>#</th><th>المحور</th><th>الملاحظة في تقرير الفحص ← ما تم</th><th>الحالة</th></tr>
+    <tr class="cat"><td colspan="4">الأداء والسرعة</td></tr>
+    <tr><td class="n">1</td><td class="axis">بطء الخادم</td><td>الصفحات تُخزَّن جاهزة وبلا جلسات ولا Cookies، وسكربت نشر ودليل للخادم (OPcache، Cloudflare).</td><td class="st"><span class="pill server">يكتمل على الخادم</span></td></tr>
+    <tr><td class="n">2</td><td class="axis">سكربت مكرر</td><td>سكربت Ahrefs يُحمَّل مرة واحدة بدل مرتين.</td><td class="st"><span class="pill done">تم</span></td></tr>
+    <tr class="cat"><td colspan="4">الواجهة والجوال</td></tr>
+    <tr><td class="n">3</td><td class="axis">قص العنوان</td><td>العنوان على شاشة 375px صار داخلها (كان يمتد إلى 459px)، واسم الشركة يظهر كاملاً.</td><td class="st"><span class="pill done">تم</span></td></tr>
+    <tr><td class="n">4</td><td class="axis">المحتوى المخفي</td><td>36 كتلة ظاهرة دون انتظار JavaScript، والعدادات بقيمها الحقيقية بدل «0+».</td><td class="st"><span class="pill done">تم</span></td></tr>
+    <tr><td class="n">5</td><td class="axis">تفاصيل التصميم</td><td>تباين كل النصوص <bdi dir="ltr">≥ 4.5:1</bdi> في الوضعين، وشارة «مميز» على خدمة واحدة، وحذف «اتصل بنا» المكرر.</td><td class="st"><span class="pill done">تم</span></td></tr>
+    <tr class="cat"><td colspan="4">المحتوى والمصداقية</td></tr>
+    <tr><td class="n">6</td><td class="axis">أرقام متعارضة</td><td>عدد العملاء والخبرة من مصدر واحد في لوحة التحكم، وحُذفت كل الأرقام الوهمية من اللوحة الزخرفية.</td><td class="st"><span class="pill done">تم</span></td></tr>
+    <tr><td class="n">7</td><td class="axis">غياب الإثبات</td><td>صفحات المنتجات ودراسات الحالة وشعارات العملاء والفريق جاهزة في لوحة التحكم.</td><td class="st"><span class="pill content">بانتظار المحتوى</span></td></tr>
+    <tr><td class="n">8</td><td class="axis">وعد غير دقيق</td><td>الزر صار «اطلب عرضاً تجريبياً» ويفتح نموذج طلب عرض حقيقياً.</td><td class="st"><span class="pill done">تم</span></td></tr>
+    <tr class="cat"><td colspan="4">التواصل</td></tr>
+    <tr><td class="n">9</td><td class="axis">رابط واتساب</td><td>الرابط يعمل، والهاتف قابل للنقر، وزر واتساب عائم، والخريطة وساعات العمل.</td><td class="st"><span class="pill done">تم</span></td></tr>
+    <tr><td class="n">10</td><td class="axis">نموذج التواصل</td><td>مثال هاتف يمني، والهاتف <b>أو</b> البريد يكفي، ونموذج «طلب عرض» جديد.</td><td class="st"><span class="pill done">تم</span></td></tr>
+    <tr class="cat"><td colspan="4">محركات البحث (SEO) والأمان</td></tr>
+    <tr><td class="n">11</td><td class="axis">SEO تقني</td><td>عناوين ووصف لكل صفحة، وog:image، وhreflang، وSitemap وrobots.txt، وتحويل www.</td><td class="st"><span class="pill done">تم</span></td></tr>
+    <tr><td class="n">12</td><td class="axis">ترويسات الأمان</td><td>CSP وX-Frame-Options وX-Content-Type-Options وReferrer-Policy، وصور WebP، ووصف للأزرار.</td><td class="st"><span class="pill done">تم</span></td></tr>
+  </table>
+
+  <div class="foot">صفحة 2 من 5</div>
+</section>
+
+<!-- ============================ Page 3: Phases ============================ -->
+<section class="page">
+  <div class="hdr"><span class="title">تقرير إنجاز خطة تحسين الموقع — نوفمبر 2026</span><span>شركة البسيط سوفت</span></div>
+
+  <div class="sec"><h2><span class="num">2</span> ما نُفِّذ في كل مرحلة</h2><span class="tag">حسب ترتيب الخطة</span></div>
+  <p class="lead">اتُّبع ترتيب الخطة نفسه: الإصلاحات الظاهرة للزائر أولاً، ثم السرعة وتجربة الجوال، ثم بناء المحتوى الذي يحوّل الزائر إلى عميل. الأرقام بين الأقواس هي أرقام البنود في سجل الإنجاز <span class="ltr">docs/improvement/PROGRESS.md</span>.</p>
+
+  <div class="phase">
+    <div class="ph"><h3>المرحلة الأولى: إصلاحات سريعة</h3><span class="badge g">مكتملة · 8 بنود</span></div>
+    <ul>
+      <li><b>(1.1)</b> تصحيح رابط واتساب، وهاتف قابل للنقر، وصيغة موحّدة <span class="ltr">+967</span> في الموقع وSchema.</li>
+      <li><b>(1.2)</b> تحميل سكربت Ahrefs مرة واحدة.</li>
+      <li><b>(1.3)</b> حذف «اتصل بنا» المكرر من التذييل.</li>
+      <li><b>(1.4)</b> توحيد عدد العملاء وحذف الأرقام الوهمية (1,248 تهديداً، 3 ثغرات، 99.9%…).</li>
+      <li><b>(1.5)</b> مثال هاتف يمني، والهاتف أو البريد يكفي لإرسال النموذج.</li>
+      <li><b>(1.6)</b> «اطلب عرضاً تجريبياً» بدل «ابدأ الآن مجاناً»، و«مميز» على خدمة واحدة.</li>
+      <li><b>(1.7)</b> صورة مشاركة og:image، وعناوين ووصف لكل صفحة، وhreflang، وتواريخ Sitemap.</li>
+      <li><b>(1.8)</b> robots.txt يشير للـ Sitemap، وتحويل www (301)، وترويسات الأمان.</li>
+    </ul>
+  </div>
+
+  <div class="phase">
+    <div class="ph"><h3>المرحلة الثانية: السرعة وتجربة الجوال</h3><span class="badge g">مكتملة · 6 بنود</span></div>
+    <ul>
+      <li><b>(2.1)</b> تخزين الصفحات الجاهزة، وصفحات العرض بلا جلسات ولا Cookies، وتحديث تلقائي عند أي تعديل.</li>
+      <li><b>(2.2)</b> سكربت نشر بأمر واحد، ودليل إعداد الخادم (OPcache، Cloudflare، الجلسات).</li>
+      <li><b>(2.3)</b> إصلاح قص العنوان على الجوال، وإظهار اسم الشركة كاملاً.</li>
+      <li><b>(2.4)</b> رفع تباين النصوص في الوضعين النهاري والليلي إلى معيار WCAG AA.</li>
+      <li><b>(2.5)</b> المحتوى ظاهر افتراضياً، والحركات تجميلية فقط، وقيم العدادات في HTML.</li>
+      <li><b>(2.6)</b> تحويل الصور المرفوعة إلى WebP تلقائياً، وتحميل كسول، ووصف نصي للأزرار والأيقونات.</li>
+    </ul>
+  </div>
+
+  <div class="phase">
+    <div class="ph"><h3>المرحلة الثالثة: المحتوى وتحويل الزوار إلى عملاء</h3><span class="badge g">البناء مكتمل · 7 بنود</span></div>
+    <ul>
+      <li><b>(3.1)</b> صفحة لكل منتج: المزايا والقطاعات ولقطات الشاشة وزرا العرض وواتساب.</li>
+      <li><b>(3.2)</b> دراسات حالة (التحدي، الحل، النتائج)، وشريط شعارات العملاء «يثق بنا».</li>
+      <li><b>(3.3)</b> قسم الفريق: إصلاح رابط يؤدي لخطأ 404، وحرف عربي مكسور في 10 مواضع.</li>
+      <li><b>(3.4)</b> نموذج «اطلب عرضاً تجريبياً»، وزر واتساب عائم، والخريطة وساعات العمل.</li>
+      <li><b>(3.5)</b> الأسئلة الشائعة مع بيانات FAQ تظهر في نتائج Google.</li>
+      <li><b>(3.6)</b> مدونة بمقالات Markdown آمنة، وجدولة النشر، وكل مقال في الـ Sitemap.</li>
+      <li><b>(3.7)</b> ربط Search Console وGoogle Analytics، وقياس الطلبات ونقرات واتساب والهاتف.</li>
+    </ul>
+  </div>
+
+  <div class="callout"><b>لوحة التحكم:</b> كل ما بُني في المرحلة الثالثة يُدار من لوحة التحكم دون أي تعديل في الكود: أقسام جديدة للمنتجات، وشعارات العملاء، والأسئلة الشائعة، والمدونة، وطلبات العرض التجريبي (مع عداد للطلبات الجديدة)، وبطاقة «العملاء المحتملون هذا الشهر» في الرئيسية للوحة.</div>
+
+  <div class="foot">صفحة 3 من 5</div>
+</section>
+
+<!-- ============================ Page 4: Measurements ============================ -->
+<section class="page">
+  <div class="hdr"><span class="title">تقرير إنجاز خطة تحسين الموقع — نوفمبر 2026</span><span>شركة البسيط سوفت</span></div>
+
+  <div class="sec"><h2><span class="num">3</span> القياس والتحقق</h2><span class="tag">قبل وبعد</span></div>
+  <p class="lead">القياسات التالية أُخذت على نسخة الفرع في بيئة التطوير، بنفس البيانات الظاهرة في الموقع المنشور. مؤشرات الخادم (زمن الاستجابة TTFB وتقييم Lighthouse) تُقاس على الموقع المنشور بعد الدمج وتطبيق إعدادات الخادم.</p>
+
+  <table class="grid wide">
+    <tr><th>المقياس</th><th>قبل</th><th>بعد</th><th>طريقة التحقق</th></tr>
+    <tr><td class="axis">رابط واتساب</td><td class="before">لا يعمل (<span class="ltr">00967…</span>)</td><td class="good">يعمل (<span class="ltr">967…</span>)</td><td>اختبار آلي لخمس صيغ أرقام</td></tr>
+    <tr><td class="axis">مرات تحميل Ahrefs</td><td class="before">2</td><td class="good">1</td><td>فحص HTML الصفحة</td></tr>
+    <tr><td class="axis">أرقام وهمية في الواجهة</td><td class="before">11 رقماً</td><td class="good">0</td><td>بحث في الشيفرة</td></tr>
+    <tr><td class="axis">امتداد العنوان (شاشة 375px)</td><td class="before">إلى <bdi dir="ltr">459px</bdi> (مقصوص)</td><td class="good"><bdi dir="ltr">16 – 359px</bdi></td><td>قياس في المتصفح</td></tr>
+    <tr><td class="axis">اسم الشركة على الجوال</td><td class="before">46 من 106px ظاهر</td><td class="good">كامل</td><td>قياس في المتصفح</td></tr>
+    <tr><td class="axis">أقل تباين للنص</td><td class="before"><bdi dir="ltr">2.7 : 1</bdi></td><td class="good"><bdi dir="ltr">≥ 4.5 : 1</bdi></td><td>قياس كل نص في 4 صفحات × وضعين</td></tr>
+    <tr><td class="axis">Cookies لكل زيارة (صفحات العرض)</td><td class="before">2 + سطر في قاعدة البيانات</td><td class="good">0</td><td>اختبار آلي</td></tr>
+    <tr><td class="axis">زمن بناء الرئيسية (محلياً)</td><td class="before">0.87 ث</td><td class="good">0.60 ث</td><td>curl، والباقي زمن تشغيل PHP بلا OPcache</td></tr>
+    <tr><td class="axis">ترويسات الأمان</td><td class="before">HSTS فقط</td><td class="good">+5 ترويسات</td><td>اختبار آلي وفحص المتصفح</td></tr>
+    <tr><td class="axis">أزرار وروابط بلا وصف</td><td class="before">روابط التواصل الاجتماعي</td><td class="good">0</td><td>فحص 4 صفحات</td></tr>
+    <tr><td class="axis">الاختبارات الآلية</td><td class="before">2</td><td class="good">53 (263 تحققاً)</td><td><span class="ltr">phpunit</span></td></tr>
+  </table>
+
+  <h4 class="mini">مؤشرات قياس النجاح (من خطة التحسين)</h4>
+  <table class="grid wide">
+    <tr><th>المؤشر</th><th>الوضع قبل البدء</th><th>المستهدف</th><th>بعد التنفيذ</th></tr>
+    <tr><td class="axis">زمن استجابة الخادم (TTFB)</td><td>2.4 – 9 ث</td><td class="good">أقل من 0.8 ث</td><td><span class="pill server">بعد تطبيق إعدادات الخادم</span></td></tr>
+    <tr><td class="axis">زمن ظهور المحتوى (LCP)</td><td>بطيء</td><td class="good">أقل من 2.5 ث</td><td>المحتوى ظاهر دون انتظار JS، وصورة الواجهة بأولوية عالية <span class="pill server">يُقاس بعد النشر</span></td></tr>
+    <tr><td class="axis">تقييم Lighthouse</td><td>يُقاس قبل البدء</td><td class="good">90 فأكثر</td><td><span class="pill server">يُقاس بعد النشر</span></td></tr>
+    <tr><td class="axis">صفحات الموقع (عربي + إنجليزي)</td><td>8 صفحات</td><td class="good">25 صفحة فأكثر</td><td>الأقسام جاهزة: كل منتج ومقال ودراسة حالة صفحة جديدة بلغتين <span class="pill content">بانتظار المحتوى</span></td></tr>
+    <tr><td class="axis">طلبات التواصل والعروض</td><td>غير مقاسة</td><td class="good">تتبّع شهري</td><td>تُعدّ في لوحة التحكم وتُرسل لـ Analytics <span class="pill done">جاهز</span></td></tr>
+  </table>
+
+  <div class="foot">صفحة 4 من 5</div>
+</section>
+
+<!-- ============================ Page 5: Remaining ============================ -->
+<section class="page">
+  <div class="hdr"><span class="title">تقرير إنجاز خطة تحسين الموقع — نوفمبر 2026</span><span>شركة البسيط سوفت</span></div>
+
+  <div class="sec"><h2><span class="num">4</span> المطلوب لإكمال الأثر</h2><span class="tag">خطوات ما بعد التنفيذ</span></div>
+  <p class="lead">الكود جاهز على الفرع. يكتمل أثره على الزوار ومحركات البحث بثلاثة أمور: الدمج والنشر، وإعدادات الخادم، والمحتوى الحقيقي من الشركة.</p>
+
+  <div class="two">
+    <div class="box">
+      <h5>أولاً: الدمج والنشر (الأستاذ المشرف)</h5>
+      <ol>
+        <li>مراجعة الفرع <span class="ltr">abdalsalam</span> (كل بند في commit مستقل يبدأ برقمه).</li>
+        <li>الدمج في <span class="ltr">main</span> ثم تشغيل <span class="ltr">bash scripts/deploy.sh</span> على الخادم (يشمل migrate وتحويل الصور وoptimize).</li>
+        <li>ضبط <span class="ltr">.env</span> للإنتاج: <span class="ltr">CACHE_STORE=file</span> و<span class="ltr">SESSION_DRIVER=file</span> و<span class="ltr">APP_DEBUG=false</span>.</li>
+        <li>تفعيل OPcache، وربط Cloudflare بقواعد التخزين الجاهزة.</li>
+        <li>إعداد SMTP لتصل إشعارات الطلبات بالبريد.</li>
+      </ol>
+    </div>
+    <div class="box">
+      <h5>ثانياً: المحتوى (إدارة الشركة)</h5>
+      <ul>
+        <li>العدد الحقيقي للعملاء وسنوات الخبرة.</li>
+        <li>لكل منتج: الوصف والمزايا والقطاعات ولقطات الشاشة.</li>
+        <li>شعارات عملاء موافقين على العرض، ودراسات حالة، وآراء حقيقية.</li>
+        <li>صور الفريق وأسماؤهم ومسمياتهم.</li>
+        <li>العنوان التفصيلي ورابط الخريطة وساعات العمل.</li>
+        <li>ملف الشعار الأصلي بصيغة SVG أو AI.</li>
+        <li>أسئلة شائعة ومقالات أولى للمدونة.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="two" style="margin-top:4mm">
+    <div class="box">
+      <h5>ثالثاً: Google</h5>
+      <ul>
+        <li>إضافة رمز Search Console ومعرّف Analytics من لوحة التحكم ← الإعدادات ← أدوات Google.</li>
+        <li>إرسال <span class="ltr">sitemap.xml</span> من Search Console.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h5>رابعاً: القياس النهائي (البند 4.1)</h5>
+      <ul>
+        <li>قياس TTFB وPageSpeed Insights للجوال والحاسوب بعد النشر.</li>
+        <li>مقارنتها بالمستهدف، ومتابعة الطلبات شهرياً من لوحة التحكم وAnalytics.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h4 class="mini">الوثائق المرفقة في المستودع</h4>
+  <table class="grid">
+    <tr><th>الملف</th><th>المحتوى</th></tr>
+    <tr><td class="ltr">docs/improvement/PLAN.md</td><td>الخطة المرقمة لكل البنود، وقائمة «مطلوب من الشركة».</td></tr>
+    <tr><td class="ltr">docs/improvement/PROGRESS.md</td><td>سجل الإنجاز: ما تغيّر في كل بند، وملفاته، ورقم الـ commit.</td></tr>
+    <tr><td class="ltr">docs/improvement/DEPLOYMENT.md</td><td>دليل النشر وإعدادات الخادم (OPcache، Cloudflare، الصور، Google).</td></tr>
+    <tr><td class="ltr">scripts/deploy.sh</td><td>سكربت النشر بأمر واحد.</td></tr>
+  </table>
+
+  <div class="callout"><b>منهجية التنفيذ والتحقق:</b> نُفّذ كل بند على فرع مستقل دون المساس بـ <span class="ltr">main</span>. بعد كل بند شُغّل الموقع محلياً وفُحص في المتصفح بالعربية والإنجليزية، على مقاسي الحاسوب والجوال، وبالوضعين الليلي والنهاري، وأُضيفت له اختبارات آلية. الأقسام الجديدة جُرّبت بمحتوى مؤقت حُذف بعد المعاينة. لم تُجرَ اختبارات اختراق، ولم تُقس مؤشرات الخادم على الموقع المنشور لأن التعديلات لم تُنشر بعد.</div>
+
+  <div class="foot">صفحة 5 من 5</div>
+</section>
+
+</body>
+</html>
