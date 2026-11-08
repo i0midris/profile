@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\Concerns\HandlesLocalizedInput;
 use App\Http\Controllers\Controller;
+use App\Support\ImageUploader;
 use App\Models\CompanySetting;
 use App\Models\TeamMember;
 use Illuminate\Http\Request;
@@ -38,7 +39,7 @@ class TeamMemberController extends Controller
             'bio' => 'nullable|string',
             'bio_en' => 'nullable|string',
             'bio_ar' => 'nullable|string',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'email' => 'nullable|email|max:255',
             'phone' => 'nullable|string|max:50',
             'facebook' => 'nullable|url|max:255',
@@ -56,7 +57,7 @@ class TeamMemberController extends Controller
         ]);
 
         if ($request->hasFile('photo')) {
-            $validated['photo'] = $request->file('photo')->store('team', 'public');
+            $validated['photo'] = ImageUploader::store($request->file('photo'), 'team', 800);
         }
 
         $validated['is_active'] = $request->boolean('is_active', true);
@@ -83,7 +84,7 @@ class TeamMemberController extends Controller
             'bio' => 'nullable|string',
             'bio_en' => 'nullable|string',
             'bio_ar' => 'nullable|string',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'email' => 'nullable|email|max:255',
             'phone' => 'nullable|string|max:50',
             'facebook' => 'nullable|url|max:255',
@@ -104,7 +105,7 @@ class TeamMemberController extends Controller
             if ($team->photo) {
                 Storage::disk('public')->delete($team->photo);
             }
-            $validated['photo'] = $request->file('photo')->store('team', 'public');
+            $validated['photo'] = ImageUploader::store($request->file('photo'), 'team', 800);
         }
 
         $validated['is_active'] = $request->boolean('is_active');

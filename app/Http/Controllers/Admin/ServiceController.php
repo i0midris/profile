@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\Concerns\HandlesLocalizedInput;
 use App\Http\Controllers\Controller;
+use App\Support\ImageUploader;
 use App\Models\CompanySetting;
 use App\Models\Service;
 use Illuminate\Http\Request;
@@ -36,7 +37,7 @@ class ServiceController extends Controller
             'description_en' => 'nullable|required_without_all:description,description_ar|string',
             'description_ar' => 'nullable|required_without_all:description,description_en|string',
             'icon' => 'nullable|string|max:100',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'features' => 'nullable|array',
             'features.*' => 'string|max:255',
             'features_en' => 'nullable|array',
@@ -55,7 +56,7 @@ class ServiceController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('services', 'public');
+            $validated['image'] = ImageUploader::store($request->file('image'), 'services', 1200);
         }
 
         $validated['is_featured'] = $request->boolean('is_featured');
@@ -81,7 +82,7 @@ class ServiceController extends Controller
             'description_en' => 'nullable|required_without_all:description,description_ar|string',
             'description_ar' => 'nullable|required_without_all:description,description_en|string',
             'icon' => 'nullable|string|max:100',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'features' => 'nullable|array',
             'features.*' => 'string|max:255',
             'features_en' => 'nullable|array',
@@ -103,7 +104,7 @@ class ServiceController extends Controller
             if ($service->image) {
                 Storage::disk('public')->delete($service->image);
             }
-            $validated['image'] = $request->file('image')->store('services', 'public');
+            $validated['image'] = ImageUploader::store($request->file('image'), 'services', 1200);
         }
 
         $validated['is_featured'] = $request->boolean('is_featured');

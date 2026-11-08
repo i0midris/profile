@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\Concerns\HandlesLocalizedInput;
 use App\Http\Controllers\Controller;
+use App\Support\ImageUploader;
 use App\Models\HeroSection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -38,8 +39,8 @@ class HeroController extends Controller
             'button_text_secondary_en' => 'nullable|string|max:100',
             'button_text_secondary_ar' => 'nullable|string|max:100',
             'button_link_secondary' => 'nullable|string|max:255',
-            'background_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
-            'foreground_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
+            'background_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
+            'foreground_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
         ]);
 
         $hero = HeroSection::first() ?? new HeroSection();
@@ -56,14 +57,14 @@ class HeroController extends Controller
             if ($hero->background_image) {
                 Storage::disk('public')->delete($hero->background_image);
             }
-            $validated['background_image'] = $request->file('background_image')->store('hero', 'public');
+            $validated['background_image'] = ImageUploader::store($request->file('background_image'), 'hero', 1920);
         }
 
         if ($request->hasFile('foreground_image')) {
             if ($hero->foreground_image) {
                 Storage::disk('public')->delete($hero->foreground_image);
             }
-            $validated['foreground_image'] = $request->file('foreground_image')->store('hero', 'public');
+            $validated['foreground_image'] = ImageUploader::store($request->file('foreground_image'), 'hero', 1400);
         }
 
         $validated['is_active'] = true;

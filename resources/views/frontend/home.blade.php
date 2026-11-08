@@ -53,7 +53,7 @@
             <div class="hidden lg:block">
                 <div class="relative">
                     @if($hero->foreground_image_url ?? false)
-                        <img src="{{ $hero->foreground_image_url }}" alt="{{ __('frontend.hero_image_alt') }}" class="relative z-10 animate-float">
+                        <img fetchpriority="high" src="{{ $hero->foreground_image_url }}" alt="{{ __('frontend.hero_image_alt') }}" class="relative z-10 animate-float">
                     @else
                         @include('frontend.partials.hero_illustration')
                     @endif
@@ -85,7 +85,7 @@
                     @if(($visiblePages['services'] ?? true))
                         <a href="{{ route('services', ['locale' => app()->getLocale()]) }}" class="inline-flex items-center text-primary-400 hover:text-primary-300 font-medium">
                             {{ __('frontend.learn_more') }}
-                            <svg class="w-4 h-4 ms-2 rtl-flip" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg aria-hidden="true" class="w-4 h-4 ms-2 rtl-flip" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
                             </svg>
                         </a>
@@ -108,7 +108,7 @@
         <div class="grid lg:grid-cols-2 gap-16 items-center">
             <div data-animate="fade-right">
                 @if($about->image_url)
-                    <img src="{{ $about->image_url }}" alt="{{ __('frontend.about_image_alt') }}" class="rounded-3xl shadow-2xl">
+                    <img loading="lazy" decoding="async" src="{{ $about->image_url }}" alt="{{ __('frontend.about_image_alt') }}" class="rounded-3xl shadow-2xl">
                 @else
                     {{-- ── About Us illustration (no image uploaded) ── --}}
                     <div style="position:relative;width:100%;aspect-ratio:1/1;max-width:480px;margin:0 auto;isolation:isolate;">
@@ -257,7 +257,7 @@
                 @if(($visiblePages['about'] ?? true))
                     <a href="{{ route('about', ['locale' => app()->getLocale()]) }}" class="inline-flex items-center px-6 py-3 rounded-xl gradient-primary text-white font-semibold hover:shadow-lg hover:shadow-primary-500/30 transition-all">
                         {{ __('frontend.learn_more_about_us') }}
-                        <svg class="w-5 h-5 ms-2 rtl-flip" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg aria-hidden="true" class="w-5 h-5 ms-2 rtl-flip" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                         </svg>
                     </a>
@@ -281,7 +281,7 @@
             @foreach($portfolios as $index => $portfolio)
                 <div class="group relative overflow-hidden rounded-2xl" data-animate="fade-up" data-aos-delay="{{ $index * 100 }}">
                     @if($portfolio->image_url)
-                        <img src="{{ $portfolio->image_url }}" alt="{{ $portfolio->title }}" class="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-110">
+                        <img loading="lazy" decoding="async" src="{{ $portfolio->image_url }}" alt="{{ $portfolio->title }}" class="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-110">
                     @else
                         <div class="w-full h-72 bg-gradient-to-br from-primary-500/30 to-accent-500/30"></div>
                     @endif
@@ -301,7 +301,7 @@
             <div class="text-center mt-12">
                 <a href="{{ route('portfolio', ['locale' => app()->getLocale()]) }}" class="inline-flex items-center px-8 py-4 rounded-xl glass text-white font-semibold hover:bg-white/20 transition-all">
                     {{ __('frontend.view_all_projects') }}
-                    <svg class="w-5 h-5 ms-2 rtl-flip" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg aria-hidden="true" class="w-5 h-5 ms-2 rtl-flip" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                     </svg>
                 </a>
@@ -329,7 +329,7 @@
                 <div class="glass rounded-2xl p-8" data-animate="fade-up" data-aos-delay="{{ $index * 100 }}">
                     <div class="flex items-center gap-1 mb-4">
                         @for($i = 0; $i < $testimonial->rating; $i++)
-                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                            <svg aria-hidden="true" class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                             </svg>
                         @endfor
@@ -337,7 +337,7 @@
                     <p class="text-white/80 mb-6 leading-relaxed">"{{ $testimonial->content }}"</p>
                     <div class="flex items-center gap-4">
                         @if($testimonial->client_photo_url)
-                            <img src="{{ $testimonial->client_photo_url }}" alt="{{ $testimonial->client_name }}" class="w-12 h-12 rounded-full object-cover">
+                            <img loading="lazy" decoding="async" src="{{ $testimonial->client_photo_url }}" alt="{{ $testimonial->client_name }}" class="w-12 h-12 rounded-full object-cover">
                         @else
                             <div class="w-12 h-12 rounded-full gradient-primary flex items-center justify-center">
                                 <span class="text-white font-semibold">{{ substr($testimonial->client_name, 0, 1) }}</span>
@@ -366,7 +366,7 @@
                 @if(($visiblePages['contact'] ?? true))
                     <a href="{{ route('contact', ['locale' => app()->getLocale()]) }}" class="inline-flex items-center px-8 py-4 rounded-xl gradient-primary text-white font-semibold hover:shadow-lg hover:shadow-primary-500/30 transform hover:-translate-y-1 transition-all duration-300">
                         {{ __('frontend.get_in_touch') }}
-                        <svg class="w-5 h-5 ms-2 rtl-flip" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg aria-hidden="true" class="w-5 h-5 ms-2 rtl-flip" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                         </svg>
                     </a>

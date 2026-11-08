@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\Concerns\HandlesLocalizedInput;
 use App\Http\Controllers\Controller;
+use App\Support\ImageUploader;
 use App\Models\CompanySetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -41,7 +42,7 @@ class SettingsController extends Controller
             'linkedin' => 'nullable|url|max:255',
             'youtube' => 'nullable|url|max:255',
             'whatsapp' => 'nullable|string|max:50',
-            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'favicon' => 'nullable|image|mimes:ico,png,jpg|max:1024',
             'og_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
@@ -60,7 +61,7 @@ class SettingsController extends Controller
             if ($settings->logo) {
                 Storage::disk('public')->delete($settings->logo);
             }
-            $validated['logo'] = $request->file('logo')->store('settings', 'public');
+            $validated['logo'] = ImageUploader::store($request->file('logo'), 'settings', 600);
         }
 
         // Handle favicon upload

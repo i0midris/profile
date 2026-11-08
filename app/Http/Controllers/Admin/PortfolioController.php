@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\Concerns\HandlesLocalizedInput;
 use App\Http\Controllers\Controller;
+use App\Support\ImageUploader;
 use App\Models\CompanySetting;
 use App\Models\Portfolio;
 use Illuminate\Http\Request;
@@ -42,7 +43,7 @@ class PortfolioController extends Controller
             'category' => 'nullable|string|max:100',
             'category_en' => 'nullable|string|max:100',
             'category_ar' => 'nullable|string|max:100',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'project_url' => 'nullable|url|max:255',
             'completed_at' => 'nullable|date',
             'sort_order' => 'nullable|integer',
@@ -58,7 +59,7 @@ class PortfolioController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('portfolio', 'public');
+            $validated['image'] = ImageUploader::store($request->file('image'), 'portfolio', 1600);
         }
 
         $validated['is_featured'] = $request->boolean('is_featured');
@@ -90,7 +91,7 @@ class PortfolioController extends Controller
             'category' => 'nullable|string|max:100',
             'category_en' => 'nullable|string|max:100',
             'category_ar' => 'nullable|string|max:100',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'project_url' => 'nullable|url|max:255',
             'completed_at' => 'nullable|date',
             'sort_order' => 'nullable|integer',
@@ -109,7 +110,7 @@ class PortfolioController extends Controller
             if ($portfolio->image) {
                 Storage::disk('public')->delete($portfolio->image);
             }
-            $validated['image'] = $request->file('image')->store('portfolio', 'public');
+            $validated['image'] = ImageUploader::store($request->file('image'), 'portfolio', 1600);
         }
 
         $validated['is_featured'] = $request->boolean('is_featured');

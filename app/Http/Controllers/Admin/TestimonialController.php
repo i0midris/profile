@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\Concerns\HandlesLocalizedInput;
 use App\Http\Controllers\Controller;
+use App\Support\ImageUploader;
 use App\Models\CompanySetting;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
@@ -38,7 +39,7 @@ class TestimonialController extends Controller
             'client_company' => 'nullable|string|max:255',
             'client_company_en' => 'nullable|string|max:255',
             'client_company_ar' => 'nullable|string|max:255',
-            'client_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'client_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'content' => 'nullable|required_without_all:content_en,content_ar|string',
             'content_en' => 'nullable|required_without_all:content,content_ar|string',
             'content_ar' => 'nullable|required_without_all:content,content_en|string',
@@ -56,7 +57,7 @@ class TestimonialController extends Controller
         ]);
 
         if ($request->hasFile('client_photo')) {
-            $validated['client_photo'] = $request->file('client_photo')->store('testimonials', 'public');
+            $validated['client_photo'] = ImageUploader::store($request->file('client_photo'), 'testimonials', 400);
         }
 
         $validated['is_featured'] = $request->boolean('is_featured');
@@ -84,7 +85,7 @@ class TestimonialController extends Controller
             'client_company' => 'nullable|string|max:255',
             'client_company_en' => 'nullable|string|max:255',
             'client_company_ar' => 'nullable|string|max:255',
-            'client_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'client_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'content' => 'nullable|required_without_all:content_en,content_ar|string',
             'content_en' => 'nullable|required_without_all:content,content_ar|string',
             'content_ar' => 'nullable|required_without_all:content,content_en|string',
@@ -105,7 +106,7 @@ class TestimonialController extends Controller
             if ($testimonial->client_photo) {
                 Storage::disk('public')->delete($testimonial->client_photo);
             }
-            $validated['client_photo'] = $request->file('client_photo')->store('testimonials', 'public');
+            $validated['client_photo'] = ImageUploader::store($request->file('client_photo'), 'testimonials', 400);
         }
 
         $validated['is_featured'] = $request->boolean('is_featured');

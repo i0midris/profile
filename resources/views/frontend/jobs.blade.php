@@ -58,7 +58,7 @@
                                     <ul class="space-y-2 text-white/70">
                                         @foreach($job->requirements as $requirement)
                                             <li class="global-card-item flex items-start gap-2">
-                                                <svg class="w-4 h-4 mt-1 text-accent-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <svg aria-hidden="true" class="w-4 h-4 mt-1 text-accent-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                                 </svg>
                                                 <span>{{ $requirement }}</span>

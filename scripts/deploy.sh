@@ -16,6 +16,9 @@ npm run build            # new manifest => cached pages are refreshed automatica
 echo "▸ Database"
 php artisan migrate --force
 
+echo "▸ Convert uploaded JPG/PNG images to WebP (needs PHP GD; safe to re-run)"
+php artisan images:optimize || echo "  (skipped: enable the PHP GD extension to convert images)"
+
 echo "▸ Laravel caches (config, routes, views, events)"
 php artisan optimize
 php artisan storage:link 2>/dev/null || true

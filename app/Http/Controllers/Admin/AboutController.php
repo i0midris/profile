@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\Concerns\HandlesLocalizedInput;
 use App\Http\Controllers\Controller;
+use App\Support\ImageUploader;
 use App\Models\AboutSection;
 use App\Models\CompanySetting;
 use Illuminate\Http\Request;
@@ -30,7 +31,7 @@ class AboutController extends Controller
             'content' => 'nullable|required_without_all:content_en,content_ar|string',
             'content_en' => 'nullable|required_without_all:content,content_ar|string',
             'content_ar' => 'nullable|required_without_all:content,content_en|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:4096',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4096',
             'mission_title' => 'nullable|string|max:255',
             'mission_title_en' => 'nullable|string|max:255',
             'mission_title_ar' => 'nullable|string|max:255',
@@ -65,7 +66,7 @@ class AboutController extends Controller
             if ($about->image) {
                 Storage::disk('public')->delete($about->image);
             }
-            $validated['image'] = $request->file('image')->store('about', 'public');
+            $validated['image'] = ImageUploader::store($request->file('image'), 'about', 1600);
         }
 
         $showAboutPage = (bool) $validated['show_about_page'];

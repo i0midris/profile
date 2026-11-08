@@ -14,6 +14,6 @@
     $iconPath = $icons[$icon ?? 'default'] ?? $icons['default'];
 @endphp
 
-<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+<svg aria-hidden="true" class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     {!! $iconPath !!}
 </svg>

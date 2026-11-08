@@ -25,11 +25,11 @@
                 <div class="grid lg:grid-cols-2 gap-16 items-center mb-24">
                     <div data-animate="fade-right">
                         @if($about->image_url)
-                            <img src="{{ $about->image_url }}" alt="{{ __('frontend.about_image_alt') }}" class="rounded-3xl shadow-2xl">
+                            <img loading="lazy" decoding="async" src="{{ $about->image_url }}" alt="{{ __('frontend.about_image_alt') }}" class="rounded-3xl shadow-2xl">
                         @else
                             <div class="glass rounded-3xl aspect-video flex items-center justify-center">
                                 <div class="w-24 h-24 rounded-full gradient-primary flex items-center justify-center">
-                                    <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg aria-hidden="true" class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                                     </svg>
@@ -50,7 +50,7 @@
                         @if($about->mission_title)
                             <div class="glass global-card rounded-2xl p-8 h-full flex flex-col hover-lift" data-animate="fade-up">
                                 <div class="global-card-icon w-14 h-14 rounded-xl gradient-primary flex items-center justify-center mb-6">
-                                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg aria-hidden="true" class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M13 10V3L4 14h7v7l9-11h-7z" />
                                     </svg>
@@ -63,7 +63,7 @@
                         @if($about->vision_title)
                             <div class="glass global-card rounded-2xl p-8 h-full flex flex-col hover-lift" data-animate="fade-up" data-aos-delay="100">
                                 <div class="global-card-icon w-14 h-14 rounded-xl gradient-primary flex items-center justify-center mb-6">
-                                    <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg aria-hidden="true" class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -133,7 +133,7 @@
                     @foreach($team as $index => $member)
                         <div class="text-center" data-animate="fade-up" data-aos-delay="{{ $index * 100 }}">
                             @if($member->photo_url)
-                                <img src="{{ $member->photo_url }}" alt="{{ $member->name }}"
+                                <img loading="lazy" decoding="async" src="{{ $member->photo_url }}" alt="{{ $member->name }}"
                                     class="w-32 h-32 mx-auto rounded-full object-cover mb-4 ring-4 ring-primary-500/30">
                             @else
                                 <div
@@ -148,7 +148,7 @@
                                     @if($member->linkedin)
                                         <a href="{{ $member->linkedin }}" target="_blank"
                                             class="text-white/40 hover:text-white transition-colors">
-                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                                 <path
                                                     d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
                                             </svg>
@@ -157,7 +157,7 @@
                                     @if($member->twitter)
                                         <a href="{{ $member->twitter }}" target="_blank"
                                             class="text-white/40 hover:text-white transition-colors">
-                                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                                 <path
                                                     d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                                             </svg>
@@ -173,7 +173,7 @@
                     <a href="{{ route('team', ['locale' => app()->getLocale()]) }}"
                         class="inline-flex items-center text-primary-400 hover:text-primary-300 font-medium">
 {{ __('frontend.view_all_team_members') }}
-                        <svg class="w-4 h-4 ms-2 rtl-flip" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg aria-hidden="true" class="w-4 h-4 ms-2 rtl-flip" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
                     </a>
