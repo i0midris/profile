@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>التقرير الشامل لتطوير موقع البسيط سوفت</title>
+<style>
+  @page { size: A4; margin: 0; }
+  :root {
+    --navy: #1e4e8c; --navy-soft: #f3f5fa; --red: #c8232c; --red-soft: #fbeef0;
+    --ink: #2f333b; --muted: #6b7280; --line: #e3e7ef; --green: #1f7a4d; --green-soft: #e7f5ee;
+    --amber: #b45309; --amber-soft: #fdf3e2; --blue: #2459a6; --blue-soft: #e8effa;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #fff; }
+  body { font-family: "Segoe UI", Tahoma, Arial, sans-serif; color: var(--ink); font-size: 10.2pt; line-height: 1.75; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page { width: 210mm; height: 297mm; position: relative; overflow: hidden; page-break-after: always; padding: 20mm 17mm 18mm; }
+  .page:last-child { page-break-after: auto; }
+
+  /* ---------- Cover ---------- */
+  .cover { padding: 0; text-align: center; }
+  .cover .bar-navy { position: absolute; top: 0; left: 0; width: 58%; height: 7mm; background: var(--navy); z-index: 2; }
+  .cover .bar-red { position: absolute; top: 0; right: 0; width: 42%; height: 7mm; background: var(--red); z-index: 2; }
+  .cover .circle-a { position: absolute; top: -40mm; right: -40mm; width: 100mm; height: 100mm; border-radius: 50%; background: var(--navy-soft); }
+  .cover .circle-b { position: absolute; bottom: -40mm; left: -35mm; width: 70mm; height: 70mm; border-radius: 50%; background: var(--red-soft); }
+  .cover .inner { position: relative; padding: 22mm 26mm 0; }
+  .cover img.logo { width: 27mm; height: 27mm; object-fit: contain; }
+  .cover .company { color: #a5141d; font-weight: 600; font-size: 11.5pt; margin-top: 5mm; }
+  .cover .pill { display: inline-block; margin-top: 3mm; border: 1px solid #d5d9e2; border-radius: 999px; padding: 0.8mm 5mm; font-size: 8.8pt; color: #4b5563; background: #fff; }
+  .cover h1 { color: var(--navy); font-size: 26pt; line-height: 1.42; font-weight: 700; margin-top: 6mm; }
+  .cover h1 span { color: var(--red); }
+  .cover .sub { color: #4b5563; font-size: 10.6pt; line-height: 1.7; margin: 4mm auto 0; max-width: 150mm; }
+  .cover .rule { width: 80mm; height: 1.2mm; border-radius: 1mm; margin: 6mm auto 0; background: linear-gradient(90deg, var(--red), var(--navy)); }
+  .cover .hero { width: 138mm; margin: 8mm auto 0; position: relative; }
+  .cover .hero .shot { box-shadow: 0 3mm 9mm rgba(30,78,140,.22); }
+  .cover .chips { display: flex; justify-content: center; gap: 2.5mm; margin-top: 6mm; flex-wrap: wrap; }
+  .cover .chips span { background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 0.6mm 3.5mm; font-size: 8.6pt; color: var(--navy); font-weight: 600; }
+  .cover .chips span b { color: var(--red); }
+  .cover table.meta { width: 140mm; margin: 6mm auto 0; border-collapse: collapse; font-size: 10pt; background: #fff; }
+  .cover table.meta td { padding: 1.6mm 4mm; border-bottom: 1px solid var(--line); text-align: right; }
+  .cover table.meta tr:nth-child(even) td { background: var(--navy-soft); }
+  .cover table.meta td.k { color: var(--navy); font-weight: 700; width: 44mm; }
+  .cover .note { position: absolute; bottom: 10mm; left: 0; right: 0; font-size: 8.4pt; color: var(--muted); }
+  .cover .note b { color: var(--navy); }
+
+  /* ---------- Inner pages ---------- */
+  .hdr { display: flex; justify-content: space-between; align-items: flex-end; font-size: 8.8pt; color: #7b8190; margin-bottom: 7mm; }
+  .hdr .title { color: var(--navy); padding-bottom: 1.4mm; border-bottom: 2px solid var(--navy); }
+  .foot { position: absolute; bottom: 9mm; left: 17mm; right: 17mm; border-top: 1px solid var(--line); padding-top: 3mm; text-align: center; font-size: 8.6pt; color: #8a90a0; }
+
+  .sec { display: flex; justify-content: space-between; align-items: center; margin: 0 0 3mm; }
+  .sec h2 { display: flex; align-items: center; gap: 3mm; color: var(--navy); font-size: 15pt; font-weight: 700; }
+  .sec h2 .num { display: inline-flex; align-items: center; justify-content: center; width: 7.5mm; height: 7.5mm; border-radius: 1.6mm; background: var(--navy); color: #fff; font-size: 10.5pt; }
+  .sec .tag { color: var(--red); font-weight: 600; font-size: 8.6pt; }
+  p.lead { text-align: justify; margin-bottom: 4mm; font-size: 9.6pt; line-height: 1.7; }
+  b.hl { color: var(--ink); }
+
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3mm; margin-bottom: 4.5mm; }
+  .stat { border: 1px solid var(--line); border-radius: 2.5mm; padding: 2mm 2mm 1.8mm; text-align: center; background: #fbfcfe; position: relative; overflow: hidden; }
+  .stat::before { content: ""; position: absolute; top: 0; right: 0; left: 0; height: 0.9mm; background: var(--red); }
+  .stat.g::before { background: var(--green); }
+  .stat.b::before { background: var(--navy); }
+  .stat .n { color: var(--red); font-weight: 700; font-size: 15pt; line-height: 1.3; }
+  .stat.g .n { color: var(--green); }
+  .stat.b .n { color: var(--navy); }
+  .stat .l { font-size: 8pt; color: #5b6170; line-height: 1.45; }
+
+  table.grid { width: 100%; border-collapse: collapse; font-size: 8.5pt; line-height: 1.5; }
+  table.grid th { background: var(--navy-soft); color: var(--navy); font-weight: 700; text-align: right; padding: 1.5mm 2.2mm; border: 1px solid var(--line); }
+  table.grid td { padding: 1.3mm 2.2mm; border: 1px solid var(--line); vertical-align: top; }
+  table.grid td.n { width: 6mm; text-align: center; color: #8a90a0; }
+  table.grid td.axis { color: var(--navy); font-weight: 600; width: 26mm; }
+  table.grid td.st { width: 23mm; text-align: center; vertical-align: middle; }
+  table.grid tr.cat td { background: var(--red-soft); color: #8f1a21; font-weight: 700; padding: 0.8mm 2.2mm; }
+  table.wide td.axis { width: 44mm; }
+  td.good { color: var(--green); font-weight: 700; }
+  td.before { color: #8f1a21; }
+  .pill { display: inline-block; border-radius: 999px; padding: 0.2mm 2.6mm; font-size: 7.8pt; font-weight: 600; white-space: nowrap; }
+  .pill.done { background: var(--green-soft); color: var(--green); }
+  .pill.server { background: var(--amber-soft); color: var(--amber); }
+  .pill.content { background: var(--blue-soft); color: var(--blue); }
+  .pill.sec { background: var(--red-soft); color: #8f1a21; }
+
+  h4.mini { display: flex; align-items: center; gap: 2mm; color: var(--navy); font-size: 11pt; margin: 4.5mm 0 2.5mm; }
+  h4.mini::before { content: ""; width: 2mm; height: 2mm; border-radius: 0.5mm; background: var(--red); }
+
+  .callout { border-right: 1.4mm solid var(--navy); background: var(--navy-soft); border-radius: 1.5mm; padding: 3mm 4.5mm; font-size: 8.9pt; line-height: 1.7; margin-top: 4.5mm; }
+  .callout b { color: var(--navy); }
+  .callout.red { border-right-color: var(--red); background: var(--red-soft); }
+  .callout.red b { color: #8f1a21; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 5mm; }
+  .three { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3.5mm; }
+  .box { border: 1px solid var(--line); border-radius: 3mm; padding: 3.2mm 4.2mm; }
+  .box h5 { color: var(--navy); font-size: 10.2pt; margin-bottom: 1.6mm; }
+  .box ol, .box ul { padding-right: 4.5mm; font-size: 8.8pt; line-height: 1.62; }
+  .box li { margin-bottom: 0.7mm; }
+  .ltr { direction: ltr; unicode-bidi: embed; font-family: Consolas, "Segoe UI", monospace; font-size: 0.92em; }
+
+  /* ---------- Screenshots ---------- */
+  figure { margin: 0; break-inside: avoid; }
+  .shot { border: 1px solid #d3d9e4; border-radius: 2.2mm; overflow: hidden; background: #0f172a; box-shadow: 0 1.2mm 3.5mm rgba(30,78,140,.13); position: relative; }
+  .shot .bar { height: 4.4mm; background: #eef1f6; border-bottom: 1px solid #dde2ea; display: flex; align-items: center; gap: 1.1mm; padding: 0 2.2mm; direction: ltr; }
+  .shot .bar i { width: 1.6mm; height: 1.6mm; border-radius: 50%; display: inline-block; }
+  .shot .bar i:nth-child(1) { background: #ef5b52; } .shot .bar i:nth-child(2) { background: #f4bd4f; } .shot .bar i:nth-child(3) { background: #5cc35a; }
+  .shot .bar .url { flex: 1; margin-left: 3mm; height: 2.7mm; background: #fff; border-radius: 1.2mm; font: 5.6pt/2.7mm Consolas, monospace; color: #7b8190; padding: 0 2mm; white-space: nowrap; overflow: hidden; }
+  .shot img { display: block; width: 100%; }
+  .shot.crop img { object-fit: cover; object-position: top; }
+  figcaption { font-size: 8pt; color: #5b6170; margin-top: 1.6mm; line-height: 1.5; }
+  figcaption b { color: var(--navy); }
+  figcaption .k { display: inline-block; background: var(--navy); color: #fff; border-radius: 0.8mm; padding: 0 1.4mm; font-size: 7pt; font-weight: 700; margin-left: 1mm; }
+  .flag { position: absolute; top: 6.5mm; right: 2.5mm; z-index: 3; color: #fff; font-weight: 700; font-size: 8.2pt; border-radius: 999px; padding: 0.3mm 3.2mm; box-shadow: 0 0.6mm 2mm rgba(0,0,0,.3); }
+  .flag.before { background: #8f1a21; } .flag.after { background: var(--green); }
+  .phones { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5mm; }
+  .phone { border: 1.8mm solid #1c2230; border-radius: 5mm; overflow: hidden; background: #000; box-shadow: 0 1.5mm 4mm rgba(15,23,42,.25); position: relative; }
+  .phone::before { content: ""; position: absolute; top: 1mm; left: 50%; transform: translateX(-50%); width: 9mm; height: 1.4mm; border-radius: 1mm; background: #1c2230; z-index: 2; }
+  .phone img { display: block; width: 100%; }
+  .phones figcaption { text-align: center; }
+
+  /* ---------- Feature cards ---------- */
+  .feats { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm 5mm; }
+  .feat { display: flex; gap: 3mm; align-items: flex-start; }
+  .feat .ic { flex: 0 0 8mm; height: 8mm; border-radius: 2mm; background: var(--navy-soft); color: var(--navy); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 10pt; border: 1px solid #d8e0ee; }
+  .feat .ic.r { background: var(--red-soft); color: var(--red); border-color: #f1d3d6; }
+  .feat h6 { font-size: 9.4pt; color: var(--navy); line-height: 1.45; }
+  .feat p { font-size: 8.5pt; line-height: 1.55; color: #4b5260; }
+
+  /* ---------- Timeline ---------- */
+  .timeline { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2.5mm; margin-bottom: 4.5mm; position: relative; }
+  .timeline::before { content: ""; position: absolute; top: 4mm; right: 8%; left: 8%; height: 0.7mm; background: linear-gradient(270deg, var(--navy), var(--red)); }
+  .tl { text-align: center; position: relative; }
+  .tl .dot { width: 8mm; height: 8mm; border-radius: 50%; margin: 0 auto; background: var(--navy); color: #fff; font-weight: 700; font-size: 9pt; display: flex; align-items: center; justify-content: center; border: 1mm solid #fff; box-shadow: 0 0 0 0.4mm var(--navy); position: relative; }
+  .tl.r .dot { background: var(--red); box-shadow: 0 0 0 0.4mm var(--red); }
+  .tl.g .dot { background: var(--green); box-shadow: 0 0 0 0.4mm var(--green); }
+  .tl h6 { font-size: 8.8pt; color: var(--navy); margin-top: 1.5mm; line-height: 1.35; }
+  .tl p { font-size: 7.6pt; color: #5b6170; line-height: 1.45; margin-top: 0.6mm; }
+
+  /* ---------- Flow / bars ---------- */
+  .flow { display: flex; align-items: stretch; gap: 0; margin: 1mm 0 0; }
+  .flow .st { flex: 1; text-align: center; background: var(--navy-soft); border: 1px solid #d8e0ee; border-radius: 2mm; padding: 1.8mm 1.5mm; font-size: 8pt; line-height: 1.45; }
+  .flow .st b { display: block; color: var(--navy); font-size: 8.8pt; }
+  .flow .st.hot { background: var(--red-soft); border-color: #f1d3d6; }
+  .flow .st.hot b { color: #8f1a21; }
+  .flow .st.ok { background: var(--green-soft); border-color: #c9e8d8; }
+  .flow .st.ok b { color: var(--green); }
+  .flow .arr { flex: 0 0 5mm; display: flex; align-items: center; justify-content: center; color: var(--red); font-weight: 700; font-size: 11pt; }
+  .bars { display: grid; gap: 2.2mm; }
+  .bars .row { display: grid; grid-template-columns: 30mm 1fr; align-items: center; gap: 3mm; font-size: 8.5pt; }
+  .bars .track { background: var(--navy-soft); border-radius: 1.2mm; height: 6mm; position: relative; overflow: hidden; }
+  .bars .fill { height: 100%; border-radius: 1.2mm; background: linear-gradient(270deg, var(--navy), #3d74bd); color: #fff; font-weight: 700; font-size: 8.6pt; display: flex; align-items: center; justify-content: flex-start; padding: 0 2.5mm; white-space: nowrap; }
+  .bars .fill.r { background: linear-gradient(270deg, var(--red), #e2545c); }
+  .bars .fill.s { background: #9aa3b5; }
+  .bars .lbl { color: var(--navy); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- ============================ Page 1: Cover ============================ -->
+<section class="page cover">
+  <div class="bar-navy"></div><div class="bar-red"></div>
+  <div class="circle-a"></div>
+  <div class="circle-b"></div>
+  <div class="inner">
+    <img class="logo" src="img/logo.png" alt="Albaseet Soft">
+    <div class="company">شركة البسيط سوفت (Al Baseet Soft)</div>
+    <div class="pill">تقرير إنجاز شامل · نوفمبر 2026</div>
+    <h1>التقرير الشامل لتطوير<br>موقع <span>البسيط سوفت</span></h1>
+    <p class="sub">كل ما تم تحسينه وتطويره وبرمجته في الموقع ولوحة التحكم: من معالجة ملاحظات تقرير الفحص، إلى الصفحات والأقسام التفاعلية الجديدة، إلى الفحص الأمني والاختبارات الآلية</p>
+    <div class="rule"></div>
+
+    <div class="hero">
+      <div class="shot"><div class="bar"><i></i><i></i><i></i><span class="url">albaseetsoft-ye.com/ar</span></div><img src="img/after_home.jpg" alt=""></div>
+    </div>
+    <div class="chips">
+      <span><b>21/21</b> بنداً من الخطة</span>
+      <span><b>12/12</b> ملاحظة عولجت</span>
+      <span><b>13</b> إضافة جديدة</span>
+      <span><b>67</b> اختباراً آلياً</span>
+    </div>
+
+    <table class="meta">
+      <tr><td class="k">الطالب</td><td>عبدالسلام عارف سلطان</td></tr>
+      <tr><td class="k">الأستاذ المشرف</td><td>الأستاذ إدريس الشباطي</td></tr>
+      <tr><td class="k">المستودع / الفرع</td><td><span class="ltr">i0midris/profile</span> — فرع <span class="ltr">abdalsalam</span></td></tr>
+      <tr><td class="k">تاريخ التقرير</td><td>8 نوفمبر 2026</td></tr>
+    </table>
+  </div>
+  <div class="note">وثيقة داخلية تُقدَّم إلى <b>الأستاذ المشرف وإدارة شركة البسيط سوفت</b> — كل الصور في هذا التقرير لقطات حقيقية من الموقع بعد التطوير</div>
+</section>
+
+<!-- ============================ Page 2: Executive summary ============================ -->
+<section class="page">
+  <div class="hdr"><span class="title">التقرير الشامل لتطوير موقع البسيط سوفت — نوفمبر 2026</span><span>شركة البسيط سوفت</span></div>
+
+  <div class="sec"><h2><span class="num">1</span> الملخص التنفيذي</h2><span class="tag">الصورة الكاملة في صفحة واحدة</span></div>
+  <p class="lead">بدأ العمل بتقرير فحص رصد <b class="hl">12 ملاحظة</b> على الموقع المنشور، وخطة من <b class="hl">21 بنداً</b> في ثلاث مراحل. نُفّذت الخطة كاملة، ثم أُضيفت <b class="hl">13 إضافة</b> تجعل الموقع يشرح منتجات الشركة ويقود الزائر إلى طلب عرض أو التواصل، وانتهى العمل بفحص شامل للأخطاء والأمان. كل ذلك على فرع مستقل (<span class="ltr">abdalsalam</span>) دون المساس بالنسخة المنشورة، وكل بند في commit يحمل رقمه.</p>
+
+  <div class="stats">
+    <div class="stat g"><div class="n">21 / 21</div><div class="l">بنداً من خطة التحسين<br>نُفِّذ في الكود</div></div>
+    <div class="stat g"><div class="n">12 / 12</div><div class="l">ملاحظة من تقرير الفحص<br>عولجت</div></div>
+    <div class="stat"><div class="n">13</div><div class="l">إضافة بعد الخطة<br>(أقسام وأدوات ورسوم)</div></div>
+    <div class="stat"><div class="n">2 ← 67</div><div class="l">اختباراً آلياً ناجحاً<br>(354 تحققاً)</div></div>
+    <div class="stat b"><div class="n">4 ← 12</div><div class="l">قسماً في الصفحة<br>الرئيسية</div></div>
+    <div class="stat b"><div class="n">+60</div><div class="l">صفحة يزورها الفحص الآلي<br>بالعربية والإنجليزية</div></div>
+    <div class="stat b"><div class="n">46</div><div class="l">commit على الفرع<br>لكل منها رقم بندها</div></div>
+    <div class="stat b"><div class="n">162</div><div class="l">ملفاً تغيّر، منها 106<br>ملفات جديدة</div></div>
+  </div>
+
+  <div class="two">
+    <figure>
+      <div class="shot"><div class="bar"><i></i><i></i><i></i><span class="url">albaseetsoft-ye.com/ar</span></div><span class="flag before">قبل</span><img src="img/before_home.jpg" alt=""></div>
+      <figcaption><b>الموقع المنشور حالياً:</b> واجهة جيدة، لكن خلفها رابط واتساب لا يعمل، وأرقام متعارضة، وعنوان مقصوص على الجوال، وبطء في الخادم.</figcaption>
+    </figure>
+    <figure>
+      <div class="shot"><div class="bar"><i></i><i></i><i></i><span class="url">abdalsalam · /ar</span></div><span class="flag after">بعد</span><img src="img/after_home.jpg" alt=""></div>
+      <figcaption><b>بعد التطوير:</b> نفس الهوية والألوان، مع شعار الشركة، وزر «اطلب عرضاً تجريبياً»، وشريط أنظمة متحرك، وأرقام من مصدر واحد.</figcaption>
+    </figure>
+  </div>
+
+  <h4 class="mini">أبرز ما تغيّر</h4>
+  <div class="feats">
+    <div class="feat"><div class="ic">1</div><div><h6>يعمل كما يجب</h6><p>واتساب والهاتف والنماذج تعمل، والأرقام صحيحة، ولا قص على الجوال.</p></div></div>
+    <div class="feat"><div class="ic">2</div><div><h6>أسرع وأخف</h6><p>صفحات مخزّنة جاهزة بلا جلسات ولا Cookies، وصور WebP، وسكربتات أقل.</p></div></div>
+    <div class="feat"><div class="ic r">3</div><div><h6>يعرض المنتجات ويبيعها</h6><p>صفحة لكل نظام، ونموذج «طلب عرض تجريبي»، ومساعد يقترح النظام المناسب.</p></div></div>
+    <div class="feat"><div class="ic r">4</div><div><h6>يشرح بالصورة</h6><p>6 مشاهد متحركة للقطاعات و9 رسوم متحركة للأسئلة، بهوية الشركة.</p></div></div>
+    <div class="feat"><div class="ic">5</div><div><h6>يُدار من لوحة التحكم</h6><p>المنتجات والمدونة والأسئلة والشعارات والطلبات، دون لمس الكود.</p></div></div>
+    <div class="feat"><div class="ic">6</div><div><h6>آمن ومختبَر</h6><p>ترويسات أمان، وإغلاق ثغرتين، و67 اختباراً تفحص كل صفحة قبل أي نشر.</p></div></div>
+  </div>
+
+  <div class="foot">صفحة 2 من 12</div>
+</section>
+
+<!-- ============================ Page 3: Journey + 12 findings ============================ -->
+<section class="page">
+  <div class="hdr"><span class="title">التقرير الشامل لتطوير موقع البسيط سوفت — نوفمبر 2026</span><span>شركة البسيط سوفت</span></div>
+
+  <div class="sec"><h2><span class="num">2</span> رحلة العمل ومعالجة ملاحظات الفحص</h2><span class="tag">من التقرير إلى التنفيذ</span></div>
+
+  <div class="timeline">
+    <div class="tl"><div class="dot">1</div><h6>إصلاحات سريعة</h6><p>8 بنود: واتساب، الأرقام، النماذج، SEO، الأمان</p></div>
+    <div class="tl"><div class="dot">2</div><h6>السرعة والجوال</h6><p>6 بنود: التخزين، القص، التباين، الصور</p></div>
+    <div class="tl"><div class="dot">3</div><h6>المحتوى والتحويل</h6><p>7 بنود: المنتجات، الطلبات، المدونة، Google</p></div>
+    <div class="tl r"><div class="dot">+</div><h6>إضافات تلفت الانتباه</h6><p>12 إضافة: مشاهد، مساعد، أسئلة، جوال</p></div>
+    <div class="tl g"><div class="dot">✓</div><h6>فحص شامل</h6><p>كل الصفحات واللوحة، وإصلاح 5 مشكلات</p></div>
+  </div>
+
+  <table class="grid">
+    <tr><th>#</th><th>المحور</th><th>الملاحظة في تقرير الفحص ← ما تم</th><th>الحالة</th></tr>
+    <tr class="cat"><td colspan="4">الأداء والسرعة</td></tr>
+    <tr><td class="n">1</td><td class="axis">بطء الخادم</td><td>الصفحات تُخزَّن جاهزة وبلا جلسات ولا Cookies، وسكربت نشر ودليل للخادم (OPcache، Cloudflare).</td><td class="st"><span class="pill server">يكتمل على الخادم</span></td></tr>
+    <tr><td class="n">2</td><td class="axis">سكربت مكرر</td><td>سكربت Ahrefs يُحمَّل مرة واحدة بدل مرتين.</td><td class="st"><span class="pill done">تم</span></td></tr>
+    <tr class="cat"><td colspan="4">الواجهة والجوال</td></tr>
+    <tr><td class="n">3</td><td class="axis">قص العنوان</td><td>العنوان على شاشة 375px صار داخلها (كان يمتد إلى 459px)، واسم الشركة يظهر كاملاً.</td><td class="st"><span class="pill done">تم</span></td></tr>
+    <tr><td class="n">4</td><td class="axis">المحتوى المخفي</td><td>36 كتلة ظاهرة دون انتظار JavaScript، والعدادات بقيمها الحقيقية بدل «0+».</td><td class="st"><span class="pill done">تم</span></td></tr>
+    <tr><td class="n">5</td><td class="axis">تفاصيل التصميم</td><td>تباين كل النصوص <bdi dir="ltr">≥ 4.5:1</bdi> في الوضعين، وشارة «مميز» على خدمة واحدة، وحذف «اتصل بنا» المكرر.</td><td class="st"><span class="pill done">تم</span></td></tr>
+    <tr class="cat"><td colspan="4">المحتوى والمصداقية</td></tr>
+    <tr><td class="n">6</td><td class="axis">أرقام متعارضة</td><td>عدد العملاء والخبرة من مصدر واحد في لوحة التحكم، وحُذفت كل الأرقام الوهمية.</td><td class="st"><span class="pill done">تم</span></td></tr>
+    <tr><td class="n">7</td><td class="axis">غياب الإثبات</td><td>صفحات المنتجات ودراسات الحالة وشعارات العملاء والفريق جاهزة، وجُرّبت بمحتوى معاينة.</td><td class="st"><span class="pill content">بانتظار المحتوى</span></td></tr>
+    <tr><td class="n">8</td><td class="axis">وعد غير دقيق</td><td>الزر صار «اطلب عرضاً تجريبياً» ويفتح نموذج طلب عرض حقيقياً.</td><td class="st"><span class="pill done">تم</span></td></tr>
+    <tr class="cat"><td colspan="4">التواصل</td></tr>
+    <tr><td class="n">9</td><td class="axis">رابط واتساب</td><td>الرابط يعمل، والهاتف قابل للنقر، وزر واتساب عائم، وشريط تواصل للجوال، والخريطة وساعات العمل.</td><td class="st"><span class="pill done">تم</span></td></tr>
+    <tr><td class="n">10</td><td class="axis">نموذج التواصل</td><td>مثال هاتف يمني، والهاتف <b>أو</b> البريد يكفي، ونموذج «طلب عرض» جديد.</td><td class="st"><span class="pill done">تم</span></td></tr>
+    <tr class="cat"><td colspan="4">محركات البحث (SEO) والأمان</td></tr>
+    <tr><td class="n">11</td><td class="axis">SEO تقني</td><td>عناوين ووصف لكل صفحة، وog:image، وhreflang، وSitemap وrobots.txt، وتحويل www، وبيانات منظمة.</td><td class="st"><span class="pill done">تم</span></td></tr>
+    <tr><td class="n">12</td><td class="axis">ترويسات الأمان</td><td>CSP وX-Frame-Options وX-Content-Type-Options وReferrer-Policy، وصور WebP، ووصف للأزرار.</td><td class="st"><span class="pill done">تم</span></td></tr>
+  </table>
+
+  <div class="callout"><b>معنى الحالات:</b> <span class="pill done">تم</span> منفّذ ومختبَر في الكود. <span class="pill server">يكتمل على الخادم</span> الكود جاهز ويظهر أثره بعد النشر وضبط الخادم. <span class="pill content">بانتظار المحتوى</span> القسم جاهز ويظهر تلقائياً حين تضيف الشركة محتواها الحقيقي.</div>
+
+  <div class="foot">صفحة 3 من 12</div>
+</section>
+
+<!-- ============================ Page 4: Measurements ============================ -->
+<section class="page">
+  <div class="hdr"><span class="title">التقرير الشامل لتطوير موقع البسيط سوفت — نوفمبر 2026</span><span>شركة البسيط سوفت</span></div>
+
+  <div class="sec"><h2><span class="num">3</span> السرعة والجوال والبحث والأمان</h2><span class="tag">قبل وبعد بالأرقام</span></div>
+  <p class="lead">القياسات أُخذت على نسخة الفرع في بيئة التطوير بنفس بيانات الموقع المنشور. مؤشرات الخادم (زمن الاستجابة وتقييم Lighthouse) تُقاس على الموقع بعد الدمج والنشر.</p>
+
+  <table class="grid wide">
+    <tr><th>المقياس</th><th>قبل</th><th>بعد</th><th>طريقة التحقق</th></tr>
+    <tr><td class="axis">رابط واتساب</td><td class="before">لا يعمل (<span class="ltr">00967…</span>)</td><td class="good">يعمل (<span class="ltr">967…</span>)</td><td>اختبار آلي لخمس صيغ أرقام</td></tr>
+    <tr><td class="axis">مرات تحميل Ahrefs</td><td class="before">2</td><td class="good">1</td><td>فحص HTML الصفحة</td></tr>
+    <tr><td class="axis">أرقام وهمية في الواجهة</td><td class="before">11 رقماً</td><td class="good">0</td><td>بحث في الشيفرة</td></tr>
+    <tr><td class="axis">امتداد العنوان (شاشة 375px)</td><td class="before">إلى <bdi dir="ltr">459px</bdi> (مقصوص)</td><td class="good"><bdi dir="ltr">16 – 359px</bdi></td><td>قياس في المتصفح</td></tr>
+    <tr><td class="axis">اسم الشركة على الجوال</td><td class="before">46 من 106px ظاهر</td><td class="good">كامل</td><td>قياس في المتصفح</td></tr>
+    <tr><td class="axis">أقل تباين للنص</td><td class="before"><bdi dir="ltr">2.7 : 1</bdi></td><td class="good"><bdi dir="ltr">≥ 4.5 : 1</bdi></td><td>قياس كل نص بالوضعين الليلي والنهاري</td></tr>
+    <tr><td class="axis">Cookies لكل زيارة</td><td class="before">2 + سطر في قاعدة البيانات</td><td class="good">0</td><td>اختبار آلي</td></tr>
+    <tr><td class="axis">زمن بناء الرئيسية (محلياً)</td><td class="before">0.87 ث</td><td class="good">0.60 ث</td><td>curl، والباقي زمن PHP بلا OPcache</td></tr>
+    <tr><td class="axis">ترويسات الأمان</td><td class="before">HSTS فقط</td><td class="good">+5 ترويسات</td><td>اختبار آلي وفحص المتصفح</td></tr>
+    <tr><td class="axis">أزرار وروابط بلا وصف</td><td class="before">روابط التواصل الاجتماعي</td><td class="good">0</td><td>فحص الصفحات</td></tr>
+    <tr><td class="axis">صفحات تُفحص آلياً</td><td class="before">صفحة واحدة</td><td class="good">+60 صفحة وكل شاشات اللوحة</td><td>اختبار SmokeTest</td></tr>
+    <tr><td class="axis">الاختبارات الآلية</td><td class="before">2</td><td class="good">67 (354 تحققاً)</td><td><span class="ltr">phpunit</span></td></tr>
+  </table>
+
+  <h4 class="mini">مؤشرات قياس النجاح (من خطة التحسين)</h4>
+  <table class="grid wide">
+    <tr><th>المؤشر</th><th>قبل البدء</th><th>المستهدف</th><th>بعد التنفيذ</th></tr>
+    <tr><td class="axis">زمن استجابة الخادم (TTFB)</td><td>2.4 – 9 ث</td><td class="good">أقل من 0.8 ث</td><td>التخزين جاهز في الكود <span class="pill server">بعد ضبط الخادم</span></td></tr>
+    <tr><td class="axis">زمن ظهور المحتوى (LCP)</td><td>بطيء</td><td class="good">أقل من 2.5 ث</td><td>المحتوى ظاهر دون انتظار JS <span class="pill server">يُقاس بعد النشر</span></td></tr>
+    <tr><td class="axis">صفحات الموقع (بلغتين)</td><td>8 صفحات</td><td class="good">25 صفحة فأكثر</td><td>18 مساراً، وكل منتج ومقال ودراسة حالة صفحة <span class="pill content">بانتظار المحتوى</span></td></tr>
+    <tr><td class="axis">طلبات التواصل والعروض</td><td>غير مقاسة</td><td class="good">تتبّع شهري</td><td>تُعدّ في لوحة التحكم وتُرسل لـ Analytics <span class="pill done">جاهز</span></td></tr>
+  </table>
+
+  <div class="callout"><b>محركات البحث:</b> لكل صفحة عنوان ووصف وصورة مشاركة خاصة بها، وروابط اللغتين (hreflang)، وخريطة موقع تتحدث تلقائياً بالمنتجات والمقالات، وبيانات منظمة (Organization وSoftwareApplication وFAQ وArticle) تساعد Google على عرض الموقع بشكل أغنى في النتائج.</div>
+
+  <div class="foot">صفحة 4 من 12</div>
+</section>
+
+<!-- ============================ Page 5: New pages ============================ -->
+<section class="page">
+  <div class="hdr"><span class="title">التقرير الشامل لتطوير موقع البسيط سوفت — نوفمبر 2026</span><span>شركة البسيط سوفت</span></div>
+
+  <div class="sec"><h2><span class="num">4</span> صفحات جديدة تعرض المنتجات وتجلب الطلبات</h2><span class="tag">من موقع تعريفي إلى موقع يبيع</span></div>
+  <p class="lead">كان الموقع يعرّف بالشركة فقط. صار لكل نظام صفحة، ولكل زائر طريق واضح إلى طلب عرض تجريبي، وللشركة مكان لنشر خبرتها. الصور التالية بمحتوى معاينة تقريبي يُحذف بأمر واحد، ويحل محله محتوى الشركة الحقيقي.</p>
+
+  <div class="two" style="row-gap:4mm">
+    <figure>
+      <div class="shot"><div class="bar"><i></i><i></i><i></i><span class="url">/ar/products</span></div><img src="img/products.jpg" alt=""></div>
+      <figcaption><span class="k">1</span><b>صفحة المنتجات:</b> بطاقة لكل نظام بصورته ووصفه، ومشاهد القطاعات ومساعد الاختيار.</figcaption>
+    </figure>
+    <figure>
+      <div class="shot"><div class="bar"><i></i><i></i><i></i><span class="url">/ar/products/pos-system</span></div><img src="img/product_detail.jpg" alt=""></div>
+      <figcaption><span class="k">2</span><b>صفحة النظام:</b> الوصف والمزايا والقطاعات، وزر «اطلب عرضاً» وزر واتساب برسالة جاهزة.</figcaption>
+    </figure>
+    <figure>
+      <div class="shot"><div class="bar"><i></i><i></i><i></i><span class="url">/ar/demo?product=pos-system</span></div><img src="img/demo_form.jpg" alt=""></div>
+      <figcaption><span class="k">3</span><b>نموذج طلب عرض تجريبي:</b> النظام مختار مسبقاً، والطلب يصل للوحة التحكم وبالبريد.</figcaption>
+    </figure>
+    <figure>
+      <div class="shot"><div class="bar"><i></i><i></i><i></i><span class="url">/ar/portfolio/10</span></div><img src="img/case_study.jpg" alt=""></div>
+      <figcaption><span class="k">4</span><b>دراسة حالة:</b> التحدي والحل والنتيجة لكل مشروع، وشعارات العملاء الموافقين.</figcaption>
+    </figure>
+    <figure>
+      <div class="shot"><div class="bar"><i></i><i></i><i></i><span class="url">/ar/blog/how-to-choose-accounting-system</span></div><img src="img/blog_post.jpg" alt=""></div>
+      <figcaption><span class="k">5</span><b>المدونة التقنية:</b> مقالات بصيغة Markdown آمنة، ونشر مجدول، وكل مقال في خريطة الموقع.</figcaption>
+    </figure>
+    <figure>
+      <div class="shot"><div class="bar"><i></i><i></i><i></i><span class="url">/ar/page-that-does-not-exist</span></div><img src="img/not_found.jpg" alt=""></div>
+      <figcaption><span class="k">6</span><b>صفحة 404 مخصصة:</b> بتصميم الموقع ولغته، مع طرق للعودة بدل صفحة الخطأ الافتراضية.</figcaption>
+    </figure>
+  </div>
+
+  <div class="foot">صفحة 5 من 12</div>
+</section>
+
+<!-- ============================ Page 6: Home storytelling ============================ -->
+<section class="page">
+  <div class="hdr"><span class="title">التقرير الشامل لتطوير موقع البسيط سوفت — نوفمبر 2026</span><span>شركة البسيط سوفت</span></div>
+
+  <div class="sec"><h2><span class="num">5</span> رسوم متحركة تحكي قصة الشركة</h2><span class="tag">مرسومة بالكود، لا صور جاهزة</span></div>
+  <p class="lead">أُضيفت إلى الرئيسية أقسام تُري الزائر نفسه في المشهد. كل الرسوم مرسومة بـ SVG داخل الكود بألوان الشركة وأسلوب لوحتها الرئيسية، فهي خفيفة وحادة على كل الشاشات، وتعمل حركتها دائماً.</p>
+
+  <figure>
+    <div class="shot"><div class="bar"><i></i><i></i><i></i><span class="url">/ar#sectors</span></div><img src="img/sectors.jpg" alt=""></div>
+    <figcaption><b>«حلول تناسب قطاعك»:</b> 6 مشاهد متحركة لأماكن عمل حقيقية: مطعم، صيدلية، سوبرماركت، مستودع، مدرسة، شركة توزيع. في كل مشهد شاشة نظام البسيط سوفت تعمل: أعمدة بيانات ترتفع، وفواتير تُطبع، وشاحنة تتحرك على الخريطة.</figcaption>
+  </figure>
+
+  <div class="two" style="margin-top:4.5mm">
+    <figure>
+      <div class="shot"><div class="bar"><i></i><i></i><i></i><span class="url">/ar#how-we-work</span></div><img src="img/how_we_work.jpg" alt=""></div>
+      <figcaption><b>«كيف نعمل معك»:</b> 4 خطوات من الاستماع للاحتياج إلى الدعم، بأيقونات تطفو وتنبض وخط متحرك يربطها.</figcaption>
+    </figure>
+    <figure>
+      <div class="shot"><div class="bar"><i></i><i></i><i></i><span class="url">/ar · الوضع النهاري</span></div><img src="img/light_home.jpg" alt=""></div>
+      <figcaption><b>الوضع النهاري:</b> كل قسم جديد صُمّم للوضعين، وقيس تباين نصوصه في كليهما.</figcaption>
+    </figure>
+  </div>
+
+  <figure style="margin-top:4.5mm">
+    <div class="shot"><img src="img/marquee.jpg" alt=""></div>
+    <figcaption><b>شريط الأنظمة المتحرك</b> تحت الواجهة: أنظمة الشركة تمر باستمرار ويتوقف عند المرور بالمؤشر، ومعه لمعة ضوئية على البطاقات وشريط تقدّم القراءة أعلى الصفحة.</figcaption>
+  </figure>
+
+  <div class="foot">صفحة 6 من 12</div>
+</section>
+
+<!-- ============================ Page 7: Smart tools ============================ -->
+<section class="page">
+  <div class="hdr"><span class="title">التقرير الشامل لتطوير موقع البسيط سوفت — نوفمبر 2026</span><span>شركة البسيط سوفت</span></div>
+
+  <div class="sec"><h2><span class="num">6</span> أدوات ذكية تساعد الزائر على القرار</h2><span class="tag">مساعد الاختيار والأسئلة الشائعة</span></div>
+  <p class="lead"><b class="hl">مساعد «اختر النظام المناسب لعملك»</b> يسأل الزائر 3 أسئلة ثم يقترح النظام الأنسب وأنظمة مكمّلة. وإن اختار «نشاط آخر» وكتب نشاطه بكلماته، يحلّله الموقع ويحدد أقرب قطاع، ويُظهر شاشة «جاري التفكير» قبل النتيجة.</p>
+
+  <div class="two">
+    <figure>
+      <div class="shot"><div class="bar"><i></i><i></i><i></i><span class="url">/ar#system-finder</span></div><img src="img/finder_step1.jpg" alt=""></div>
+      <figcaption><b>الخطوة الأولى:</b> نوع النشاط بأيقونات، وشريط تقدّم، وخانة «نشاط آخر».</figcaption>
+    </figure>
+    <figure>
+      <div class="shot"><div class="bar"><i></i><i></i><i></i><span class="url">/ar#system-finder</span></div><img src="img/finder_result.jpg" alt=""></div>
+      <figcaption><b>النتيجة:</b> الزائر كتب «مخبز وحلويات» ففهم الموقع نشاطه واقترح النظام، مع زر طلب عرض وزر واتساب.</figcaption>
+    </figure>
+  </div>
+
+  <div class="flow" style="margin-top:4mm">
+    <div class="st"><b>نوع النشاط</b>6 قطاعات أو نص حر</div><div class="arr">←</div>
+    <div class="st"><b>أهم احتياج</b>مبيعات، مخزون، حسابات…</div><div class="arr">←</div>
+    <div class="st"><b>عدد الفروع</b>فرع أو عدة فروع</div><div class="arr">←</div>
+    <div class="st hot"><b>«جاري التفكير»</b>تحليل ومطابقة</div><div class="arr">←</div>
+    <div class="st ok"><b>التوصية</b>نظام + طلب عرض جاهز</div>
+  </div>
+
+  <h4 class="mini">صفحة الأسئلة الشائعة</h4>
+  <div class="two">
+    <figure>
+      <div class="shot"><div class="bar"><i></i><i></i><i></i><span class="url">/ar/faq</span></div><img src="img/faq_page.jpg" alt=""></div>
+    </figure>
+    <div class="box" style="align-self:start">
+      <h5>صفحة مستقلة بدل أقسام طويلة</h5>
+      <ul>
+        <li>بحث فوري وتصنيفات، وترقيم يُعاد تلقائياً عند التصفية.</li>
+        <li><b>مكتبة من 9 رسوم متحركة</b> بهوية الشركة، كل رسم يشرح فكرة الجواب: العمل بدون إنترنت ثم المزامنة، ربط الفروع، النسخ الاحتياطي، الدعم…</li>
+        <li>يُختار الرسم لكل سؤال من لوحة التحكم، أو يُختار تلقائياً حسب التصنيف.</li>
+        <li>بيانات FAQ المنظمة لتظهر الأسئلة في نتائج Google.</li>
+        <li>خففت الصفحتين الرئيسية و«اتصل بنا» من الأقسام الطويلة.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="foot">صفحة 7 من 12</div>
+</section>
+
+<!-- ============================ Page 8: Mobile ============================ -->
+<section class="page">
+  <div class="hdr"><span class="title">التقرير الشامل لتطوير موقع البسيط سوفت — نوفمبر 2026</span><span>شركة البسيط سوفت</span></div>
+
+  <div class="sec"><h2><span class="num">7</span> تجربة الجوال</h2><span class="tag">حيث يأتي أغلب الزوار</span></div>
+  <p class="lead">فُحصت كل صفحة على شاشة بعرض <bdi dir="ltr">375–390px</bdi>. العنوان لم يعد مقصوصاً، واسم الشركة كامل، وأُضيف ما يجعل التواصل بلمسة واحدة.</p>
+
+  <div class="phones">
+    <figure><div class="phone"><img src="img/mobile_home.jpg" alt=""></div><figcaption><b>الرئيسية</b> وشريط التواصل الثابت</figcaption></figure>
+    <figure><div class="phone"><img src="img/mobile_menu.jpg" alt=""></div><figcaption><b>القائمة</b> مع اختيار الوضع واللغة</figcaption></figure>
+    <figure><div class="phone"><img src="img/mobile_sectors.jpg" alt=""></div><figcaption><b>مشاهد القطاعات</b> على الجوال</figcaption></figure>
+    <figure><div class="phone"><img src="img/mobile_faq.jpg" alt=""></div><figcaption><b>الأسئلة</b> برسومها المتحركة</figcaption></figure>
+  </div>
+
+  <h4 class="mini">ما أُضيف للجوال</h4>
+  <div class="feats">
+    <div class="feat"><div class="ic r">☎</div><div><h6>شريط تواصل ثابت</h6><p>«اتصال» و«واتساب» و«اطلب عرضاً» أسفل الشاشة دائماً، وزر واتساب العائم للحاسوب فقط حتى لا يتكرر.</p></div></div>
+    <div class="feat"><div class="ic">↑</div><div><h6>صعود متحرك للأعلى</h6><p>زر يصعد بالصفحة بحركة تبدأ ببطء ثم تتسارع ثم تتباطأ، ويتوقف إن لمس الزائر الشاشة.</p></div></div>
+    <div class="feat"><div class="ic">⌂</div><div><h6>تثبيت على الشاشة الرئيسية</h6><p>ملف <span class="ltr">site.webmanifest</span> بأيقونات الشعار، ولون شريط المتصفح بلون الموقع.</p></div></div>
+    <div class="feat"><div class="ic">≡</div><div><h6>قائمة «المزيد»</h6><p>الصفحات الثانوية في قائمة منسدلة فلا يزدحم الشريط العلوي ولا يُضغط اسم الشركة.</p></div></div>
+    <div class="feat"><div class="ic">◐</div><div><h6>الوضعان الليلي والنهاري</h6><p>اختيار الوضع داخل قائمة الجوال، وكل الألوان مقيسة التباين في الوضعين.</p></div></div>
+    <div class="feat"><div class="ic">⇥</div><div><h6>سهولة الوصول</h6><p>رابط «تخطَّ إلى المحتوى»، ووصف لكل زر وأيقونة، وتنقل كامل بلوحة المفاتيح.</p></div></div>
+  </div>
+
+  <div class="callout"><b>قبل وبعد على شاشة 375px:</b> كان العنوان الرئيسي يمتد إلى <bdi dir="ltr">459px</bdi> فيُقص جزء منه، وصار كله داخل الشاشة (<bdi dir="ltr">16 – 359px</bdi>). وكان يظهر من اسم الشركة 46 من 106 بكسل فقط، وصار يظهر كاملاً. وكل الرسوم المتحركة تعمل على الجوال بنفس الجودة لأنها مرسومة بالكود لا صوراً.</div>
+
+  <div class="foot">صفحة 8 من 12</div>
+</section>
+
+<!-- ============================ Page 9: Admin ============================ -->
+<section class="page">
+  <div class="hdr"><span class="title">التقرير الشامل لتطوير موقع البسيط سوفت — نوفمبر 2026</span><span>شركة البسيط سوفت</span></div>
+
+  <div class="sec"><h2><span class="num">8</span> لوحة التحكم</h2><span class="tag">كل جديد يُدار دون لمس الكود</span></div>
+  <p class="lead">بُنيت في لوحة التحكم وحدة إدارة محتوى عامة: كل قسم جديد يُعرَّف مرة واحدة (حقوله وأعمدته)، فتُبنى له شاشات العرض والإضافة والتعديل والحذف والترتيب والتفعيل تلقائياً، بالعربية والإنجليزية.</p>
+
+  <div class="two" style="row-gap:4mm">
+    <figure>
+      <div class="shot"><div class="bar"><i></i><i></i><i></i><span class="url">/admin/dashboard</span></div><img src="img/admin_dashboard.jpg" alt=""></div>
+      <figcaption><b>الرئيسية للوحة:</b> بطاقة «العملاء المحتملون هذا الشهر» وعداد الطلبات الجديدة.</figcaption>
+    </figure>
+    <figure>
+      <div class="shot"><div class="bar"><i></i><i></i><i></i><span class="url">/admin/content/products</span></div><img src="img/admin_products.jpg" alt=""></div>
+      <figcaption><b>المنتجات:</b> قائمة بالصور والحالة والترتيب، والإضافة بنموذج واحد للغتين.</figcaption>
+    </figure>
+    <figure>
+      <div class="shot"><div class="bar"><i></i><i></i><i></i><span class="url">/admin/content/faqs/24/edit</span></div><img src="img/admin_faq_edit.jpg" alt=""></div>
+      <figcaption><b>تعديل سؤال:</b> السؤال والجواب بلغتين، والتصنيف، واختيار الرسم المتحرك.</figcaption>
+    </figure>
+    <figure>
+      <div class="shot"><div class="bar"><i></i><i></i><i></i><span class="url">/admin/content/demo-requests</span></div><img src="img/admin_demo_requests.jpg" alt=""></div>
+      <figcaption><b>طلبات العرض التجريبي:</b> كل طلب بالنظام المطلوب وبيانات التواصل وحالته.</figcaption>
+    </figure>
+  </div>
+
+  <h4 class="mini">الأقسام الجديدة في اللوحة</h4>
+  <table class="grid">
+    <tr><th>القسم</th><th>ما يمكن عمله</th></tr>
+    <tr><td class="axis">المنتجات</td><td>اسم ووصف ومزايا وقطاعات بلغتين، صورة غلاف ولقطات شاشة، رابط مختصر، ترتيب وتفعيل.</td></tr>
+    <tr><td class="axis">دراسات الحالة والشعارات</td><td>التحدي والحل والنتيجة لكل مشروع، وشعارات العملاء (صور أو SVG مفحوص أمنياً).</td></tr>
+    <tr><td class="axis">الأسئلة الشائعة</td><td>تصنيف ورسم متحرك لكل سؤال، وظهورها في الموقع تلقائياً عند النشر.</td></tr>
+    <tr><td class="axis">المدونة</td><td>كتابة بصيغة Markdown، وصورة، وتاريخ نشر مجدول.</td></tr>
+    <tr><td class="axis">طلبات العرض</td><td>متابعة الطلبات وحالتها، وإشعار بالبريد عند وصول طلب.</td></tr>
+    <tr><td class="axis">الإعدادات</td><td>الأرقام من مصدر واحد، وصورة المشاركة، والخريطة وساعات العمل، وأدوات Google.</td></tr>
+  </table>
+
+  <div class="foot">صفحة 9 من 12</div>
+</section>
+
+<!-- ============================ Page 10: Quality & security ============================ -->
+<section class="page">
+  <div class="hdr"><span class="title">التقرير الشامل لتطوير موقع البسيط سوفت — نوفمبر 2026</span><span>شركة البسيط سوفت</span></div>
+
+  <div class="sec"><h2><span class="num">9</span> الجودة والأمان والاختبارات</h2><span class="tag">فحص شامل قبل التسليم</span></div>
+  <p class="lead">في نهاية العمل بُني <b class="hl">فحص آلي شامل</b> يزور كل صفحات الموقع بالعربية والإنجليزية (أكثر من 60 صفحة) مع كل رابط داخلي وصورة، وكل شاشات لوحة التحكم، ويتأكد أن أياً منها لا يعطي خطأ. كشف الفحص والمراجعة 5 مشكلات، أُصلحت كلها وأُضيف لكل منها اختبار يمنع عودتها.</p>
+
+  <table class="grid">
+    <tr><th>#</th><th>ما وُجد</th><th>ما تم</th><th>النوع</th></tr>
+    <tr><td class="n">1</td><td>شاشة «قسم من نحن» في لوحة التحكم تعطي خطأ 500 بسبب تعارض في ملف الترجمة.</td><td>أُعيدت تسمية المجموعة، واختبار يمنع تكرار المفاتيح ويطابق اللغتين.</td><td class="st"><span class="pill done">خطأ</span></td></tr>
+    <tr><td class="n">2</td><td>نص مُدخل من اللوحة يمكنه كسر وسم البيانات المنظمة (JSON-LD) في 4 صفحات (XSS).</td><td>ترميز آمن للبيانات المنظمة في كل الصفحات.</td><td class="st"><span class="pill sec">أمني</span></td></tr>
+    <tr><td class="n">3</td><td>ملفات SVG المرفوعة يمكن أن تحمل سكربتات، وLaravel 12 كان يرفض SVG أصلاً.</td><td>قبول SVG مع فحص يرفض السكربتات والروابط الخارجية.</td><td class="st"><span class="pill sec">أمني</span></td></tr>
+    <tr><td class="n">4</td><td>العناوين التي فيها «&amp;» أو علامات تنصيص تظهر مرمّزة مرتين في Google.</td><td>ترميز مرة واحدة، واختبار للعناوين والأوصاف.</td><td class="st"><span class="pill done">خطأ</span></td></tr>
+    <tr><td class="n">5</td><td>نصوص منخفضة التباين في الوضع النهاري وأزرار واتساب الخضراء.</td><td>كل النصوص <bdi dir="ltr">≥ 4.5:1</bdi> بقياس آلي.</td><td class="st"><span class="pill content">وصول</span></td></tr>
+  </table>
+
+  <div class="two" style="margin-top:4.5mm">
+    <div class="box">
+      <h5>نمو الاختبارات الآلية</h5>
+      <div class="bars" style="margin-top:2mm">
+        <div class="row"><span class="lbl">قبل البدء</span><div class="track"><div class="fill s" style="width:11%">2</div></div></div>
+        <div class="row"><span class="lbl">بعد الخطة</span><div class="track"><div class="fill" style="width:79%">53</div></div></div>
+        <div class="row"><span class="lbl">الآن</span><div class="track"><div class="fill r" style="width:100%">67 اختباراً · 354 تحققاً</div></div></div>
+      </div>
+      <p style="font-size:8.2pt;color:#5b6170;margin-top:2.5mm;line-height:1.55">21 ملف اختبار تغطي: الروابط، النماذج، المنتجات، المدونة، الأسئلة، التخزين، SEO، الأمان، رفع الصور، ملفات الترجمة، والفحص الشامل.</p>
+    </div>
+    <div class="box">
+      <h5>طبقات الحماية</h5>
+      <ul>
+        <li>ترويسات أمان: CSP وX-Frame-Options وX-Content-Type-Options وReferrer-Policy وPermissions-Policy.</li>
+        <li>فحص الملفات المرفوعة (الصور وSVG) وتحويلها إلى WebP.</li>
+        <li>ترميز آمن لكل ما يُعرض من اللوحة، وMarkdown بلا HTML خام.</li>
+        <li>حماية النماذج من الإرسال الآلي المتكرر.</li>
+        <li>صفحات العرض بلا جلسات ولا Cookies.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout red"><b>حدود الفحص:</b> الفحص آلي ومراجعة للكود، ولم تُجرَ اختبارات اختراق. ولم تُقس مؤشرات الخادم على الموقع المنشور لأن التعديلات لم تُنشر بعد.</div>
+
+  <div class="foot">صفحة 10 من 12</div>
+</section>
+
+<!-- ============================ Page 11: Under the hood ============================ -->
+<section class="page">
+  <div class="hdr"><span class="title">التقرير الشامل لتطوير موقع البسيط سوفت — نوفمبر 2026</span><span>شركة البسيط سوفت</span></div>
+
+  <div class="sec"><h2><span class="num">10</span> ما تمت برمجته</h2><span class="tag">للمراجعة الفنية</span></div>
+  <p class="lead">الموقع مبني بـ <span class="ltr">Laravel 12</span> و<span class="ltr">Tailwind 4</span> و<span class="ltr">Alpine.js</span>. حافظ التطوير على بنية المشروع وأسلوبه، وأضاف إليه المكونات التالية:</p>
+
+  <div class="stats">
+    <div class="stat b"><div class="n">+7,841</div><div class="l">سطراً أُضيف<br>(−419 حُذف)</div></div>
+    <div class="stat b"><div class="n">106</div><div class="l">ملفات جديدة</div></div>
+    <div class="stat b"><div class="n">11</div><div class="l">ترحيلاً جديداً لقاعدة<br>البيانات (migrations)</div></div>
+    <div class="stat b"><div class="n">18</div><div class="l">مساراً للواجهة<br>بلغتين</div></div>
+  </div>
+
+  <table class="grid">
+    <tr><th>الطبقة</th><th>المكوّن</th><th>الوظيفة</th></tr>
+    <tr class="cat"><td colspan="3">الخادم (Backend)</td></tr>
+    <tr><td class="axis">الأداء</td><td class="ltr">PageCache · CachePublicPage</td><td>تخزين الصفحات العامة جاهزة، يُمسح تلقائياً عند أي تعديل أو نشر جديد.</td></tr>
+    <tr><td class="axis">إدارة المحتوى</td><td class="ltr">ContentRegistry · ContentController</td><td>وحدة عامة تبني شاشات اللوحة من تعريف الحقول (12 نوع حقل).</td></tr>
+    <tr><td class="axis">النماذج</td><td class="ltr">Product · Post · Faq · ClientLogo · DemoRequest</td><td>البيانات الجديدة مع النصوص بلغتين والنشر والترتيب.</td></tr>
+    <tr><td class="axis">الأمان</td><td class="ltr">SecurityHeaders · SafeSvg · RedirectToCanonicalHost</td><td>الترويسات، وفحص SVG، وتوحيد النطاق (بدون www).</td></tr>
+    <tr><td class="axis">أدوات</td><td class="ltr">PhoneNumber · ImageUploader</td><td>صياغة أرقام اليمن لواتساب، ورفع الصور وتحويلها إلى WebP.</td></tr>
+    <tr><td class="axis">أوامر</td><td class="ltr">images:optimize · preview:content</td><td>تحويل الصور القديمة، وملء/حذف محتوى المعاينة (يرفض العمل في الإنتاج).</td></tr>
+    <tr class="cat"><td colspan="3">الواجهة (Frontend)</td></tr>
+    <tr><td class="axis">صفحات</td><td>المنتجات، النظام، طلب العرض، المدونة، المقال، الأسئلة، دراسة الحالة، 404</td><td>كل صفحة بلغتين، بعنوان ووصف وبيانات منظمة.</td></tr>
+    <tr><td class="axis">أقسام</td><td>كيف نعمل، القطاعات، مساعد الاختيار، شريط الأنظمة، الشعارات، الفريق</td><td>تظهر تلقائياً حين يوجد محتوى منشور.</td></tr>
+    <tr><td class="axis">رسوم SVG</td><td>6 مشاهد قطاعات + 9 رسوم أسئلة</td><td>حركة CSS خفيفة، بألوان الشركة، تعمل في الوضعين.</td></tr>
+    <tr><td class="axis">تفاعل</td><td class="ltr">app.js</td><td>ظهور تدريجي، عدادات، شريط تقدّم، صعود متحرك، وقياس النقرات لـ Analytics.</td></tr>
+    <tr class="cat"><td colspan="3">النشر والتوثيق</td></tr>
+    <tr><td class="axis">النشر</td><td class="ltr">scripts/deploy.sh</td><td>نشر بأمر واحد: التحديث، الترحيل، الصور، التحسين، مسح التخزين.</td></tr>
+    <tr><td class="axis">التوثيق</td><td class="ltr">PLAN · PROGRESS · DEPLOYMENT · PREVIEW</td><td>الخطة، وسجل كل بند بملفاته ورقم commit، ودليل الخادم، ودليل المعاينة.</td></tr>
+  </table>
+
+  <div class="foot">صفحة 11 من 12</div>
+</section>
+
+<!-- ============================ Page 12: Next steps ============================ -->
+<section class="page">
+  <div class="hdr"><span class="title">التقرير الشامل لتطوير موقع البسيط سوفت — نوفمبر 2026</span><span>شركة البسيط سوفت</span></div>
+
+  <div class="sec"><h2><span class="num">11</span> الخطوات التالية</h2><span class="tag">ليصل الأثر إلى الزوار</span></div>
+  <p class="lead">الكود جاهز ومختبَر على الفرع. يكتمل أثره بثلاثة أمور: الدمج والنشر، وإعدادات الخادم، والمحتوى الحقيقي من الشركة.</p>
+
+  <div class="flow" style="margin-bottom:4.5mm">
+    <div class="st ok"><b>✓ التطوير</b>على الفرع ومختبَر</div><div class="arr">←</div>
+    <div class="st"><b>المراجعة</b>الأستاذ المشرف</div><div class="arr">←</div>
+    <div class="st"><b>الدمج والنشر</b><span class="ltr">deploy.sh</span></div><div class="arr">←</div>
+    <div class="st"><b>المحتوى</b>من إدارة الشركة</div><div class="arr">←</div>
+    <div class="st hot"><b>القياس</b>PageSpeed وAnalytics</div>
+  </div>
+
+  <div class="two">
+    <div class="box">
+      <h5>أولاً: الدمج والنشر</h5>
+      <ol>
+        <li>مراجعة الفرع <span class="ltr">abdalsalam</span> (كل بند في commit يبدأ برقمه).</li>
+        <li>الدمج في <span class="ltr">main</span> ثم <span class="ltr">bash scripts/deploy.sh</span> على الخادم.</li>
+        <li>في <span class="ltr">.env</span>: <span class="ltr">APP_DEBUG=false</span> و<span class="ltr">CACHE_STORE=file</span> و<span class="ltr">SESSION_DRIVER=file</span>.</li>
+        <li>تفعيل OPcache وقواعد Cloudflare الجاهزة، وإعداد SMTP للإشعارات.</li>
+      </ol>
+    </div>
+    <div class="box">
+      <h5>ثانياً: المحتوى (إدارة الشركة)</h5>
+      <ul>
+        <li>العدد الحقيقي للعملاء وسنوات الخبرة.</li>
+        <li>وصف كل منتج ومزاياه ولقطات شاشته الحقيقية.</li>
+        <li>شعارات عملاء موافقين، ودراسات حالة، وآراء.</li>
+        <li>صور الفريق، والعنوان والخريطة، وملف الشعار SVG.</li>
+        <li>ثم <span class="ltr">php artisan preview:content --remove</span> لحذف محتوى المعاينة.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="two" style="margin-top:4mm">
+    <div class="box">
+      <h5>ثالثاً: Google</h5>
+      <ul>
+        <li>رمز Search Console ومعرّف Analytics من اللوحة ← الإعدادات.</li>
+        <li>إرسال <span class="ltr">sitemap.xml</span> من Search Console.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h5>رابعاً: القياس النهائي</h5>
+      <ul>
+        <li>قياس TTFB وPageSpeed للجوال والحاسوب ومقارنته بالمستهدف.</li>
+        <li>متابعة الطلبات ونقرات واتساب شهرياً.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h4 class="mini">الوثائق في المستودع</h4>
+  <table class="grid">
+    <tr><th>الملف</th><th>المحتوى</th></tr>
+    <tr><td class="ltr">docs/improvement/PLAN.md</td><td>الخطة المرقمة، وقائمة «مطلوب من الشركة».</td></tr>
+    <tr><td class="ltr">docs/improvement/PROGRESS.md</td><td>سجل كل بند: ما تغيّر، وملفاته، ورقم الـ commit.</td></tr>
+    <tr><td class="ltr">docs/improvement/DEPLOYMENT.md</td><td>دليل النشر وإعدادات الخادم وGoogle.</td></tr>
+    <tr><td class="ltr">docs/improvement/PREVIEW.md</td><td>تشغيل محتوى المعاينة وحذفه.</td></tr>
+  </table>
+
+  <div class="callout"><b>منهجية التنفيذ والتحقق:</b> نُفّذ كل بند على فرع مستقل دون المساس بـ <span class="ltr">main</span>. بعد كل بند شُغّل الموقع محلياً وفُحص في المتصفح بالعربية والإنجليزية، على الحاسوب والجوال، وبالوضعين الليلي والنهاري، وأُضيفت له اختبارات آلية. الصور في هذا التقرير لقطات من نسخة الفرع بمحتوى معاينة تقريبي، ما عدا صورة «قبل» فهي من الموقع المنشور.</div>
+
+  <div class="foot">صفحة 12 من 12</div>
+</section>
+
+</body>
+</html>
