@@ -1223,3 +1223,4 @@
 @keyframes fi-msg { 0%, 8% { opacity: 0; transform: translateY(8px); } 16%, 88% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; } }
 /* Decorative, small and slow: these loops keep running even when the OS asks for reduced motion
    (Windows "Animation effects" off). Page-wide entrance slides (AOS) still respect that setting. */
+.faq-q-num { font-size: 15px; font-variant-numeric: tabular-nums; }

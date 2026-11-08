@@ -36,7 +36,8 @@
     <section class="pb-24" x-data="{
             cat: 'all', q: '', open: (location.hash || '').replace('#q-', ''), items: @js($faqIndex),
             shows(id) { const f = this.items.find(i => i.id === String(id)); return (this.cat === 'all' || this.cat === f.cat) && (this.q.trim() === '' || f.text.includes(this.q.trim().toLowerCase())); },
-            get visibleCount() { return this.items.filter(i => this.shows(i.id)).length; }
+            get visibleCount() { return this.items.filter(i => this.shows(i.id)).length; },
+            num(id) { return this.items.filter(i => this.shows(i.id)).findIndex(i => i.id === String(id)) + 1; }
         }">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {{-- search + category tabs --}}
@@ -70,7 +71,7 @@
                                     @click="open = (open == '{{ $faq->id }}') ? '' : '{{ $faq->id }}'" :aria-expanded="(open == '{{ $faq->id }}').toString()"
                                     aria-controls="a-{{ $faq->id }}">
                                     <span class="flex items-center gap-3">
-                                        <span class="faq-q-icon" aria-hidden="true">؟</span>
+                                        <span class="faq-q-icon faq-q-num" aria-hidden="true" x-text="num({{ $faq->id }})">{{ $loop->iteration }}</span>
                                         <span class="text-white font-semibold text-base md:text-lg">{{ $faq->question }}</span>
                                     </span>
                                     <svg aria-hidden="true" class="w-5 h-5 flex-shrink-0 text-primary-400 transition-transform" :class="open == '{{ $faq->id }}' ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
