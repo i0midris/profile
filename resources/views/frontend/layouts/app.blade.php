@@ -414,7 +414,7 @@
 
                 <!-- Contact Info -->
                 <div class="site-footer-block">
-                    <h3 class="site-footer-heading">{{ __('frontend.contact') }}</h3>
+                    <h3 class="site-footer-heading">{{ __('frontend.contact_information') }}</h3>
                     <ul class="site-footer-contact space-y-3">
                         @if($settings->email ?? false)
                             <li class="site-footer-contact-item">
