@@ -27,9 +27,21 @@
     $sectorsOpts = ['restaurant' => 1, 'pharmacy' => 1, 'retail' => 1, 'distribution' => 1, 'organisation' => 1, 'other' => 1];
     $needsOpts = ['sales' => 'pos-system', 'accounts' => 'erp-accounting', 'staff' => 'hr-payroll', 'online' => 'e-commerce', 'field' => 'sales-rep-app'];
     $sizeOpts = ['one', 'few', 'many'];
+    // "Other" activity: the visitor types it, and these keywords map it to the closest sector.
+    $finderKeywords = [
+        'restaurant' => ['مطعم', 'مطاعم', 'كافي', 'كافيه', 'قهوه', 'مقهي', 'كافتيريا', 'بوفيه', 'حلويات', 'مخبز', 'مخابز', 'فرن', 'شاورما', 'بيتزا', 'برجر', 'عصير', 'عصائر', 'فندق', 'فنادق', 'مطبخ', 'وجبات', 'cafe', 'coffee', 'restaurant', 'bakery', 'hotel', 'pizza', 'juice', 'food'],
+        'pharmacy' => ['صيدل', 'دواء', 'ادويه', 'عياده', 'عيادات', 'مستشفي', 'مستشفيات', 'مختبر', 'مستوصف', 'طبي', 'طبيه', 'اسنان', 'بصريات', 'نظارات', 'تجميل', 'pharma', 'clinic', 'hospital', 'lab', 'medical', 'dental', 'optic'],
+        'retail' => ['بقاله', 'سوبر', 'ماركت', 'محل', 'محلات', 'متجر', 'ملابس', 'ازياء', 'احذيه', 'جوالات', 'هواتف', 'اكسسوار', 'الكترونيات', 'مكتبه', 'قرطاسيه', 'هدايا', 'عطور', 'ذهب', 'مجوهرات', 'اثاث', 'مفروشات', 'قطع غيار', 'محطه', 'وقود', 'خضار', 'فواكه', 'لحوم', 'دواجن', 'shop', 'store', 'retail', 'market', 'boutique', 'fashion', 'mobile', 'grocery'],
+        'distribution' => ['توزيع', 'موزع', 'جمله', 'مستودع', 'مستودعات', 'مخزن', 'مخازن', 'استيراد', 'تصدير', 'نقل', 'شحن', 'لوجست', 'وكيل', 'وكاله', 'تموين', 'wholesale', 'distribut', 'warehouse', 'logistic', 'import', 'export', 'shipping', 'supply'],
+        'organisation' => ['مدرسه', 'مدارس', 'جامعه', 'كليه', 'معهد', 'روضه', 'حضانه', 'مركز تدريب', 'مؤسسه', 'منظمه', 'جمعيه', 'مكتب', 'محاماه', 'محاسبه قانونيه', 'استشارات', 'حكومي', 'وزاره', 'بنك', 'صرافه', 'تامين', 'عقارات', 'school', 'university', 'college', 'institute', 'academy', 'ngo', 'office', 'bank', 'insurance', 'real estate'],
+        'industry' => ['مصنع', 'مصانع', 'ورشه', 'ورش', 'انتاج', 'تصنيع', 'مقاولات', 'بناء', 'انشاءات', 'هندسه', 'حداده', 'نجاره', 'خياطه', 'مطبعه', 'طباعه', 'صيانه', 'سيارات', 'factory', 'workshop', 'manufactur', 'construction', 'contracting', 'printing', 'garage', 'repair'],
+    ];
     $labels = collect($sectorsOpts)->keys()->mapWithKeys(fn ($k) => ['s_' . $k => __('frontend.finder_sector_' . $k)])
         ->merge(collect($needsOpts)->keys()->mapWithKeys(fn ($k) => ['n_' . $k => __('frontend.finder_need_' . $k)]))
-        ->merge(collect($sizeOpts)->mapWithKeys(fn ($k) => ['z_' . $k => __('frontend.finder_size_' . $k)]));
+        ->merge(collect($sizeOpts)->mapWithKeys(fn ($k) => ['z_' . $k => __('frontend.finder_size_' . $k)]))
+        ->merge(['s_industry' => __('frontend.finder_sector_industry'), 's_general' => __('frontend.finder_sector_general')])
+        ->merge(collect(['restaurant', 'pharmacy', 'retail', 'distribution', 'organisation', 'industry'])->mapWithKeys(fn ($k) => ['c_' . $k => __('frontend.finder_closest_' . $k)]));
+    $thinkingLines = [__('frontend.finder_thinking_1'), __('frontend.finder_thinking_2'), __('frontend.finder_thinking_3')];
 @endphp
 <section class="py-24 relative overflow-hidden" id="system-finder">
     <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
@@ -38,22 +50,55 @@
     </div>
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative"
         x-data="{
-            step: 1, sector: null, need: null, size: null,
-            systems: @js($systems), needs: @js($needsOpts), labels: @js($labels),
-            pick(field, value) { this[field] = value; setTimeout(() => this.step++, 220); },
-            reset() { this.step = 1; this.sector = this.need = this.size = null; },
+            step: 1, sector: null, need: null, size: null, otherText: '', inferred: null, otherError: false, line: 0,
+            systems: @js($systems), needs: @js($needsOpts), labels: @js($labels), keywords: @js($finderKeywords), lines: @js($thinkingLines),
+            pick(field, value) {
+                this[field] = value;
+                if (field === 'sector' && value === 'other') { this.$nextTick(() => this.$refs.other?.focus()); return; }
+                if (field === 'size') { setTimeout(() => this.think(), 220); return; }
+                setTimeout(() => this.step++, 220);
+            },
+            // Arabic-insensitive matching: strip diacritics/tatweel, unify alef, ta marbuta and ya.
+            normalize(t) {
+                return (t || '').toLowerCase().replace(/[\u064B-\u0652\u0640]/g, '').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي').trim();
+            },
+            infer(text) {
+                const t = this.normalize(text);
+                let best = null, score = 0;
+                for (const [sector, words] of Object.entries(this.keywords)) {
+                    const hits = words.filter(w => t.includes(this.normalize(w))).length;
+                    if (hits > score) { best = sector; score = hits; }
+                }
+                return best || 'general';
+            },
+            submitOther() {
+                if (this.otherText.trim().length < 2) { this.otherError = true; return; }
+                this.otherError = false;
+                this.inferred = this.infer(this.otherText);
+                this.step = 2;
+            },
+            think() {
+                this.step = 4; this.line = 0;
+                const timer = setInterval(() => { this.line = Math.min(this.line + 1, this.lines.length - 1); }, 750);
+                setTimeout(() => { clearInterval(timer); this.step = 5; }, 2400);
+            },
+            reset() { this.step = 1; this.sector = this.need = this.size = this.inferred = null; this.otherText = ''; this.otherError = false; },
+            get effectiveSector() { return this.sector === 'other' ? (this.inferred || 'general') : this.sector; },
             get primary() { return this.needs[this.need] || 'erp-accounting'; },
             get extras() {
                 const out = [];
                 const add = s => { if (s !== this.primary && !out.includes(s)) out.push(s); };
-                if (['restaurant', 'pharmacy', 'retail'].includes(this.sector)) add('pos-system');
-                if (this.sector === 'distribution') add('sales-rep-app');
-                if (this.sector === 'organisation') add('hr-payroll');
+                const sec = this.effectiveSector;
+                if (['restaurant', 'pharmacy', 'retail'].includes(sec)) add('pos-system');
+                if (sec === 'distribution') add('sales-rep-app');
+                if (sec === 'organisation' || sec === 'industry') add('hr-payroll');
+                if (sec === 'industry') add('erp-accounting');
                 if (this.size !== 'one') add('erp-accounting');
                 return out.slice(0, 2);
             },
             get message() {
-                return @js(__('frontend.finder_whatsapp_intro')) + '\n- ' + this.labels['s_' + this.sector] + '\n- ' + this.labels['n_' + this.need]
+                const activity = this.sector === 'other' ? this.otherText.trim() : this.labels['s_' + this.sector];
+                return @js(__('frontend.finder_whatsapp_intro')) + '\n- ' + activity + '\n- ' + this.labels['n_' + this.need]
                     + '\n- ' + this.labels['z_' + this.size] + '\n' + @js(__('frontend.finder_whatsapp_system')) + ' ' + this.systems[this.primary].name;
             }
         }">
@@ -70,7 +115,7 @@
             <div class="flex items-center gap-3 mb-8" aria-hidden="true">
                 <template x-for="i in 3" :key="i">
                     <div class="flex-1 h-2 rounded-full bg-white/10 overflow-hidden">
-                        <div class="h-full gradient-primary transition-all duration-500" :style="'width:' + (step > i ? 100 : (step === i ? 50 : 0)) + '%'"></div>
+                        <div class="h-full gradient-primary transition-all duration-500" :style="'width:' + (step > i ? 100 : (step === i ? (i === 1 && sector === 'other' ? 75 : 50) : 0)) + '%'"></div>
                     </div>
                 </template>
             </div>
@@ -85,6 +130,17 @@
                             <span class="finder-emoji" aria-hidden="true"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="{{ $finderIcons[$key] }}"/></svg></span>{{ __('frontend.finder_sector_' . $key) }}
                         </button>
                     @endforeach
+                </div>
+                <div x-show="sector === 'other'" x-cloak x-transition:enter="finder-in" x-transition:enter-start="finder-from" x-transition:enter-end="finder-to" class="mt-5">
+                    <label for="finder-other" class="block text-white/80 text-sm font-medium mb-2">{{ __('frontend.finder_other_label') }}</label>
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <input id="finder-other" x-ref="other" type="text" x-model="otherText" @keydown.enter.prevent="submitOther()" maxlength="80"
+                            placeholder="{{ __('frontend.finder_other_placeholder') }}"
+                            class="flex-1 px-4 py-3.5 rounded-xl bg-white/5 border text-white placeholder-white/40 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20"
+                            :class="otherError ? 'border-red-400' : 'border-white/10'">
+                        <button type="button" @click="submitOther()" class="px-6 py-3.5 rounded-xl gradient-primary text-white font-semibold whitespace-nowrap">{{ __('frontend.finder_continue') }}</button>
+                    </div>
+                    <p x-show="otherError" x-cloak class="mt-2 text-sm text-red-400">{{ __('frontend.finder_other_required') }}</p>
                 </div>
             </div>
 
@@ -116,12 +172,33 @@
                 <button type="button" @click="step = 2" class="mt-6 text-white/60 hover:text-white text-sm">{{ __('frontend.finder_back') }}</button>
             </div>
 
+            {{-- thinking --}}
+            <div x-show="step === 4" x-cloak class="py-10 text-center" x-transition:enter="finder-in" x-transition:enter-start="finder-from" x-transition:enter-end="finder-to" role="status" aria-live="polite">
+                <div class="finder-brain mx-auto mb-7" aria-hidden="true">
+                    <span class="finder-orbit"></span><span class="finder-orbit finder-orbit-2"></span>
+                    <svg class="w-9 h-9 finder-core" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9.5 3a3.5 3.5 0 00-3.4 4.3A3.5 3.5 0 004 13.5a3.5 3.5 0 003 5.4A3 3 0 0012 20V4.5A2.5 2.5 0 009.5 3zM14.5 3A3.5 3.5 0 0117.9 7.3 3.5 3.5 0 0120 13.5a3.5 3.5 0 01-3 5.4A3 3 0 0112 20"/></svg>
+                    <span class="finder-dot" style="--a:0deg"></span><span class="finder-dot" style="--a:120deg"></span><span class="finder-dot" style="--a:240deg"></span>
+                </div>
+                <p class="text-xl font-bold text-white mb-2" x-text="lines[line]"></p>
+                <div class="flex justify-center gap-1.5" aria-hidden="true">
+                    <span class="finder-typing"></span><span class="finder-typing" style="animation-delay:.15s"></span><span class="finder-typing" style="animation-delay:.3s"></span>
+                </div>
+            </div>
+
             {{-- result --}}
-            <div x-show="step === 4" x-cloak x-transition:enter="finder-in" x-transition:enter-start="finder-from" x-transition:enter-end="finder-to">
+            <div x-show="step === 5" x-cloak x-transition:enter="finder-in" x-transition:enter-start="finder-from" x-transition:enter-end="finder-to">
                 <div class="text-center mb-8">
                     <div class="finder-check mx-auto mb-4" aria-hidden="true">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
                     </div>
+                    <template x-if="sector === 'other'">
+                        <p class="inline-flex flex-wrap items-center justify-center gap-x-2 px-4 py-2 mb-4 rounded-full bg-white/5 border border-white/10 text-sm text-white/80">
+                            <span>{{ __('frontend.finder_understood') }}</span>
+                            <strong class="text-white" x-text="'«' + otherText.trim() + '»'"></strong>
+                            <span x-show="inferred !== 'general'">— {{ __('frontend.finder_closest') }}</span>
+                            <strong class="text-primary-400" x-show="inferred !== 'general'" x-text="labels['c_' + inferred]"></strong>
+                        </p>
+                    </template>
                     <p class="text-white/60 text-sm mb-1">{{ __('frontend.finder_result_intro') }}</p>
                     <h3 class="text-2xl md:text-3xl font-bold text-white" x-text="systems[primary].name"></h3>
                     <p class="text-white/70 mt-2 max-w-xl mx-auto" x-text="systems[primary].text"></p>

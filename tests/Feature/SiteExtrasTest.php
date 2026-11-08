@@ -40,6 +40,15 @@ class SiteExtrasTest extends TestCase
         $this->assertStringContainsString('wa.me/967777335118', str_replace('\\/', '/', $html));
     }
 
+    public function test_finder_supports_other_activity_and_thinking_step(): void
+    {
+        $this->get('/ar')
+            ->assertSee('id="finder-other"', false)
+            ->assertSee('نحلل نشاطك…')
+            ->assertSee('المصانع والورش')
+            ->assertSee('الصيدليات والقطاع الطبي');
+    }
+
     public function test_web_manifest_is_valid_json_with_icons(): void
     {
         $manifest = json_decode(file_get_contents(public_path('site.webmanifest')), true);

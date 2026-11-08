@@ -154,6 +154,32 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', () => {
         if (!ticking) { ticking = true; requestAnimationFrame(update); }
     }, { passive: true });
-    top?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    // Animated scroll to the top: eases in then out, its length depends on the distance.
+    // Written by hand (not behavior: 'smooth') so it also animates when the OS has
+    // "reduce motion" on; any wheel/touch/key input from the visitor stops it.
+    let scrolling = null;
+    const stopScrolling = () => { if (scrolling) { cancelAnimationFrame(scrolling); scrolling = null; top?.classList.remove('is-launching'); } };
+    ['wheel', 'touchstart', 'keydown'].forEach((type) => window.addEventListener(type, stopScrolling, { passive: true }));
+    top?.addEventListener('click', () => {
+        stopScrolling();
+        const start = window.scrollY;
+        if (start <= 0) return;
+        const duration = Math.min(1600, Math.max(600, start * 0.35));
+        const easeInOutCubic = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+        const startTime = performance.now();
+        top.classList.add('is-launching');
+        const step = (now) => {
+            const progress = Math.min(1, (now - startTime) / duration);
+            window.scrollTo(0, Math.round(start * (1 - easeInOutCubic(progress))));
+            if (progress < 1) {
+                scrolling = requestAnimationFrame(step);
+            } else {
+                scrolling = null;
+                top.classList.remove('is-launching');
+                document.getElementById('main-content')?.focus({ preventScroll: true });
+            }
+        };
+        scrolling = requestAnimationFrame(step);
+    });
     update();
 });

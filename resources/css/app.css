@@ -1281,3 +1281,21 @@
 .skip-link { position: fixed; top: -60px; inset-inline-start: 12px; z-index: 100; padding: 10px 16px; border-radius: 10px; color: #fff; font-weight: 700;
     background: var(--color-accent-500); transition: top .2s ease; }
 .skip-link:focus { top: 12px; }
+
+/* -- System finder: "thinking" animation -- */
+.finder-brain { position: relative; width: 112px; height: 112px; display: flex; align-items: center; justify-content: center; }
+.finder-core { color: #fff; position: relative; z-index: 2; padding: 14px; width: 64px; height: 64px; border-radius: 22px;
+    background: linear-gradient(135deg, var(--color-primary-500), var(--color-accent-500)); box-shadow: 0 10px 34px rgb(228 25 31 / .35);
+    animation: finder-beat 1.2s ease-in-out infinite; }
+.finder-orbit { position: absolute; inset: 0; border-radius: 50%; border: 2px dashed rgb(96 165 250 / .45); animation: fi-spin 6s linear infinite; }
+.finder-orbit-2 { inset: 14px; border-style: solid; border-color: rgb(228 25 31 / .35) transparent rgb(228 25 31 / .35) transparent; animation-duration: 2.2s; animation-direction: reverse; }
+.finder-dot { position: absolute; top: 50%; left: 50%; width: 9px; height: 9px; margin: -4.5px; border-radius: 50%; background: #60a5fa;
+    transform: rotate(var(--a)) translateX(56px); animation: finder-dot-orbit 2.4s linear infinite; }
+@keyframes finder-dot-orbit { from { transform: rotate(var(--a)) translateX(56px); } to { transform: rotate(calc(var(--a) + 360deg)) translateX(56px); } }
+@keyframes finder-beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+.finder-typing { width: 8px; height: 8px; border-radius: 50%; background: rgb(255 255 255 / .7); animation: finder-typing 1s ease-in-out infinite; }
+@keyframes finder-typing { 0%, 100% { opacity: .25; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-4px); } }
+.back-to-top svg { transition: transform .3s ease; }
+.back-to-top:hover svg { transform: translateY(-2px); }
+.back-to-top.is-launching svg { animation: btt-launch .7s ease-in-out infinite; }
+@keyframes btt-launch { 0% { transform: translateY(6px); opacity: .3; } 50% { transform: translateY(-2px); opacity: 1; } 100% { transform: translateY(-10px); opacity: 0; } }
