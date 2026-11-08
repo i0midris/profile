@@ -9,6 +9,7 @@ use App\Models\ClientLogo;
 use App\Models\CompanySetting;
 use App\Models\ContactMessage;
 use App\Models\DemoRequest;
+use App\Models\Faq;
 use App\Models\HeroSection;
 use App\Models\JobApplication;
 use App\Models\JobOpening;
@@ -66,6 +67,7 @@ class PageController extends Controller
                 ? Product::published()->ordered()->take(6)->get()
                 : collect(),
             'clientLogos' => ClientLogo::published()->ordered()->get(),
+            'faqs' => Faq::published()->where('show_on_home', true)->ordered()->take(8)->get(),
         ]);
 
         return view('frontend.home', $data);
@@ -181,7 +183,9 @@ class PageController extends Controller
     {
         $this->ensurePageIsVisible('contact');
 
-        return view('frontend.contact', $this->getCommonData());
+        return view('frontend.contact', array_merge($this->getCommonData(), [
+            'faqs' => Faq::published()->ordered()->get(),
+        ]));
     }
 
     public function demo(Request $request)

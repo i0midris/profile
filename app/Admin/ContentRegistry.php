@@ -4,6 +4,7 @@ namespace App\Admin;
 
 use App\Models\ClientLogo;
 use App\Models\DemoRequest;
+use App\Models\Faq;
 use App\Models\Product;
 use App\Support\PhoneNumber;
 
@@ -57,6 +58,22 @@ class ContentRegistry
                     ['name' => 'name', 'type' => 'text', 'required' => true, 'label' => 'admin.fields.client_name'],
                     ['name' => 'logo', 'type' => 'image', 'required' => true, 'max_width' => 400, 'label' => 'admin.fields.logo', 'help' => 'admin.fields.logo_help'],
                     ['name' => 'website_url', 'type' => 'url', 'label' => 'admin.fields.website_url'],
+                    ['name' => 'sort_order', 'type' => 'number', 'label' => 'admin.sort_order'],
+                    ['name' => 'is_active', 'type' => 'checkbox', 'default' => true, 'label' => 'admin.fields.published'],
+                ],
+            ],
+            'faqs' => [
+                'model' => Faq::class,
+                'label' => 'admin.content.faqs',
+                'singular' => 'admin.content.faq',
+                'help' => 'admin.content.faqs_help',
+                'icon' => 'M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+                'title' => 'question',
+                'order_by' => ['sort_order', 'asc'],
+                'fields' => [
+                    ['name' => 'question', 'type' => 'text', 'localized' => true, 'required' => true, 'label' => 'admin.fields.question'],
+                    ['name' => 'answer', 'type' => 'textarea', 'localized' => true, 'required' => true, 'label' => 'admin.fields.answer'],
+                    ['name' => 'show_on_home', 'type' => 'checkbox', 'default' => true, 'label' => 'admin.fields.show_on_home'],
                     ['name' => 'sort_order', 'type' => 'number', 'label' => 'admin.sort_order'],
                     ['name' => 'is_active', 'type' => 'checkbox', 'default' => true, 'label' => 'admin.fields.published'],
                 ],

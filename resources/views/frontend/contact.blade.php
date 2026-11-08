@@ -249,6 +249,8 @@
         </div>
     </section>
 
+    @include('frontend.partials.faq')
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('contact-form');

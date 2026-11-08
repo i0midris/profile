@@ -183,4 +183,6 @@ return array (
   'chat_on_whatsapp' => 'Chat with us on WhatsApp',
   'working_hours' => 'Working hours',
   'our_location' => 'Our location on the map',
+  'faq_title' => 'Frequently Asked Questions',
+  'faq_intro' => 'Quick answers to what customers ask us most.',
 );

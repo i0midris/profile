@@ -304,6 +304,9 @@ return array (
     'contact_whatsapp' => 'واتساب',
     'contact_call' => 'اتصال هاتفي',
     'contact_email' => 'البريد الإلكتروني',
+    'faqs' => 'الأسئلة الشائعة',
+    'faq' => 'سؤال',
+    'faqs_help' => 'تظهر في الرئيسية وصفحة «اتصل بنا»، وتُقرأ لمحركات البحث كأسئلة وأجوبة (FAQ).',
   ),
   'fields' => array(
     'name' => 'الاسم',
@@ -321,6 +324,9 @@ return array (
     'logo' => 'الشعار',
     'logo_help' => 'يفضّل شعار بخلفية شفافة (PNG أو SVG).',
     'website_url' => 'موقع العميل (اختياري)',
+    'question' => 'السؤال',
+    'answer' => 'الجواب',
+    'show_on_home' => 'يظهر في الصفحة الرئيسية',
   ),
   'case_study' => array(
     'title' => 'دراسة حالة (اختياري)',

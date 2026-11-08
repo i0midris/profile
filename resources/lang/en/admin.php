@@ -304,6 +304,9 @@ return array (
     'contact_whatsapp' => 'WhatsApp',
     'contact_call' => 'Phone call',
     'contact_email' => 'Email',
+    'faqs' => 'FAQ',
+    'faq' => 'question',
+    'faqs_help' => 'Shown on the home and Contact pages, and marked up for search engines as FAQ.',
   ),
   'fields' => array(
     'name' => 'Name',
@@ -321,6 +324,9 @@ return array (
     'logo' => 'Logo',
     'logo_help' => 'A logo with a transparent background (PNG or SVG) works best.',
     'website_url' => 'Client website (optional)',
+    'question' => 'Question',
+    'answer' => 'Answer',
+    'show_on_home' => 'Show on the home page',
   ),
   'case_study' => array(
     'title' => 'Case study (optional)',
