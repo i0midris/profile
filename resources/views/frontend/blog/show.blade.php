@@ -22,7 +22,7 @@
             'publisher' => array_filter(['@type' => 'Organization', 'name' => $settings->company_name, 'logo' => $settings->logo_url ? ['@type' => 'ImageObject', 'url' => $settings->logo_url] : null]),
         ]);
     @endphp
-    <script type="application/ld+json">{!! json_encode($articleSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
+    <script type="application/ld+json">{!! json_encode($articleSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP) !!}</script>
 
     <article class="pt-16 pb-16">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">

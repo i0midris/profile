@@ -29,13 +29,13 @@
                 <svg aria-hidden="true" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg>
-                {{ __('admin.content.add', ['item' => __($definition['singular'])]) }}
+                {{ __('admin.cms.add', ['item' => __($definition['singular'])]) }}
             </a>
         </div>
     @endunless
 
     <div class="admin-card p-4 mb-6 text-white/70 text-sm">
-        {{ __('admin.content.visibility_note') }}
+        {{ __('admin.cms.visibility_note') }}
     </div>
 
     <div class="table-container overflow-x-auto">
@@ -81,9 +81,9 @@
                         @if(collect($definition['fields'])->contains('name', 'is_active'))
                             <td class="px-6 py-4">
                                 @if($item->is_active)
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-500/20 text-green-400">{{ __('admin.content.published') }}</span>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-500/20 text-green-400">{{ __('admin.cms.published') }}</span>
                                 @else
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-500/20 text-gray-400">{{ __('admin.content.draft') }}</span>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-500/20 text-gray-400">{{ __('admin.cms.draft') }}</span>
                                 @endif
                             </td>
                         @endif
@@ -109,7 +109,7 @@
                                     </svg>
                                 </a>
                                 <form method="POST" action="{{ route('admin.content.destroy', [$definition['key'], $item->getKey()]) }}" class="inline"
-                                    onsubmit="return confirm('{{ __('admin.content.delete_confirm') }}')">
+                                    onsubmit="return confirm('{{ __('admin.cms.delete_confirm') }}')">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" aria-label="{{ __('admin.delete') }}"
@@ -126,10 +126,10 @@
                 @empty
                     <tr>
                         <td colspan="9" class="px-6 py-12 text-center text-white/50">
-                            {{ __('admin.content.empty') }}
+                            {{ __('admin.cms.empty') }}
                             @unless($isReadonly)
                                 <a href="{{ route('admin.content.create', $definition['key']) }}" class="text-primary-400 hover:underline">
-                                    {{ __('admin.content.add', ['item' => __($definition['singular'])]) }}</a>
+                                    {{ __('admin.cms.add', ['item' => __($definition['singular'])]) }}</a>
                             @endunless
                         </td>
                     </tr>

@@ -17,7 +17,7 @@
         $usedCategories = collect(\App\Models\Faq::CATEGORIES)->filter(fn ($c) => $faqs->contains('category', $c))->values();
         $whatsappUrl = \App\Support\PhoneNumber::whatsappUrl($settings->whatsapp ?: $settings->phone);
     @endphp
-    <script type="application/ld+json">{!! json_encode($faqSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
+    <script type="application/ld+json">{!! json_encode($faqSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP) !!}</script>
 
     {{-- Header + search --}}
     <section class="pt-20 pb-10 relative overflow-hidden">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Admin\ContentRegistry;
 use App\Http\Controllers\Controller;
+use App\Rules\SafeSvg;
 use App\Support\ImageUploader;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -45,7 +46,7 @@ class ContentController extends Controller
         $model = new $definition['model']();
         $model->fill($this->payload($request, $definition, $model))->save();
 
-        return redirect()->route('admin.content.index', $resource)->with('success', __('admin.content.saved'));
+        return redirect()->route('admin.content.index', $resource)->with('success', __('admin.cms.saved'));
     }
 
     public function edit(string $resource, int $id)
@@ -65,7 +66,7 @@ class ContentController extends Controller
 
         $model->fill($this->payload($request, $definition, $model))->save();
 
-        return redirect()->route('admin.content.index', $resource)->with('success', __('admin.content.saved'));
+        return redirect()->route('admin.content.index', $resource)->with('success', __('admin.cms.saved'));
     }
 
     public function destroy(string $resource, int $id)
@@ -84,7 +85,7 @@ class ContentController extends Controller
 
         $model->delete();
 
-        return redirect()->route('admin.content.index', $resource)->with('success', __('admin.content.deleted'));
+        return redirect()->route('admin.content.index', $resource)->with('success', __('admin.cms.deleted'));
     }
 
     /**
@@ -116,7 +117,7 @@ class ContentController extends Controller
                     }
                     break;
                 case 'image':
-                    $rules[$name] = [($required && !$model->{$name}) ? 'required' : 'nullable', 'image', 'mimes:jpeg,png,jpg,gif,webp,svg', 'max:4096'];
+                    $rules[$name] = [($required && !$model->{$name}) ? 'required' : 'nullable', 'image:allow_svg', 'mimes:jpeg,png,jpg,gif,webp,svg', 'max:4096', new SafeSvg()];
                     $rules["remove_{$name}"] = ['nullable', 'boolean'];
                     break;
                 case 'gallery':

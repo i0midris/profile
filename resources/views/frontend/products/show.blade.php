@@ -25,7 +25,7 @@
             'publisher' => ['@type' => 'Organization', 'name' => $settings->company_name, 'url' => url('/')],
         ]);
     @endphp
-    <script type="application/ld+json">{!! json_encode($productSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
+    <script type="application/ld+json">{!! json_encode($productSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG | JSON_HEX_AMP) !!}</script>
 
     {{-- Header --}}
     <section class="pt-20 pb-16 relative overflow-hidden">

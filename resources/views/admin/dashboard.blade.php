@@ -13,7 +13,7 @@
             </div>
             <div class="flex flex-wrap gap-8">
                 <div>
-                    <p class="text-white/50 text-sm">{{ __('admin.content.demo_requests') }}</p>
+                    <p class="text-white/50 text-sm">{{ __('admin.cms.demo_requests') }}</p>
                     <p class="text-3xl font-bold text-white">{{ $stats['demo_requests_month'] }}</p>
                 </div>
                 <div>
@@ -21,7 +21,7 @@
                     <p class="text-3xl font-bold text-white">{{ $stats['messages_month'] }}</p>
                 </div>
                 <div>
-                    <p class="text-white/50 text-sm">{{ __('admin.content.pending') }}</p>
+                    <p class="text-white/50 text-sm">{{ __('admin.cms.pending') }}</p>
                     <a href="{{ route('admin.content.index', 'demo-requests') }}" class="text-3xl font-bold {{ $stats['demo_requests_pending'] ? 'text-primary-400' : 'text-white' }}">{{ $stats['demo_requests_pending'] }}</a>
                 </div>
             </div>

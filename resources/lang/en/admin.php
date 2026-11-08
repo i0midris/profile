@@ -272,7 +272,7 @@ return array (
   'call_phone' => 'Call',
   'view' => 'View',
   'edit' => 'Edit',
-  'content' => array(
+  'cms' => array(
     'products' => 'Products',
     'product' => 'product',
     'products_help' => 'A page for each product: description, features, sectors and screenshots',
@@ -377,4 +377,5 @@ return array (
     'support' => 'Technical support',
     'none' => 'No illustration',
   ),
+  'svg_unsafe' => 'This SVG contains scripts or external links, which are not allowed. Re-export it from your design tool or upload a PNG.',
 );

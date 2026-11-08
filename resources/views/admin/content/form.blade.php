@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', $item ? __('admin.content.edit', ['item' => __($definition['singular'])]) : __('admin.content.add', ['item' => __($definition['singular'])]))
+@section('title', $item ? __('admin.cms.edit', ['item' => __($definition['singular'])]) : __('admin.cms.add', ['item' => __($definition['singular'])]))
 @section('subtitle', __($definition['label']))
 
 @section('content')
@@ -86,7 +86,7 @@
                                                     class="px-3 py-2 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30 transition-colors">&times;</button>
                                             </div>
                                         </template>
-                                        <button type="button" @click="items.push('')" class="text-primary-400 hover:text-primary-300 text-sm">+ {{ __('admin.content.add_item') }}</button>
+                                        <button type="button" @click="items.push('')" class="text-primary-400 hover:text-primary-300 text-sm">+ {{ __('admin.cms.add_item') }}</button>
                                     </div>
                                 </div>
                             @endforeach
@@ -101,7 +101,7 @@
                                     <img src="{{ asset('storage/' . $item->{$name}) }}" alt="" class="h-20 rounded-lg object-contain bg-white/5">
                                     @unless($required)
                                         <label class="flex items-center gap-2 text-sm text-red-300 cursor-pointer">
-                                            <input type="checkbox" name="remove_{{ $name }}" value="1"> {{ __('admin.content.remove_image') }}
+                                            <input type="checkbox" name="remove_{{ $name }}" value="1"> {{ __('admin.cms.remove_image') }}
                                         </label>
                                     @endunless
                                 </div>
@@ -120,7 +120,7 @@
                                         <label class="block relative rounded-lg overflow-hidden bg-white/5 cursor-pointer">
                                             <img src="{{ asset('storage/' . $path) }}" alt="" class="w-full h-24 object-cover">
                                             <span class="absolute bottom-0 inset-x-0 bg-black/60 text-xs text-white px-2 py-1 flex items-center gap-1">
-                                                <input type="checkbox" name="keep_{{ $name }}[]" value="{{ $path }}" checked> {{ __('admin.content.keep') }}
+                                                <input type="checkbox" name="keep_{{ $name }}[]" value="{{ $path }}" checked> {{ __('admin.cms.keep') }}
                                             </span>
                                         </label>
                                     @endforeach
@@ -162,7 +162,7 @@
             </div>
 
             <div class="flex items-center gap-4">
-                <button type="submit" class="px-6 py-3 rounded-lg btn-primary text-white font-medium">{{ __('admin.content.save') }}</button>
+                <button type="submit" class="px-6 py-3 rounded-lg btn-primary text-white font-medium">{{ __('admin.cms.save') }}</button>
                 <a href="{{ route('admin.content.index', $definition['key']) }}"
                     class="px-6 py-3 rounded-lg bg-white/5 text-white/70 hover:bg-white/10 hover:text-white transition-colors font-medium">{{ __('admin.cancel') }}</a>
             </div>
