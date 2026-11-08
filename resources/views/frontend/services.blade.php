@@ -4,6 +4,11 @@
 @section('meta_description', __('frontend.services_description'))
 
 @section('content')
+    @php
+        // Show the "Featured" badge on a single service (the first featured one by order),
+        // so the badge keeps its meaning instead of appearing on half of the list.
+        $highlightedServiceId = $services->firstWhere('is_featured', true)?->id;
+    @endphp
     <!-- Page Header -->
     <section class="py-24 relative overflow-hidden">
         <div class="absolute inset-0">
@@ -47,7 +52,7 @@
                             </ul>
                         @endif
 
-                        @if($service->is_featured)
+                        @if($service->id === $highlightedServiceId)
                             <div class="mt-auto pt-6 border-t border-white/10">
                                 <span
                                     class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary-500/20 text-primary-400">
