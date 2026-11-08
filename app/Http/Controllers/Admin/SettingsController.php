@@ -43,6 +43,7 @@ class SettingsController extends Controller
             'whatsapp' => 'nullable|string|max:50',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'favicon' => 'nullable|image|mimes:ico,png,jpg|max:1024',
+            'og_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
         ]);
 
         $settings = CompanySetting::first() ?? new CompanySetting();
@@ -70,6 +71,14 @@ class SettingsController extends Controller
             $validated['favicon'] = $request->file('favicon')->store('settings', 'public');
         }
 
+        // Handle social share image upload
+        if ($request->hasFile('og_image')) {
+            if ($settings->og_image) {
+                Storage::disk('public')->delete($settings->og_image);
+            }
+            $validated['og_image'] = $request->file('og_image')->store('settings', 'public');
+        }
+
         $settings->fill($validated);
         $settings->save();
 
@@ -80,13 +89,15 @@ class SettingsController extends Controller
     {
         $settings = CompanySetting::first();
 
-        if ($settings && in_array($field, ['logo', 'favicon']) && $settings->$field) {
+        if ($settings && in_array($field, ['logo', 'favicon', 'og_image']) && $settings->$field) {
             Storage::disk('public')->delete($settings->$field);
             $settings->$field = null;
             $settings->save();
-            $key = $field === 'logo'
-                ? 'admin.flash.logo_deleted'
-                : 'admin.flash.favicon_deleted';
+            $key = match ($field) {
+                'logo' => 'admin.flash.logo_deleted',
+                'favicon' => 'admin.flash.favicon_deleted',
+                default => 'admin.flash.og_image_deleted',
+            };
             return back()->with('success', __($key));
         }
 

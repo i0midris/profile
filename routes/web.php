@@ -14,7 +14,16 @@ use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\TeamMemberController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Frontend\PageController;
+use App\Models\AboutSection;
 use App\Models\CompanySetting;
+use App\Models\HeroSection;
+use App\Models\JobOpening;
+use App\Models\Portfolio;
+use App\Models\Service;
+use App\Models\TeamMember;
+use App\Models\Testimonial;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,17 +50,26 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => 'en|ar'], 'middlew
 Route::get('/sitemap.xml', function () {
     $settings = CompanySetting::getSettings();
 
-    // Per-page config: [routeName, priority, changefreq]
+    // Per-page config: [priority, changefreq, models whose content appears on the page]
     $pageConfig = [
-        'home'         => ['1.0', 'daily'],
-        'about'        => ['0.8', 'monthly'],
-        'services'     => ['0.9', 'weekly'],
-        'portfolio'    => ['0.8', 'weekly'],
-        'team'         => ['0.6', 'monthly'],
-        'jobs'         => ['0.7', 'weekly'],
-        'testimonials' => ['0.5', 'monthly'],
-        'contact'      => ['0.7', 'monthly'],
+        'home'         => ['1.0', 'weekly',  [CompanySetting::class, HeroSection::class, AboutSection::class, Service::class]],
+        'about'        => ['0.8', 'monthly', [AboutSection::class, TeamMember::class]],
+        'services'     => ['0.9', 'weekly',  [Service::class]],
+        'portfolio'    => ['0.8', 'weekly',  [Portfolio::class]],
+        'team'         => ['0.6', 'monthly', [TeamMember::class]],
+        'jobs'         => ['0.7', 'weekly',  [JobOpening::class]],
+        'testimonials' => ['0.5', 'monthly', [Testimonial::class]],
+        'contact'      => ['0.7', 'monthly', [CompanySetting::class]],
     ];
+
+    // Real last-modified date: the latest updated_at among the page's content.
+    $lastModified = function (array $models): string {
+        $dates = collect($models)
+            ->map(fn (string $model) => rescue(fn () => $model::max('updated_at'), null, false))
+            ->filter();
+
+        return ($dates->isEmpty() ? now() : Carbon::parse($dates->max()))->toAtomString();
+    };
 
     // Filter by page visibility
     $visiblePages = array_filter(
@@ -59,26 +77,28 @@ Route::get('/sitemap.xml', function () {
         fn ($r) => $r === 'home' || $settings->isPageVisible($r)
     );
 
-    $locales    = ['en', 'ar'];
-    $defaultMod = now()->toAtomString();
-    $urls       = [];
+    $locales = ['en', 'ar'];
+    $urls    = [];
 
     foreach ($visiblePages as $routeName) {
-        [$priority, $changefreq] = $pageConfig[$routeName];
+        [$priority, $changefreq, $models] = $pageConfig[$routeName];
+        $lastmod = $lastModified($models);
 
         // Build alternates map: locale => absolute URL
         $alternates = [];
         foreach ($locales as $loc) {
             $alternates[$loc] = route($routeName, ['locale' => $loc]);
         }
+        $neutralPath = preg_replace('#^/ar(?=/|$)#', '', parse_url($alternates['ar'], PHP_URL_PATH));
 
         foreach ($locales as $locale) {
             $urls[] = [
                 'loc'        => $alternates[$locale],
-                'lastmod'    => $defaultMod,
+                'lastmod'    => $lastmod,
                 'priority'   => $priority,
                 'changefreq' => $changefreq,
                 'alternates' => $alternates,   // all locale variants for hreflang
+                'x_default'  => url($neutralPath ?: '/'),
             ];
         }
     }
@@ -88,10 +108,18 @@ Route::get('/sitemap.xml', function () {
         ->header('Content-Type', 'application/xml; charset=UTF-8');
 })->name('sitemap');
 
-// Redirect / to /ar/
-Route::get('/', function () {
-    return redirect('/ar');
-});
+// Language-neutral URLs (/, /about, /services, ...) send visitors to their browser's
+// language (Arabic by default). These URLs are the hreflang "x-default" targets.
+$redirectToPreferredLocale = function (Request $request, string $page = '') {
+    $locale = $request->getPreferredLanguage(['ar', 'en']) ?? 'ar';
+
+    return redirect('/' . $locale . ($page !== '' ? '/' . $page : ''))
+        ->header('Vary', 'Accept-Language');
+};
+
+Route::get('/', fn (Request $request) => $redirectToPreferredLocale($request));
+Route::get('/{page}', fn (Request $request, string $page) => $redirectToPreferredLocale($request, $page))
+    ->whereIn('page', ['about', 'services', 'team', 'jobs', 'portfolio', 'testimonials', 'contact']);
 
 /*
 |--------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 
-@section('title', $settings->company_name ?? __('frontend.home'))
+@section('title', ($settings->company_name ?? __('frontend.company_fallback')) . ' | ' . __('frontend.seo_home_title'))
 @section('meta_description', $hero?->description ?? __('frontend.services_description'))
 
 @section('content')

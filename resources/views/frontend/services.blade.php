@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 
-@section('title', __('frontend.services') . ' - ' . ($settings->company_name ?? __('frontend.company_fallback')))
-@section('meta_description', __('frontend.services_description'))
+@section('title', __('frontend.services') . ' | ' . ($settings->company_name ?? __('frontend.company_fallback')))
+@section('meta_description', __('frontend.seo_services_description'))
 
 @section('content')
     @php

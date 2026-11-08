@@ -11,16 +11,21 @@
         $canonicalUrl = url()->current();
         $alternateEnUrl = null;
         $alternateArUrl = null;
+        $alternateDefaultUrl = null;
 
         if ($routeName && in_array($routeName, $frontendRouteNames, true)) {
             $params = $route->parameters();
             $alternateEnUrl = route($routeName, array_merge($params, ['locale' => 'en']));
             $alternateArUrl = route($routeName, array_merge($params, ['locale' => 'ar']));
             $canonicalUrl = $currentLocale === 'ar' ? $alternateArUrl : $alternateEnUrl;
+            // Language-neutral URL (e.g. /about) that redirects by browser language.
+            $alternateDefaultUrl = url(preg_replace('#^/(en|ar)(?=/|$)#', '', parse_url($alternateArUrl, PHP_URL_PATH)) ?: '/');
         }
 
         $defaultTitle = $settings->company_name ?? config('app.name');
         $pageTitle = trim($__env->yieldContent('title', $defaultTitle));
+        $ogImageUrl = $settings->og_image_url ?? asset('images/og-default.png');
+        $ogLocales = ['ar' => 'ar_YE', 'en' => 'en_US'];
 
         $defaultDescription = $settings->description ?? __('frontend.meta_description_fallback');
         $pageDescription = trim($__env->yieldContent('meta_description', $defaultDescription));
@@ -58,18 +63,24 @@
     @if($alternateEnUrl && $alternateArUrl)
         <link rel="alternate" hreflang="en" href="{{ $alternateEnUrl }}">
         <link rel="alternate" hreflang="ar" href="{{ $alternateArUrl }}">
-        <link rel="alternate" hreflang="x-default" href="{{ $alternateArUrl }}">
+        <link rel="alternate" hreflang="x-default" href="{{ $alternateDefaultUrl }}">
     @endif
 
+    <meta property="og:site_name" content="{{ $settings->company_name ?? config('app.name') }}">
     <meta property="og:title" content="{{ $pageTitle }}">
     <meta property="og:description" content="{{ $pageDescription }}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ $canonicalUrl }}">
-    <meta property="og:locale" content="{{ $currentLocale === 'ar' ? 'ar_SA' : 'en_US' }}">
-    <meta property="og:locale:alternate" content="{{ $currentLocale === 'ar' ? 'en_US' : 'ar_SA' }}">
+    <meta property="og:image" content="{{ $ogImageUrl }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="{{ $settings->company_name ?? config('app.name') }}">
+    <meta property="og:locale" content="{{ $ogLocales[$currentLocale] ?? 'en_US' }}">
+    <meta property="og:locale:alternate" content="{{ $currentLocale === 'ar' ? $ogLocales['en'] : $ogLocales['ar'] }}">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ $pageTitle }}">
     <meta name="twitter:description" content="{{ $pageDescription }}">
+    <meta name="twitter:image" content="{{ $ogImageUrl }}">
     <script type="application/ld+json">{!! json_encode($organizationSchema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) !!}</script>
 
     @if($settings->favicon_url ?? false)

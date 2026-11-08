@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 
-@section('title', __('frontend.jobs') . ' - ' . ($settings->company_name ?? __('frontend.company_fallback')))
+@section('title', __('frontend.jobs') . ' | ' . ($settings->company_name ?? __('frontend.company_fallback')))
 @section('meta_description', __('frontend.jobs_page_description'))
 
 @section('content')

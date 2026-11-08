@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 
-@section('title', __('frontend.contact') . ' - ' . ($settings->company_name ?? __('frontend.company_fallback')))
-@section('meta_description', __('frontend.have_project_mind'))
+@section('title', __('frontend.contact') . ' | ' . ($settings->company_name ?? __('frontend.company_fallback')))
+@section('meta_description', __('frontend.seo_contact_description'))
 
 @section('content')
     <!-- Page Header -->

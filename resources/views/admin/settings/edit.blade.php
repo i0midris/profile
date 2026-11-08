@@ -18,6 +18,12 @@
                 @csrf
             </form>
         @endif
+        @if($settings->og_image)
+            <form id="delete-og-image-form" method="POST" action="{{ route('admin.settings.delete-image', 'og_image') }}"
+                class="hidden">
+                @csrf
+            </form>
+        @endif
 
         <form method="POST" action="{{ route('admin.settings.update') }}" enctype="multipart/form-data" class="space-y-6">
             @csrf
@@ -125,6 +131,29 @@
                             @endif
                             <input type="file" id="favicon" name="favicon" accept="image/*,.ico" class="form-input">
                         </div>
+                    </div>
+
+                    <div>
+                        <label for="og_image" class="form-label">{{ __('admin.og_image') }}</label>
+                        <p class="text-white/50 text-sm mb-3">{{ __('admin.og_image_help') }}</p>
+                        <div class="mb-3 flex items-center gap-3">
+                            <img src="{{ $settings->og_image_url }}" alt="{{ __('admin.og_image') }}" class="h-24 rounded-lg object-cover" style="aspect-ratio:1200/630">
+                            @if($settings->og_image)
+                                <button type="button"
+                                    onclick="if(confirm('{{ __('admin.delete_og_image_confirm') }}')) document.getElementById('delete-og-image-form').submit();"
+                                    class="p-2 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30 transition-colors"
+                                    title="{{ __('admin.delete_og_image') }}">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                </button>
+                            @endif
+                        </div>
+                        <input type="file" id="og_image" name="og_image" accept="image/jpeg,image/png,image/webp" class="form-input">
+                        @error('og_image')
+                            <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
             </div>

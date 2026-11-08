@@ -1,7 +1,7 @@
 @extends('frontend.layouts.app')
 
-@section('title', __('frontend.about_us') . ' - ' . ($settings->company_name ?? __('frontend.company_fallback')))
-@section('meta_description', $about?->content ? Str::limit($about->content, 160) : __('frontend.learn_about_story'))
+@section('title', __('frontend.about_us') . ' | ' . ($settings->company_name ?? __('frontend.company_fallback')))
+@section('meta_description', $about?->content ? Str::limit($about->content, 160) : __('frontend.seo_about_description'))
 
 @section('content')
     <!-- Page Header -->

@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 
-@section('title', __('frontend.our_team') . ' - ' . ($settings->company_name ?? __('frontend.company_fallback')))
+@section('title', __('frontend.our_team') . ' | ' . ($settings->company_name ?? __('frontend.company_fallback')))
 @section('meta_description', __('frontend.meet_talented_individuals'))
 
 @section('content')

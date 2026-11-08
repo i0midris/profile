@@ -31,6 +31,7 @@ class CompanySetting extends Model
         'description_ar',
         'logo',
         'favicon',
+        'og_image',
         'email',
         'phone',
         'address',
@@ -160,5 +161,15 @@ class CompanySetting extends Model
     public function getFaviconUrlAttribute()
     {
         return $this->favicon ? asset('storage/' . $this->favicon) : null;
+    }
+
+    /**
+     * Social share image (og:image). Falls back to the bundled 1200x630 brand image.
+     */
+    public function getOgImageUrlAttribute(): string
+    {
+        return $this->og_image
+            ? asset('storage/' . $this->og_image)
+            : asset('images/og-default.png');
     }
 }
