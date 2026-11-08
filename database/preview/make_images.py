@@ -234,14 +234,4 @@ banner('كيف تختار نظام محاسبة', ['دليل عملي للشرك
 banner('نقاط البيع للمطاعم', ['ما الذي تحتاجه فعلاً؟'], 'blog-restaurant-pos.webp', 1200, 630, accent=(200, 120, 20))
 banner('العمل بدون إنترنت', ['كيف تستمر مبيعاتك عند انقطاع الاتصال'], 'blog-offline.webp', 1200, 630, accent=BLUE)
 
-# ---------------------------------------------------------------- sector tiles (client logos strip)
-sectors = [('مطاعم', RED), ('صيدليات', BLUE), ('سوبرماركت', (31, 150, 100)), ('مستودعات', (200, 120, 20)), ('مدارس', (130, 80, 200)), ('شركات توزيع', NAVY)]
-for i, (name, col) in enumerate(sectors, 1):
-    img = Image.new('RGBA', (400, 200), (255, 255, 255, 0))
-    d = ImageDraw.Draw(img)
-    d.rounded_rectangle((300, 64, 372, 136), radius=18, fill=col)
-    d.ellipse((322, 86, 350, 114), fill=(255, 255, 255))
-    rtext(d, 284, 70, name, F(44, True), (30, 40, 70))
-    img.save(os.path.join(OUT, f'sector-{i}.png'), optimize=True)
-
 print('images:', len(os.listdir(OUT)))

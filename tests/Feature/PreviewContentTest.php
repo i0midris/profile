@@ -28,7 +28,7 @@ class PreviewContentTest extends TestCase
         $this->assertTrue(CompanySetting::first()->show_team_page);
         $this->get('/ar/products/pos-system')->assertOk();
         $this->get('/ar/blog/working-offline')->assertOk();
-        $this->get('/ar')->assertSee('يثق بنا')->assertSee('الأسئلة الشائعة');
+        $this->get('/ar')->assertSee('حلول تناسب قطاعك')->assertDontSee('يثق بنا')->assertSee('الأسئلة الشائعة');
 
         $this->artisan('preview:content')->assertFailed(); // not twice
 

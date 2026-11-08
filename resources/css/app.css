@@ -1125,3 +1125,45 @@
 .nav-more-menu { position: absolute; top: calc(100% + 12px); inset-inline-start: 0 !important; inset-inline-end: auto !important; left: auto; right: auto; min-width: 190px; z-index: 60; display: flex; flex-direction: column; }
 .nav-more-menu a { display: block; text-align: start; }
 .mobile-contact-bar a.gradient-primary { background: linear-gradient(90deg, var(--color-primary-500), var(--color-accent-500)); }
+
+/* -- Sector scenes (animated SVG workplaces) -- */
+.sector-card { transition: transform .3s ease, box-shadow .3s ease; }
+.sector-card:hover { transform: translateY(-6px); }
+.sector-scene-wrap { aspect-ratio: 16 / 10; overflow: hidden; border-bottom: 1px solid rgb(255 255 255 / .08); }
+.sector-scene { display: block; width: 100%; height: 100%; transition: transform .6s ease; }
+.sector-card:hover .sector-scene { transform: scale(1.04); }
+.sector-scene .sc-bars rect { transform-box: fill-box; transform-origin: bottom; animation: sc-grow 2.8s ease-in-out infinite; }
+.sector-scene .sc-bars rect:nth-child(2) { animation-delay: .3s; } .sector-scene .sc-bars rect:nth-child(3) { animation-delay: .6s; }
+.sector-scene .sc-bars rect:nth-child(4) { animation-delay: .9s; } .sector-scene .sc-bars rect:nth-child(5) { animation-delay: 1.2s; }
+.sector-scene .sc-bars rect:nth-child(6) { animation-delay: 1.5s; }
+.sector-scene .sc-receipt { animation: sc-receipt 3.2s ease-in-out infinite; }
+.sector-scene .sc-steam { animation: sc-steam 2.4s ease-in-out infinite; }
+.sector-scene .sc-sway { animation: sc-sway 4s ease-in-out infinite; }
+.sector-scene .sc-glow { animation: sc-blink-soft 3s ease-in-out infinite; }
+.sector-scene .sc-pulse { transform-box: fill-box; transform-origin: center; animation: sc-pulse 2.4s ease-in-out infinite; }
+.sector-scene .sc-blink { animation: sc-blink-soft 1.4s ease-in-out infinite; }
+.sector-scene .sc-belt { animation: sc-belt 5s linear infinite; }
+.sector-scene .sc-scan { animation: sc-scan 1.6s ease-in-out infinite; }
+.sector-scene .sc-trolley { animation: sc-trolley 7s linear infinite; }
+.sector-scene .sc-float { animation: sc-float 4.5s ease-in-out infinite; }
+.sector-scene .sc-line { stroke-dasharray: 120; animation: sc-draw 3.5s ease-in-out infinite; }
+.sector-scene .sc-hand { animation: sc-rotate 6s linear infinite; }
+.sector-scene .sc-road { animation: sc-road 1s linear infinite; }
+.sector-scene .sc-truck { animation: sc-bob .5s ease-in-out infinite; }
+.sector-scene .sc-pin { transform-box: fill-box; transform-origin: bottom; animation: sc-bounce 1.6s ease-in-out infinite; }
+@keyframes sc-grow { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(.55); } }
+@keyframes sc-receipt { 0% { transform: translateY(16px); opacity: 0; } 30%, 75% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(0); opacity: 0; } }
+@keyframes sc-steam { 0% { transform: translateY(4px); opacity: 0; } 40% { opacity: .9; } 100% { transform: translateY(-8px); opacity: 0; } }
+@keyframes sc-sway { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+@keyframes sc-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+@keyframes sc-blink-soft { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+@keyframes sc-belt { from { transform: translateX(-40px); } to { transform: translateX(150px); } }
+@keyframes sc-scan { 0%, 100% { opacity: .2; transform: translateY(0); } 50% { opacity: 1; transform: translateY(5px); } }
+@keyframes sc-trolley { from { transform: translateX(-40px); } to { transform: translateX(340px); } }
+@keyframes sc-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes sc-draw { 0% { stroke-dashoffset: 120; } 50%, 100% { stroke-dashoffset: 0; } }
+@keyframes sc-rotate { to { transform: rotate(360deg); } }
+@keyframes sc-road { to { stroke-dashoffset: -32; } }
+@keyframes sc-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1.5px); } }
+@keyframes sc-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+@media (prefers-reduced-motion: reduce) { .sector-scene * { animation: none !important; } }

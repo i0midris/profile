@@ -6,7 +6,7 @@
 |--------------------------------------------------------------------------
 | Shows how the site looks once every section has content. Product texts are built
 | from the company's own service descriptions; no client names or invented figures
-| are used (client tiles show sectors, the team shows departments). Replace with real
+| are used (the team shows departments; client logos are left for real ones). Replace with real
 | content from the dashboard before publishing.
 */
 
@@ -78,14 +78,8 @@ return [
         ],
     ],
 
-    'client_logos' => [
-        ['name' => 'المطاعم', 'image' => 'sector-1.png'],
-        ['name' => 'الصيدليات', 'image' => 'sector-2.png'],
-        ['name' => 'السوبرماركت', 'image' => 'sector-3.png'],
-        ['name' => 'المستودعات', 'image' => 'sector-4.png'],
-        ['name' => 'المدارس', 'image' => 'sector-5.png'],
-        ['name' => 'شركات التوزيع', 'image' => 'sector-6.png'],
-    ],
+    // Client logos stay empty: the "Trusted by" strip is reserved for real logos with the clients' consent.
+    'client_logos' => [],
 
     'case_studies' => [
         [

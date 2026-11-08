@@ -23,4 +23,5 @@
             </div>
         </div>
     </section>
+    @include('frontend.partials.sectors')
 @endsection
