@@ -70,23 +70,17 @@
                 </div>
             </div>
             @foreach([
-                [__('frontend.hero_erp_module_hr'),  85, '#E4191F'],
-                [__('frontend.hero_erp_module_acc'), 92, '#60a5fa'],
-                [__('frontend.hero_erp_module_inv'), 78, 'rgba(255,255,255,.38)'],
+                [__('frontend.hero_erp_module_acc'), '#60a5fa'],
+                [__('frontend.hero_erp_module_inv'), '#E4191F'],
+                [__('frontend.hero_erp_module_hr'),  'rgba(255,255,255,.6)'],
             ] as $mp)
-            <div style="margin-bottom:8px;">
-                <div style="display:flex;justify-content:space-between;margin-bottom:3px;">
-                    <span style="font-size:9px;color:rgba(255,255,255,.38);">{{ $mp[0] }}</span>
-                    <span style="font-size:9px;color:{{ $mp[2] }};font-weight:700;">{{ $mp[1] }}%</span>
-                </div>
-                <div style="height:4px;background:rgba(255,255,255,.06);border-radius:3px;overflow:hidden;">
-                    <div style="height:100%;width:{{ $mp[1] }}%;background:{{ $mp[2] }};border-radius:3px;"></div>
-                </div>
+            <div style="display:flex;align-items:center;gap:7px;padding:5px 0;{{ !$loop->last ? 'border-bottom:1px solid rgba(255,255,255,.05);' : '' }}">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="{{ $mp[1] }}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
+                <span style="font-size:10px;color:rgba(255,255,255,.6);">{{ $mp[0] }}</span>
             </div>
             @endforeach
-            <div style="margin-top:10px;display:flex;justify-content:space-between;align-items:center;padding-top:9px;border-top:1px solid rgba(255,255,255,.06);">
-                <span style="font-size:9px;color:rgba(255,255,255,.3);">{{ __('frontend.hero_erp_modules_active') }}</span>
-                <span style="font-size:11px;color:#E4191F;font-weight:800;">12 / 14</span>
+            <div style="margin-top:10px;padding-top:9px;border-top:1px solid rgba(255,255,255,.06);">
+                <span style="font-size:9px;color:#E4191F;font-weight:700;">{{ __('frontend.hero_erp_all_in_one') }}</span>
             </div>
         </div>
     </div>
@@ -103,15 +97,15 @@
                     <p style="font-size:14px;color:white;font-weight:700;margin:2px 0 0;line-height:1.2;">{{ __('frontend.hero_cloud_title') }}</p>
                 </div>
             </div>
-            {{-- Server status rows --}}
+            {{-- Capability rows (descriptive, no invented metrics) --}}
             @foreach([
-                [__('frontend.hero_cloud_servers'),   '24', '#4ade80'],
-                [__('frontend.hero_cloud_storage'),   '2.4 TB', '#60a5fa'],
-                [__('frontend.hero_cloud_bandwidth'), '10 Gbps', 'rgba(255,255,255,.5)'],
+                [__('frontend.hero_cloud_access_anywhere'), '#4ade80'],
+                [__('frontend.hero_cloud_devices'),         '#60a5fa'],
+                [__('frontend.hero_cloud_central_data'),    'rgba(255,255,255,.6)'],
             ] as $cs)
-            <div style="display:flex;justify-content:space-between;align-items:center;padding:5px 0;{{ !$loop->last ? 'border-bottom:1px solid rgba(255,255,255,.05);' : '' }}">
-                <span style="font-size:9px;color:rgba(255,255,255,.38);">{{ $cs[0] }}</span>
-                <span style="font-size:10px;color:{{ $cs[2] }};font-weight:700;">{{ $cs[1] }}</span>
+            <div style="display:flex;align-items:center;gap:7px;padding:5px 0;{{ !$loop->last ? 'border-bottom:1px solid rgba(255,255,255,.05);' : '' }}">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="{{ $cs[1] }}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>
+                <span style="font-size:10px;color:rgba(255,255,255,.6);">{{ $cs[0] }}</span>
             </div>
             @endforeach
             {{-- Status footer --}}
@@ -143,36 +137,31 @@
                     </span>
                 </div>
             </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;padding-top:12px;border-top:1px solid rgba(255,255,255,.06);text-align:center;">
-                <div style="padding:0 6px;">
-                    <p style="font-size:17px;font-weight:800;color:#4ade80;margin:0;line-height:1;">1,248</p>
-                    <p style="font-size:8px;color:rgba(255,255,255,.3);margin:4px 0 0;line-height:1.3;">{{ __('frontend.hero_cyber_threats') }}</p>
-                </div>
-                <div style="padding:0 6px;border-left:1px solid rgba(255,255,255,.06);border-right:1px solid rgba(255,255,255,.06);">
-                    <p style="font-size:17px;font-weight:800;color:#facc15;margin:0;line-height:1;">3</p>
-                    <p style="font-size:8px;color:rgba(255,255,255,.3);margin:4px 0 0;line-height:1.3;">{{ __('frontend.hero_cyber_vulns') }}</p>
-                </div>
-                <div style="padding:0 6px;">
-                    <p style="font-size:17px;font-weight:800;color:rgba(255,255,255,.65);margin:0;line-height:1;">847</p>
-                    <p style="font-size:8px;color:rgba(255,255,255,.3);margin:4px 0 0;line-height:1.3;">{{ __('frontend.hero_cyber_rules') }}</p>
-                </div>
+            <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px;padding-top:12px;border-top:1px solid rgba(255,255,255,.06);">
+                @foreach([__('frontend.hero_cyber_encryption'), __('frontend.hero_cyber_permissions'), __('frontend.hero_cyber_backup')] as $feature)
+                    <span style="font-size:9px;color:rgba(255,255,255,.65);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:999px;padding:3px 9px;white-space:nowrap;">{{ $feature }}</span>
+                @endforeach
             </div>
         </div>
     </div>
 
-    {{-- ── Side badges ─────────────────────────────────────── --}}
+    {{-- ── Side badges: same figures as the About section (single source: dashboard › About) ── --}}
+    @if($about?->happy_clients)
     <div style="position:absolute;top:43%;left:-2px;transform:translateY(-50%);z-index:4;animation:hiw-float 6s ease-in-out infinite;animation-delay:1s;">
         <div style="background:rgba(8,18,52,.9);border:1px solid rgba(228,25,31,.3);border-radius:14px;padding:9px 15px;backdrop-filter:blur(14px);text-align:center;box-shadow:0 6px 24px rgba(0,0,0,.4);">
-            <p style="font-size:21px;font-weight:900;color:white;margin:0;line-height:1;">500+</p>
+            <p style="font-size:21px;font-weight:900;color:white;margin:0;line-height:1;">{{ $about->happy_clients }}+</p>
             <p style="font-size:8px;color:rgba(255,255,255,.42);margin:3px 0 0;text-transform:uppercase;letter-spacing:.6px;">{{ __('frontend.hero_stat_clients') }}</p>
         </div>
     </div>
+    @endif
+    @if($about?->years_experience)
     <div style="position:absolute;top:43%;right:-2px;transform:translateY(-50%);z-index:4;animation:hiw-float 6s ease-in-out infinite;animation-delay:3.5s;">
         <div style="background:rgba(8,18,52,.9);border:1px solid rgba(59,111,212,.3);border-radius:14px;padding:9px 15px;backdrop-filter:blur(14px);text-align:center;box-shadow:0 6px 24px rgba(0,0,0,.4);">
-            <p style="font-size:21px;font-weight:900;color:white;margin:0;line-height:1;">99.9%</p>
-            <p style="font-size:8px;color:rgba(255,255,255,.42);margin:3px 0 0;text-transform:uppercase;letter-spacing:.6px;">{{ __('frontend.hero_stat_uptime') }}</p>
+            <p style="font-size:21px;font-weight:900;color:white;margin:0;line-height:1;">{{ $about->years_experience }}+</p>
+            <p style="font-size:8px;color:rgba(255,255,255,.42);margin:3px 0 0;text-transform:uppercase;letter-spacing:.6px;">{{ __('frontend.years_experience') }}</p>
         </div>
     </div>
+    @endif
 
     {{-- ── Keyframes ───────────────────────────────────────── --}}
     <style>

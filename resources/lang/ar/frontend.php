@@ -130,4 +130,11 @@ return array (
   'hero_erp_module_hr'      => 'الموارد البشرية',
   'hero_erp_module_acc'     => 'المحاسبة',
   'hero_erp_module_inv'     => 'المخزون',
+  'hero_erp_all_in_one' => 'في نظام واحد متكامل',
+  'hero_cloud_access_anywhere' => 'الوصول من أي مكان',
+  'hero_cloud_devices' => 'يعمل على الحاسوب والجوال',
+  'hero_cloud_central_data' => 'بياناتك في مكان واحد',
+  'hero_cyber_encryption' => 'تشفير البيانات',
+  'hero_cyber_permissions' => 'صلاحيات المستخدمين',
+  'hero_cyber_backup' => 'نسخ احتياطي',
 );

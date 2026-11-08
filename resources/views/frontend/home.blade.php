@@ -168,16 +168,11 @@
                                         <p style="font-size:12px;color:white;font-weight:700;margin:1px 0 0;">{{ __('frontend.hero_cloud_title') }}</p>
                                     </div>
                                 </div>
-                                <div style="display:flex;justify-content:space-between;align-items:center;">
-                                    <div>
-                                        <p style="font-size:20px;color:white;font-weight:800;margin:0;line-height:1;">99.9%</p>
-                                        <p style="font-size:8px;color:rgba(255,255,255,.35);margin:2px 0 0;">{{ __('frontend.hero_stat_uptime') }}</p>
-                                    </div>
-                                    <span style="display:flex;align-items:center;gap:3px;font-size:8.5px;color:#4ade80;font-weight:700;">
-                                        <span style="display:flex;align-items:center;gap:3px;font-size:8.5px;color:#4ade80;font-weight:700;">
-                                            <span style="width:6px;height:6px;border-radius:50%;background:#4ade80;display:inline-block;animation:ab-blink 1.5s ease-in-out infinite;"></span>
-                                            {{ __('frontend.hero_cloud_operational') }}
-                                        </span>
+                                <div style="display:flex;justify-content:space-between;align-items:center;gap:6px;">
+                                    <p style="font-size:10px;color:rgba(255,255,255,.7);font-weight:600;margin:0;line-height:1.3;">{{ __('frontend.hero_cloud_access_anywhere') }}</p>
+                                    <span style="display:flex;align-items:center;gap:3px;font-size:8.5px;color:#4ade80;font-weight:700;flex-shrink:0;">
+                                        <span style="width:6px;height:6px;border-radius:50%;background:#4ade80;display:inline-block;animation:ab-blink 1.5s ease-in-out infinite;"></span>
+                                        {{ __('frontend.hero_cloud_operational') }}
                                     </span>
                                 </div>
                             </div>
@@ -198,15 +193,10 @@
                                         <span style="font-size:8px;color:#4ade80;font-weight:800;">{{ __('frontend.hero_cyber_status') }}</span>
                                     </div>
                                 </div>
-                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-                                    <div style="text-align:center;padding:6px;background:rgba(255,255,255,.04);border-radius:8px;">
-                                        <p style="font-size:15px;font-weight:800;color:#4ade80;margin:0;">1,248</p>
-                                        <p style="font-size:7.5px;color:rgba(255,255,255,.3);margin:2px 0 0;">{{ __('frontend.hero_cyber_threats') }}</p>
-                                    </div>
-                                    <div style="text-align:center;padding:6px;background:rgba(255,255,255,.04);border-radius:8px;">
-                                        <p style="font-size:15px;font-weight:800;color:#facc15;margin:0;">847</p>
-                                        <p style="font-size:7.5px;color:rgba(255,255,255,.3);margin:2px 0 0;">{{ __('frontend.hero_cyber_rules') }}</p>
-                                    </div>
+                                <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:6px;">
+                                    @foreach([__('frontend.hero_cyber_encryption'), __('frontend.hero_cyber_permissions')] as $feature)
+                                        <span style="font-size:8.5px;color:rgba(255,255,255,.65);background:rgba(255,255,255,.04);border-radius:8px;padding:5px 8px;white-space:nowrap;">{{ $feature }}</span>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>

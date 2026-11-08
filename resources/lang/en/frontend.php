@@ -130,4 +130,11 @@ return array (
   'hero_erp_module_hr'      => 'HR & Payroll',
   'hero_erp_module_acc'     => 'Accounting',
   'hero_erp_module_inv'     => 'Inventory',
+  'hero_erp_all_in_one' => 'All in one integrated system',
+  'hero_cloud_access_anywhere' => 'Access from anywhere',
+  'hero_cloud_devices' => 'Works on desktop & mobile',
+  'hero_cloud_central_data' => 'All your data in one place',
+  'hero_cyber_encryption' => 'Data encryption',
+  'hero_cyber_permissions' => 'User permissions',
+  'hero_cyber_backup' => 'Backups',
 );
