@@ -16,6 +16,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'setlocale' => \App\Http\Middleware\SetLocale::class,
         ]);
 
+        // www.albaseetsoft-ye.com -> albaseetsoft-ye.com (301), before anything else.
+        $middleware->prepend(\App\Http\Middleware\RedirectToCanonicalHost::class);
+        $middleware->append(\App\Http\Middleware\SecurityHeaders::class);
+
         $middleware->redirectGuestsTo(fn () => route('admin.login'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
