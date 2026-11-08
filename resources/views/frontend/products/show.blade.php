@@ -112,7 +112,7 @@
             </div>
             <div x-cloak x-show="shown" x-transition.opacity @click="shown = null"
                 class="fixed inset-0 z-[60] bg-black/85 flex items-center justify-center p-4" role="dialog" aria-modal="true">
-                <img :src="shown" alt="{{ $product->name }}" class="max-h-[90vh] max-w-full rounded-xl shadow-2xl">
+                <template x-if="shown"><img :src="shown" alt="{{ $product->name }}" class="max-h-[90vh] max-w-full rounded-xl shadow-2xl"></template>
                 <button type="button" class="absolute top-4 end-4 text-white text-3xl leading-none" aria-label="{{ __('frontend.close') }}">&times;</button>
             </div>
         </section>

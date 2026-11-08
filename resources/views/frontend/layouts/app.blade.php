@@ -23,12 +23,13 @@
         }
 
         $defaultTitle = $settings->company_name ?? config('app.name');
-        $pageTitle = trim($__env->yieldContent('title', $defaultTitle));
-        $ogImageUrl = trim($__env->yieldContent('og_image')) ?: ($settings->og_image_url ?? asset('images/og-default.png'));
+        // @section('title', ...) escapes its value already: decode once so {{ }} below escapes exactly once.
+        $pageTitle = html_entity_decode(trim($__env->yieldContent('title', e($defaultTitle))), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $ogImageUrl = html_entity_decode(trim($__env->yieldContent('og_image')), ENT_QUOTES | ENT_HTML5, 'UTF-8') ?: ($settings->og_image_url ?? asset('images/og-default.png'));
         $ogLocales = ['ar' => 'ar_YE', 'en' => 'en_US'];
 
         $defaultDescription = $settings->description ?? __('frontend.meta_description_fallback');
-        $pageDescription = trim($__env->yieldContent('meta_description', $defaultDescription));
+        $pageDescription = html_entity_decode(trim($__env->yieldContent('meta_description', e($defaultDescription))), ENT_QUOTES | ENT_HTML5, 'UTF-8');
         $visiblePages = $visiblePages ?? $settings->getVisiblePages();
 
         $sameAs = array_values(array_filter([

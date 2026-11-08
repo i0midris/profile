@@ -34,6 +34,18 @@ class SecurityHardeningTest extends TestCase
         }
     }
 
+    public function test_titles_and_descriptions_are_escaped_exactly_once(): void
+    {
+        Product::create(['slug' => 'erp', 'name_ar' => 'ERP & المحاسبة', 'tagline_ar' => 'قيود "يومية" & تقارير', 'description_ar' => 'x', 'is_active' => true]);
+
+        $html = $this->get('/ar/products/erp')->assertOk()->getContent();
+
+        $this->assertStringContainsString('<title>ERP &amp; المحاسبة |', $html);
+        $this->assertStringContainsString('content="قيود &quot;يومية&quot; &amp; تقارير"', $html);
+        $this->assertStringNotContainsString('&amp;amp;', $html);
+        $this->assertStringNotContainsString('&amp;quot;', $html);
+    }
+
     public function test_svg_with_script_is_rejected_but_clean_svg_is_accepted(): void
     {
         Storage::fake('public');

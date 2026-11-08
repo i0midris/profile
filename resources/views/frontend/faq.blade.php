@@ -108,7 +108,7 @@
                     <div class="space-y-3">
                         @if($whatsappUrl)
                             <a href="{{ $whatsappUrl }}?text={{ rawurlencode(__('frontend.whatsapp_general_message')) }}" target="_blank" rel="noopener noreferrer"
-                                class="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-white font-semibold" style="background:#25D366">
+                                class="btn-whatsapp flex items-center justify-center gap-2 w-full py-3 rounded-xl font-semibold">
                                 <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 8.01 0C3.65 0 .095 3.55.094 7.91c0 1.394.365 2.753 1.058 3.95L0 16l4.203-1.102a7.938 7.938 0 0 0 3.806.98h.003c4.36 0 7.916-3.55 7.917-7.91a7.85 7.85 0 0 0-2.328-5.642Z"/></svg>
                                 {{ __('frontend.ask_on_whatsapp') }}
                             </a>

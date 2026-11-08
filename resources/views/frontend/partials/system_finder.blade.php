@@ -219,7 +219,7 @@
                     <a :href="systems[primary].demo" class="px-7 py-3.5 rounded-xl gradient-primary text-white font-semibold hover:shadow-lg hover:shadow-primary-500/30 transition-all">{{ __('frontend.finder_cta_demo') }}</a>
                     @if($finderWhatsapp)
                         <a :href="@js($finderWhatsapp) + '?text=' + encodeURIComponent(message)" target="_blank" rel="noopener noreferrer" data-track="system_finder"
-                            class="px-7 py-3.5 rounded-xl text-white font-semibold inline-flex items-center gap-2" style="background:#25D366">
+                            class="btn-whatsapp px-7 py-3.5 rounded-xl font-semibold inline-flex items-center gap-2">
                             <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 8.01 0C3.65 0 .095 3.55.094 7.91c0 1.394.365 2.753 1.058 3.95L0 16l4.203-1.102a7.938 7.938 0 0 0 3.806.98h.003c4.36 0 7.916-3.55 7.917-7.91a7.85 7.85 0 0 0-2.328-5.642Z"/></svg>
                             {{ __('frontend.finder_cta_whatsapp') }}
                         </a>
