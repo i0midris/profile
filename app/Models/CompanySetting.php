@@ -130,6 +130,7 @@ class CompanySetting extends Model
      */
     public const CONTENT_PAGES = [
         'products' => Product::class,
+        'blog' => Post::class,
     ];
 
     public static function hasPublishedContent(string $page): bool
@@ -140,7 +141,7 @@ class CompanySetting extends Model
         }
 
         return (bool) rescue(
-            fn () => Cache::rememberForever(PageCache::key("has-content:{$page}"), fn () => $model::query()->published()->exists()),
+            fn () => Cache::remember(PageCache::key("has-content:{$page}"), 600, fn () => $model::query()->published()->exists()),
             false,
             false
         );

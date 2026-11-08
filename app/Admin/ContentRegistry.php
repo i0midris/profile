@@ -5,6 +5,7 @@ namespace App\Admin;
 use App\Models\ClientLogo;
 use App\Models\DemoRequest;
 use App\Models\Faq;
+use App\Models\Post;
 use App\Models\Product;
 use App\Support\PhoneNumber;
 
@@ -75,6 +76,30 @@ class ContentRegistry
                     ['name' => 'answer', 'type' => 'textarea', 'localized' => true, 'required' => true, 'label' => 'admin.fields.answer'],
                     ['name' => 'show_on_home', 'type' => 'checkbox', 'default' => true, 'label' => 'admin.fields.show_on_home'],
                     ['name' => 'sort_order', 'type' => 'number', 'label' => 'admin.sort_order'],
+                    ['name' => 'is_active', 'type' => 'checkbox', 'default' => true, 'label' => 'admin.fields.published'],
+                ],
+            ],
+            'posts' => [
+                'model' => Post::class,
+                'label' => 'admin.content.posts',
+                'singular' => 'admin.content.post',
+                'help' => 'admin.content.posts_help',
+                'icon' => 'M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z',
+                'title' => 'title',
+                'subtitle' => 'excerpt',
+                'thumbnail' => 'cover_image',
+                'order_by' => ['published_at', 'desc'],
+                'public_route' => 'blog.show',
+                'columns' => [
+                    ['label' => 'admin.fields.published_at', 'value' => fn ($p) => $p->published_at?->format('Y-m-d H:i')],
+                ],
+                'fields' => [
+                    ['name' => 'title', 'type' => 'text', 'localized' => true, 'required' => true, 'label' => 'admin.fields.title'],
+                    ['name' => 'slug', 'type' => 'slug', 'source' => 'title_en', 'label' => 'admin.fields.slug', 'help' => 'admin.fields.slug_help'],
+                    ['name' => 'excerpt', 'type' => 'textarea', 'localized' => true, 'label' => 'admin.fields.excerpt', 'help' => 'admin.fields.excerpt_help'],
+                    ['name' => 'body', 'type' => 'markdown', 'localized' => true, 'required' => true, 'label' => 'admin.fields.body', 'help' => 'admin.fields.body_help'],
+                    ['name' => 'cover_image', 'type' => 'image', 'max_width' => 1600, 'label' => 'admin.fields.cover_image'],
+                    ['name' => 'published_at', 'type' => 'datetime', 'label' => 'admin.fields.published_at', 'help' => 'admin.fields.published_at_help'],
                     ['name' => 'is_active', 'type' => 'checkbox', 'default' => true, 'label' => 'admin.fields.published'],
                 ],
             ],

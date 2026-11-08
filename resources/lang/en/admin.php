@@ -307,6 +307,9 @@ return array (
     'faqs' => 'FAQ',
     'faq' => 'question',
     'faqs_help' => 'Shown on the home and Contact pages, and marked up for search engines as FAQ.',
+    'posts' => 'Blog',
+    'post' => 'article',
+    'posts_help' => 'Technical articles that bring search traffic, e.g. "How to choose accounting software in Yemen". The blog appears on the website once the first article is published.',
   ),
   'fields' => array(
     'name' => 'Name',
@@ -327,6 +330,13 @@ return array (
     'question' => 'Question',
     'answer' => 'Answer',
     'show_on_home' => 'Show on the home page',
+    'title' => 'Title',
+    'excerpt' => 'Short summary',
+    'excerpt_help' => 'Shown on the article card and in search results. If empty, the beginning of the article is used.',
+    'body' => 'Article text',
+    'body_help' => 'Supports Markdown: ## Subheading, - list item, **bold**, [link text](https://...).',
+    'published_at' => 'Publish date',
+    'published_at_help' => 'Leave empty to publish now, or pick a future date to schedule it.',
   ),
   'case_study' => array(
     'title' => 'Case study (optional)',

@@ -14,6 +14,7 @@ use App\Models\HeroSection;
 use App\Models\JobApplication;
 use App\Models\JobOpening;
 use App\Models\Portfolio;
+use App\Models\Post;
 use App\Models\Product;
 use App\Models\Service;
 use App\Models\TeamMember;
@@ -113,6 +114,25 @@ class PageController extends Controller
         return view('frontend.products.show', array_merge($this->getCommonData(), [
             'product' => $product,
             'related' => Product::published()->ordered()->whereKeyNot($product->getKey())->take(3)->get(),
+        ]));
+    }
+
+    public function blog()
+    {
+        $this->ensurePageIsVisible('blog');
+
+        return view('frontend.blog.index', array_merge($this->getCommonData(), [
+            'posts' => Post::published()->latest('published_at')->paginate(9),
+        ]));
+    }
+
+    public function post(string $locale, Post $post)
+    {
+        abort_unless($post->isPublished(), 404);
+
+        return view('frontend.blog.show', array_merge($this->getCommonData(), [
+            'post' => $post,
+            'related' => Post::published()->whereKeyNot($post->getKey())->latest('published_at')->take(3)->get(),
         ]));
     }
 

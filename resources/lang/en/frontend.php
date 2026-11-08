@@ -185,4 +185,11 @@ return array (
   'our_location' => 'Our location on the map',
   'faq_title' => 'Frequently Asked Questions',
   'faq_intro' => 'Quick answers to what customers ask us most.',
+  'blog' => 'Blog',
+  'blog_intro' => 'Practical articles and tips on accounting, POS and business systems in Yemen.',
+  'read_more' => 'Read article',
+  'more_articles' => 'More articles',
+  'reading_minutes' => '{1} 1 min read|[2,*] :count min read',
+  'blog_cta_title' => 'Looking for a system for your business?',
+  'blog_cta_text' => 'Request a demo and we will help you choose the right one.',
 );

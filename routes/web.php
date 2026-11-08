@@ -26,6 +26,7 @@ use App\Models\CompanySetting;
 use App\Models\HeroSection;
 use App\Models\JobOpening;
 use App\Models\Portfolio;
+use App\Models\Post;
 use App\Models\Product;
 use App\Models\Service;
 use App\Models\TeamMember;
@@ -52,6 +53,8 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => 'en|ar'], 'middlew
             Route::get('/services', 'services')->name('services');
             Route::get('/products', 'products')->name('products');
             Route::get('/products/{product:slug}', 'product')->name('products.show');
+            Route::get('/blog', 'blog')->name('blog');
+            Route::get('/blog/{post:slug}', 'post')->name('blog.show');
             Route::get('/team', 'team')->name('team');
             Route::get('/portfolio', 'portfolio')->name('portfolio');
             Route::get('/portfolio/{portfolio}', 'portfolioItem')->whereNumber('portfolio')->name('portfolio.show');
@@ -78,6 +81,7 @@ Route::get('/sitemap.xml', function () {
         'about'        => ['0.8', 'monthly', [AboutSection::class, TeamMember::class]],
         'services'     => ['0.9', 'weekly',  [Service::class]],
         'products'     => ['0.9', 'weekly',  [Product::class]],
+        'blog'         => ['0.7', 'weekly',  [Post::class]],
         'portfolio'    => ['0.8', 'weekly',  [Portfolio::class]],
         'team'         => ['0.6', 'monthly', [TeamMember::class]],
         'jobs'         => ['0.7', 'weekly',  [JobOpening::class]],
@@ -146,6 +150,25 @@ Route::get('/sitemap.xml', function () {
         }
     }
 
+    if ($settings->isPageVisible('blog')) {
+        foreach (Post::published()->latest('published_at')->get() as $post) {
+            $alternates = [];
+            foreach ($locales as $loc) {
+                $alternates[$loc] = route('blog.show', ['locale' => $loc, 'post' => $post]);
+            }
+            foreach ($locales as $locale) {
+                $urls[] = [
+                    'loc' => $alternates[$locale],
+                    'lastmod' => $post->updated_at->toAtomString(),
+                    'priority' => '0.6',
+                    'changefreq' => 'monthly',
+                    'alternates' => $alternates,
+                    'x_default' => url('/blog/' . $post->slug),
+                ];
+            }
+        }
+    }
+
     return response()
         ->view('sitemap', ['urls' => $urls])
         ->header('Content-Type', 'application/xml; charset=UTF-8');
@@ -162,7 +185,7 @@ $redirectToPreferredLocale = function (Request $request, string $page = '') {
 
 Route::get('/', fn (Request $request) => $redirectToPreferredLocale($request));
 Route::get('/{page}', fn (Request $request, string $page) => $redirectToPreferredLocale($request, $page))
-    ->where('page', '(about|services|products|team|jobs|portfolio|testimonials|contact|demo)(/[a-z0-9-]+)?');
+    ->where('page', '(about|services|products|blog|team|jobs|portfolio|testimonials|contact|demo)(/[a-z0-9-]+)?');
 
 /*
 |--------------------------------------------------------------------------
