@@ -17,18 +17,11 @@ class SetLocale
      */
     public function handle(Request $request, Closure $next)
     {
+        // The locale always comes from the URL (/ar/..., /en/...). It is not stored in the
+        // session, so read-only pages can be served without creating a session at all.
         $locale = $request->segment(1);
 
-        if (in_array($locale, ['en', 'ar'])) {
-            App::setLocale($locale);
-            session(['locale' => $locale]);
-        } elseif (session('locale')) {
-            App::setLocale(session('locale'));
-        } else {
-            // Default to Arabic if no locale set
-            App::setLocale('ar');
-            session(['locale' => 'ar']);
-        }
+        App::setLocale(in_array($locale, ['en', 'ar'], true) ? $locale : 'ar');
 
         return $next($request);
     }

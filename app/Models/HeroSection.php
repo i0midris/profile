@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\FlushesPageCache;
 use App\Models\Concerns\HasLocalizedAttributes;
 use Illuminate\Database\Eloquent\Model;
 
 class HeroSection extends Model
 {
+    use FlushesPageCache;
     use HasLocalizedAttributes;
 
     protected $fillable = [

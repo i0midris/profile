@@ -14,6 +14,11 @@ use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\TeamMemberController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Frontend\PageController;
+use App\Http\Middleware\CachePublicPage;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
+use Illuminate\Session\Middleware\StartSession;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
 use App\Models\AboutSection;
 use App\Models\CompanySetting;
 use App\Models\HeroSection;
@@ -33,14 +38,23 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => '{locale}', 'where' => ['locale' => 'en|ar'], 'middleware' => 'setlocale'], function() {
+    // Read-only pages: identical for every visitor, so no session/cookies are
+    // created and the rendered HTML is cached (see CachePublicPage).
+    Route::controller(PageController::class)
+        ->middleware(CachePublicPage::class)
+        ->withoutMiddleware([StartSession::class, ShareErrorsFromSession::class, ValidateCsrfToken::class, AddQueuedCookiesToResponse::class])
+        ->group(function () {
+            Route::get('/', 'home')->name('home');
+            Route::get('/about', 'about')->name('about');
+            Route::get('/services', 'services')->name('services');
+            Route::get('/team', 'team')->name('team');
+            Route::get('/portfolio', 'portfolio')->name('portfolio');
+            Route::get('/testimonials', 'testimonials')->name('testimonials');
+        });
+
+    // Pages with forms keep the session (CSRF token, validation errors, flash messages).
     Route::controller(PageController::class)->group(function () {
-        Route::get('/', 'home')->name('home');
-        Route::get('/about', 'about')->name('about');
-        Route::get('/services', 'services')->name('services');
-        Route::get('/team', 'team')->name('team');
         Route::get('/jobs', 'jobs')->name('jobs');
-        Route::get('/portfolio', 'portfolio')->name('portfolio');
-        Route::get('/testimonials', 'testimonials')->name('testimonials');
         Route::get('/contact', 'contact')->name('contact');
         Route::post('/contact', 'sendMessage')->middleware('throttle:contact-form')->name('contact.send');
         Route::post('/jobs/apply', 'applyForJob')->name('jobs.apply');

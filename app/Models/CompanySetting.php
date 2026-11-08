@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\FlushesPageCache;
 use App\Models\Concerns\HasLocalizedAttributes;
+use App\Support\PageCache;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class CompanySetting extends Model
 {
+    use FlushesPageCache;
     use HasLocalizedAttributes;
 
     public const PAGE_VISIBILITY_FIELDS = [
@@ -83,11 +87,25 @@ class CompanySetting extends Model
             'show_contact_page' => true,
         ];
 
+        // Read once per request (the layout, controller and middleware all need it)
+        // and keep the row in the cache until something is edited in the dashboard.
+        if (app()->bound('site.settings')) {
+            return app('site.settings');
+        }
+
         try {
-            return self::first() ?? new self($defaults);
+            $attributes = Cache::rememberForever(
+                PageCache::key('company-settings'),
+                fn () => self::query()->first()?->getAttributes()
+            );
+            $settings = $attributes ? (new self())->newFromBuilder($attributes) : new self($defaults);
         } catch (\Throwable) {
             return new self($defaults);
         }
+
+        app()->instance('site.settings', $settings);
+
+        return $settings;
     }
 
     public static function setPageVisibility(string $page, bool $isVisible): void
