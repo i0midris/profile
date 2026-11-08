@@ -1,6 +1,8 @@
 <?php
 
+use App\Admin\ContentRegistry;
 use App\Http\Controllers\Admin\AboutController;
+use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\ContactMessageController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -24,6 +26,7 @@ use App\Models\CompanySetting;
 use App\Models\HeroSection;
 use App\Models\JobOpening;
 use App\Models\Portfolio;
+use App\Models\Product;
 use App\Models\Service;
 use App\Models\TeamMember;
 use App\Models\Testimonial;
@@ -47,6 +50,8 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => 'en|ar'], 'middlew
             Route::get('/', 'home')->name('home');
             Route::get('/about', 'about')->name('about');
             Route::get('/services', 'services')->name('services');
+            Route::get('/products', 'products')->name('products');
+            Route::get('/products/{product:slug}', 'product')->name('products.show');
             Route::get('/team', 'team')->name('team');
             Route::get('/portfolio', 'portfolio')->name('portfolio');
             Route::get('/testimonials', 'testimonials')->name('testimonials');
@@ -69,6 +74,7 @@ Route::get('/sitemap.xml', function () {
         'home'         => ['1.0', 'weekly',  [CompanySetting::class, HeroSection::class, AboutSection::class, Service::class]],
         'about'        => ['0.8', 'monthly', [AboutSection::class, TeamMember::class]],
         'services'     => ['0.9', 'weekly',  [Service::class]],
+        'products'     => ['0.9', 'weekly',  [Product::class]],
         'portfolio'    => ['0.8', 'weekly',  [Portfolio::class]],
         'team'         => ['0.6', 'monthly', [TeamMember::class]],
         'jobs'         => ['0.7', 'weekly',  [JobOpening::class]],
@@ -117,6 +123,26 @@ Route::get('/sitemap.xml', function () {
         }
     }
 
+    // Detail pages (one URL per published product)
+    if ($settings->isPageVisible('products')) {
+        foreach (Product::published()->ordered()->get() as $product) {
+            $alternates = [];
+            foreach ($locales as $loc) {
+                $alternates[$loc] = route('products.show', ['locale' => $loc, 'product' => $product]);
+            }
+            foreach ($locales as $locale) {
+                $urls[] = [
+                    'loc' => $alternates[$locale],
+                    'lastmod' => $product->updated_at->toAtomString(),
+                    'priority' => '0.8',
+                    'changefreq' => 'monthly',
+                    'alternates' => $alternates,
+                    'x_default' => url('/products/' . $product->slug),
+                ];
+            }
+        }
+    }
+
     return response()
         ->view('sitemap', ['urls' => $urls])
         ->header('Content-Type', 'application/xml; charset=UTF-8');
@@ -133,7 +159,7 @@ $redirectToPreferredLocale = function (Request $request, string $page = '') {
 
 Route::get('/', fn (Request $request) => $redirectToPreferredLocale($request));
 Route::get('/{page}', fn (Request $request, string $page) => $redirectToPreferredLocale($request, $page))
-    ->whereIn('page', ['about', 'services', 'team', 'jobs', 'portfolio', 'testimonials', 'contact']);
+    ->where('page', '(about|services|products|team|jobs|portfolio|testimonials|contact)(/[a-z0-9-]+)?');
 
 /*
 |--------------------------------------------------------------------------
@@ -194,6 +220,19 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     // Testimonials CRUD - delete-image must come before resource
     Route::post('/testimonials/{testimonial}/delete-image', [TestimonialController::class, 'deleteImage'])->name('testimonials.delete-image');
     Route::resource('testimonials', TestimonialController::class)->except(['show']);
+
+    // Generic content types (products, client logos, FAQ, blog...) — see App\Admin\ContentRegistry
+    Route::prefix('content/{resource}')->name('content.')
+        ->whereIn('resource', ContentRegistry::keys())
+        ->controller(ContentController::class)
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/create', 'create')->name('create');
+            Route::post('/', 'store')->name('store');
+            Route::get('/{id}/edit', 'edit')->whereNumber('id')->name('edit');
+            Route::put('/{id}', 'update')->whereNumber('id')->name('update');
+            Route::delete('/{id}', 'destroy')->whereNumber('id')->name('destroy');
+        });
 
     // Contact Messages
     Route::get('/messages', [ContactMessageController::class, 'index'])->name('messages.index');

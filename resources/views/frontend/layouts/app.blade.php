@@ -6,7 +6,7 @@
         $route = request()->route();
         $routeName = $route?->getName();
         $currentLocale = app()->getLocale();
-        $frontendRouteNames = ['home', 'about', 'services', 'team', 'jobs', 'portfolio', 'testimonials', 'contact'];
+        $frontendRouteNames = ['home', 'about', 'services', 'products', 'products.show', 'team', 'jobs', 'portfolio', 'testimonials', 'contact'];
 
         $canonicalUrl = url()->current();
         $alternateEnUrl = null;
@@ -24,7 +24,7 @@
 
         $defaultTitle = $settings->company_name ?? config('app.name');
         $pageTitle = trim($__env->yieldContent('title', $defaultTitle));
-        $ogImageUrl = $settings->og_image_url ?? asset('images/og-default.png');
+        $ogImageUrl = trim($__env->yieldContent('og_image')) ?: ($settings->og_image_url ?? asset('images/og-default.png'));
         $ogLocales = ['ar' => 'ar_YE', 'en' => 'en_US'];
 
         $defaultDescription = $settings->description ?? __('frontend.meta_description_fallback');
@@ -142,6 +142,10 @@
                     @if($visiblePages['services'] ?? true)
                         <a href="{{ route('services', ['locale' => app()->getLocale()]) }}"
                             class="text-white/80 hover:text-white transition-colors {{ request()->routeIs('services') ? 'text-white font-medium' : '' }}">{{ __('frontend.services') }}</a>
+                    @endif
+                    @if($visiblePages['products'] ?? false)
+                        <a href="{{ route('products', ['locale' => app()->getLocale()]) }}"
+                            class="text-white/80 hover:text-white transition-colors {{ request()->routeIs('products*') ? 'text-white font-medium' : '' }}">{{ __('frontend.products') }}</a>
                     @endif
                     @if($visiblePages['team'] ?? true)
                         <a href="{{ route('team', ['locale' => app()->getLocale()]) }}"
@@ -261,6 +265,10 @@
                         <a href="{{ route('services', ['locale' => app()->getLocale()]) }}"
                             class="px-4 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/5 transition-colors">{{ __('frontend.services') }}</a>
                     @endif
+                    @if($visiblePages['products'] ?? false)
+                        <a href="{{ route('products', ['locale' => app()->getLocale()]) }}"
+                            class="px-4 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/5 transition-colors">{{ __('frontend.products') }}</a>
+                    @endif
                     @if($visiblePages['team'] ?? true)
                         <a href="{{ route('team', ['locale' => app()->getLocale()]) }}"
                             class="px-4 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/5 transition-colors">{{ __('frontend.team') }}</a>
@@ -376,6 +384,9 @@
                         @endif
                         @if($visiblePages['services'] ?? true)
                             <li><a href="{{ route('services', ['locale' => app()->getLocale()]) }}" class="site-footer-link">{{ __('frontend.services') }}</a></li>
+                        @endif
+                        @if($visiblePages['products'] ?? false)
+                            <li><a href="{{ route('products', ['locale' => app()->getLocale()]) }}" class="site-footer-link">{{ __('frontend.products') }}</a></li>
                         @endif
                         @if($visiblePages['jobs'] ?? true)
                             <li><a href="{{ route('jobs', ['locale' => app()->getLocale()]) }}" class="site-footer-link">{{ __('frontend.jobs') }}</a></li>

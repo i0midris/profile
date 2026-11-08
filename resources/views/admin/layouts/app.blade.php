@@ -216,6 +216,18 @@
                         </svg>
 {{ __('admin.testimonials') }}
                     </a>
+                    @foreach(\App\Admin\ContentRegistry::all() as $contentKey => $contentType)
+                        <a href="{{ route('admin.content.index', $contentKey) }}"
+                            class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/80 hover:text-white {{ request()->route('resource') === $contentKey ? 'active' : '' }}">
+                            <svg aria-hidden="true" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $contentType['icon'] }}" />
+                            </svg>
+                            <span class="flex-1">{{ __($contentType['label']) }}</span>
+                            @if(!empty($contentType['badge']) && ($badge = value($contentType['badge'])))
+                                <span class="px-2 py-0.5 rounded-full text-xs bg-primary-500 text-white">{{ $badge }}</span>
+                            @endif
+                        </a>
+                    @endforeach
                     <a href="{{ route('admin.messages.index') }}"
                         class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-white/80 hover:text-white {{ request()->routeIs('admin.messages.*') ? 'active' : '' }}">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -97,6 +97,23 @@
 </section>
 @endif
 
+<!-- Products Preview (appears once products are published from the dashboard) -->
+@if($products->count() > 0)
+<section class="py-24 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16" data-animate="fade-up">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">{{ __('frontend.our_products') }}</h2>
+            <p class="text-white/60 max-w-2xl mx-auto">{{ __('frontend.products_intro') }}</p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            @foreach($products as $index => $product)
+                @include('frontend.partials.product_card', ['product' => $product, 'index' => $index])
+            @endforeach
+        </div>
+    </div>
+</section>
+@endif
+
 <!-- About Preview -->
 @if($about)
 <section class="py-24 relative">

@@ -11,6 +11,7 @@ use App\Models\HeroSection;
 use App\Models\JobApplication;
 use App\Models\JobOpening;
 use App\Models\Portfolio;
+use App\Models\Product;
 use App\Models\Service;
 use App\Models\TeamMember;
 use App\Models\Testimonial;
@@ -59,6 +60,9 @@ class PageController extends Controller
             'portfolios' => $visiblePages['portfolio']
                 ? Portfolio::active()->featured()->ordered()->take(6)->get()
                 : collect(),
+            'products' => $visiblePages['products']
+                ? Product::published()->ordered()->take(6)->get()
+                : collect(),
         ]);
 
         return view('frontend.home', $data);
@@ -85,6 +89,25 @@ class PageController extends Controller
         ]);
 
         return view('frontend.services', $data);
+    }
+
+    public function products()
+    {
+        $this->ensurePageIsVisible('products');
+
+        return view('frontend.products.index', array_merge($this->getCommonData(), [
+            'products' => Product::published()->ordered()->get(),
+        ]));
+    }
+
+    public function product(string $locale, Product $product)
+    {
+        abort_unless($product->is_active, 404);
+
+        return view('frontend.products.show', array_merge($this->getCommonData(), [
+            'product' => $product,
+            'related' => Product::published()->ordered()->whereKeyNot($product->getKey())->take(3)->get(),
+        ]));
     }
 
     public function team()

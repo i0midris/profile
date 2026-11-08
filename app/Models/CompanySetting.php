@@ -121,8 +121,34 @@ class CompanySetting extends Model
         $settings->save();
     }
 
+    /**
+     * Pages added in phase 3 have no on/off switch: they appear automatically as soon as
+     * there is published content, and stay hidden while the company has not added any.
+     */
+    public const CONTENT_PAGES = [
+        'products' => Product::class,
+    ];
+
+    public static function hasPublishedContent(string $page): bool
+    {
+        $model = self::CONTENT_PAGES[$page] ?? null;
+        if ($model === null) {
+            return false;
+        }
+
+        return (bool) rescue(
+            fn () => Cache::rememberForever(PageCache::key("has-content:{$page}"), fn () => $model::query()->published()->exists()),
+            false,
+            false
+        );
+    }
+
     public function isPageVisible(string $page): bool
     {
+        if (array_key_exists($page, self::CONTENT_PAGES)) {
+            return self::hasPublishedContent($page);
+        }
+
         $field = self::PAGE_VISIBILITY_FIELDS[$page] ?? null;
 
         if ($field === null) {
@@ -138,7 +164,7 @@ class CompanySetting extends Model
     {
         $visibility = [];
 
-        foreach (array_keys(self::PAGE_VISIBILITY_FIELDS) as $page) {
+        foreach (array_merge(array_keys(self::PAGE_VISIBILITY_FIELDS), array_keys(self::CONTENT_PAGES)) as $page) {
             $visibility[$page] = $this->isPageVisible($page);
         }
 

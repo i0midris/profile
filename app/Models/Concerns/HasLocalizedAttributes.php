@@ -53,6 +53,23 @@ trait HasLocalizedAttributes
         return [];
     }
 
+    /**
+     * For tables that only have *_ar / *_en columns (no legacy column):
+     * current locale, then English, then Arabic.
+     */
+    public function localized(string $baseName): mixed
+    {
+        return $this->resolveLocalizedAttribute($baseName, $this->attributes["{$baseName}_ar"] ?? null);
+    }
+
+    public function localizedList(string $baseName): array
+    {
+        return array_values(array_filter(
+            $this->resolveLocalizedJsonArray($baseName, $this->attributes["{$baseName}_ar"] ?? null),
+            fn ($item) => is_string($item) && trim($item) !== ''
+        ));
+    }
+
     protected function hasMeaningfulValue(mixed $value): bool
     {
         if (is_array($value)) {
