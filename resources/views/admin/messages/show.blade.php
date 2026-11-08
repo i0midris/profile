@@ -9,7 +9,7 @@
             <div class="flex items-start justify-between mb-6">
                 <div class="flex items-center gap-4">
                     <div class="w-14 h-14 rounded-full gradient-primary flex items-center justify-center">
-                        <span class="text-white text-xl font-semibold">{{ substr($message->name, 0, 1) }}</span>
+                        <span class="text-white text-xl font-semibold">{{ mb_substr($message->name, 0, 1) }}</span>
                     </div>
                     <div>
                         <h3 class="text-xl font-semibold text-white">{{ $message->name }}</h3>

@@ -134,7 +134,7 @@
                         class="flex items-start gap-3 p-3 rounded-lg hover:bg-white/5 transition-colors">
                         <div
                             class="w-10 h-10 rounded-full bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center flex-shrink-0">
-                            <span class="text-white text-sm font-semibold">{{ substr($message->name, 0, 1) }}</span>
+                            <span class="text-white text-sm font-semibold">{{ mb_substr($message->name, 0, 1) }}</span>
                         </div>
                         <div class="flex-1 min-w-0">
                             <div class="flex items-center gap-2">

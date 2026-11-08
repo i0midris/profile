@@ -41,7 +41,7 @@
                     @else
                         <div
                             class="w-16 h-16 rounded-full bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
-                            <span class="text-white text-xl font-semibold">{{ substr($member->name, 0, 1) }}</span>
+                            <span class="text-white text-xl font-semibold">{{ mb_substr($member->name, 0, 1) }}</span>
                         </div>
                     @endif
                     <div class="flex-1 min-w-0">

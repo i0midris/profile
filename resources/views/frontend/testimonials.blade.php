@@ -47,7 +47,7 @@
                                     class="w-12 h-12 rounded-full object-cover">
                             @else
                                 <div class="w-12 h-12 rounded-full gradient-primary flex items-center justify-center">
-                                    <span class="text-white font-semibold">{{ substr($testimonial->client_name, 0, 1) }}</span>
+                                    <span class="text-white font-semibold">{{ mb_substr($testimonial->client_name, 0, 1) }}</span>
                                 </div>
                             @endif
                             <div>

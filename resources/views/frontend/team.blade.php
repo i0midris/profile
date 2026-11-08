@@ -31,7 +31,7 @@
                         @else
                             <div
                                 class="w-32 h-32 mx-auto rounded-full gradient-primary flex items-center justify-center mb-4 ring-4 ring-primary-500/30">
-                                <span class="text-white text-3xl font-bold">{{ substr($member->name, 0, 1) }}</span>
+                                <span class="text-white text-3xl font-bold">{{ mb_substr($member->name, 0, 1) }}</span>
                             </div>
                         @endif
 
@@ -45,7 +45,7 @@
                         @if($member->has_social_links)
                             <div class="flex items-center justify-center gap-3 pt-4 border-t border-white/10">
                                 @if($member->linkedin)
-                                    <a href="{{ $member->linkedin }}" target="_blank"
+                                    <a href="{{ $member->linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn — {{ $member->name }}"
                                         class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/60 hover:text-white transition-colors">
                                         <svg aria-hidden="true" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                                             <path
@@ -54,7 +54,7 @@
                                     </a>
                                 @endif
                                 @if($member->twitter)
-                                    <a href="{{ $member->twitter }}" target="_blank"
+                                    <a href="{{ $member->twitter }}" target="_blank" rel="noopener noreferrer" aria-label="X — {{ $member->name }}"
                                         class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/60 hover:text-white transition-colors">
                                         <svg aria-hidden="true" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                                             <path
@@ -63,7 +63,7 @@
                                     </a>
                                 @endif
                                 @if($member->instagram)
-                                    <a href="{{ $member->instagram }}" target="_blank"
+                                    <a href="{{ $member->instagram }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram — {{ $member->name }}"
                                         class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/60 hover:text-white transition-colors">
                                         <svg aria-hidden="true" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                                             <path
@@ -72,7 +72,7 @@
                                     </a>
                                 @endif
                                 @if($member->facebook)
-                                    <a href="{{ $member->facebook }}" target="_blank"
+                                    <a href="{{ $member->facebook }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook — {{ $member->name }}"
                                         class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center text-white/60 hover:text-white transition-colors">
                                         <svg aria-hidden="true" class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                                             <path

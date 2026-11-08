@@ -55,7 +55,7 @@
                             <div class="flex items-center gap-3">
                                 <div
                                     class="w-10 h-10 rounded-full gradient-primary flex items-center justify-center flex-shrink-0">
-                                    <span class="text-white text-sm font-semibold">{{ substr($message->name, 0, 1) }}</span>
+                                    <span class="text-white text-sm font-semibold">{{ mb_substr($message->name, 0, 1) }}</span>
                                 </div>
                                 <div>
                                     <div class="flex items-center gap-2">

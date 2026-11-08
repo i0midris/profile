@@ -253,7 +253,7 @@
                     <div class="flex items-center gap-3 px-4 py-3">
                         <div
                             class="w-10 h-10 rounded-full bg-gradient-to-br from-primary-500 to-accent-500 flex items-center justify-center">
-                            <span class="text-white font-semibold">{{ substr(auth()->user()->name, 0, 1) }}</span>
+                            <span class="text-white font-semibold">{{ mb_substr(auth()->user()->name, 0, 1) }}</span>
                         </div>
                         <div class="flex-1">
                             <p class="text-white font-medium text-sm">{{ auth()->user()->name }}</p>

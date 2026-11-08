@@ -138,7 +138,7 @@
                             @else
                                 <div
                                     class="w-32 h-32 mx-auto rounded-full gradient-primary flex items-center justify-center mb-4 ring-4 ring-primary-500/30">
-                                    <span class="text-white text-3xl font-bold">{{ substr($member->name, 0, 1) }}</span>
+                                    <span class="text-white text-3xl font-bold">{{ mb_substr($member->name, 0, 1) }}</span>
                                 </div>
                             @endif
                             <h3 class="text-lg font-semibold text-white">{{ $member->name }}</h3>
@@ -146,7 +146,7 @@
                             @if($member->has_social_links)
                                 <div class="flex items-center justify-center gap-3">
                                     @if($member->linkedin)
-                                        <a href="{{ $member->linkedin }}" target="_blank"
+                                        <a href="{{ $member->linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn — {{ $member->name }}"
                                             class="text-white/40 hover:text-white transition-colors">
                                             <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                                 <path
@@ -155,7 +155,7 @@
                                         </a>
                                     @endif
                                     @if($member->twitter)
-                                        <a href="{{ $member->twitter }}" target="_blank"
+                                        <a href="{{ $member->twitter }}" target="_blank" rel="noopener noreferrer" aria-label="X — {{ $member->name }}"
                                             class="text-white/40 hover:text-white transition-colors">
                                             <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                                                 <path
@@ -169,6 +169,7 @@
                     @endforeach
                 </div>
 
+                @if($visiblePages['team'] ?? false)
                 <div class="text-center mt-12">
                     <a href="{{ route('team', ['locale' => app()->getLocale()]) }}"
                         class="inline-flex items-center text-primary-400 hover:text-primary-300 font-medium">
@@ -178,6 +179,7 @@
                         </svg>
                     </a>
                 </div>
+                @endif
             </div>
         </section>
     @endif
