@@ -195,6 +195,30 @@
                 </div>
             </div>
 
+            <!-- Location & working hours (plan step 3.4) -->
+            <div class="admin-card p-6">
+                <h3 class="text-lg font-semibold text-white mb-4">{{ __('admin.location_hours') }}</h3>
+                <div class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        @foreach(['ar' => __('admin.lang_ar'), 'en' => __('admin.lang_en')] as $lang => $langLabel)
+                            <div>
+                                <label for="working_hours_{{ $lang }}" class="form-label">{{ __('admin.working_hours') }} ({{ $langLabel }})</label>
+                                <textarea id="working_hours_{{ $lang }}" name="working_hours_{{ $lang }}" rows="3" class="form-input"
+                                    dir="{{ $lang === 'ar' ? 'rtl' : 'ltr' }}" placeholder="{{ __('admin.working_hours_placeholder_' . $lang) }}">{{ old('working_hours_' . $lang, $settings->{'working_hours_' . $lang}) }}</textarea>
+                                @error('working_hours_' . $lang)<p class="mt-1 text-sm text-red-400">{{ $message }}</p>@enderror
+                            </div>
+                        @endforeach
+                    </div>
+                    <div>
+                        <label for="map_embed_url" class="form-label">{{ __('admin.map_embed_url') }}</label>
+                        <input type="url" id="map_embed_url" name="map_embed_url" dir="ltr" value="{{ old('map_embed_url', $settings->map_embed_url) }}"
+                            class="form-input" placeholder="https://www.google.com/maps/embed?pb=...">
+                        <p class="text-white/50 text-sm mt-1">{{ __('admin.map_embed_help') }}</p>
+                        @error('map_embed_url')<p class="mt-1 text-sm text-red-400">{{ $message }}</p>@enderror
+                    </div>
+                </div>
+            </div>
+
             <!-- Social Links -->
             <div class="admin-card p-6">
                 <h3 class="text-lg font-semibold text-white mb-4">{{ __('admin.social_media_links') }}</h3>

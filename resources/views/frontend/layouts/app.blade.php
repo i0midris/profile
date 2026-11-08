@@ -6,7 +6,7 @@
         $route = request()->route();
         $routeName = $route?->getName();
         $currentLocale = app()->getLocale();
-        $frontendRouteNames = ['home', 'about', 'services', 'products', 'products.show', 'team', 'jobs', 'portfolio', 'portfolio.show', 'testimonials', 'contact'];
+        $frontendRouteNames = ['home', 'about', 'services', 'products', 'products.show', 'team', 'jobs', 'portfolio', 'portfolio.show', 'testimonials', 'contact', 'demo'];
 
         $canonicalUrl = url()->current();
         $alternateEnUrl = null;
@@ -452,6 +452,17 @@
             </div>
         </div>
     </footer>
+    @php
+        $floatingWhatsappUrl = \App\Support\PhoneNumber::whatsappUrl($settings->whatsapp ?: $settings->phone);
+    @endphp
+    @if($floatingWhatsappUrl)
+        <a href="{{ $floatingWhatsappUrl }}?text={{ rawurlencode(__('frontend.whatsapp_general_message')) }}" target="_blank" rel="noopener noreferrer"
+            id="floating-whatsapp" data-track="whatsapp_click" aria-label="{{ __('frontend.chat_on_whatsapp') }}"
+            class="fixed bottom-5 end-5 z-40 w-14 h-14 rounded-full flex items-center justify-center text-white shadow-lg hover:scale-105 transition-transform"
+            style="background:#25D366;box-shadow:0 8px 24px rgb(37 211 102 / .35)">
+            <svg aria-hidden="true" class="w-7 h-7" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 8.01 0C3.65 0 .095 3.55.094 7.91c0 1.394.365 2.753 1.058 3.95L0 16l4.203-1.102a7.938 7.938 0 0 0 3.806.98h.003c4.36 0 7.916-3.55 7.917-7.91a7.85 7.85 0 0 0-2.328-5.642ZM8.013 14.6h-.003a6.65 6.65 0 0 1-3.394-.93l-.243-.145-2.493.654.666-2.433-.158-.25a6.61 6.61 0 0 1-1.013-3.542c.002-3.655 2.98-6.63 6.64-6.63a6.6 6.6 0 0 1 4.715 1.958 6.6 6.6 0 0 1 1.944 4.72c-.001 3.656-2.98 6.63-6.64 6.63Z"/><path d="M11.67 9.756c-.2-.1-1.173-.578-1.354-.644-.18-.067-.312-.1-.444.1-.132.2-.51.644-.625.778-.115.133-.23.15-.428.05-.2-.1-.842-.31-1.603-.987-.592-.527-.992-1.178-1.108-1.378-.115-.2-.012-.307.087-.406.09-.09.2-.233.297-.35.1-.116.133-.2.2-.333.066-.133.033-.25-.017-.35-.05-.1-.444-1.066-.608-1.46-.16-.383-.323-.33-.444-.336l-.378-.006c-.133 0-.35.05-.534.25s-.7.683-.7 1.666.716 1.934.816 2.067c.1.133 1.41 2.15 3.416 3.015.477.206.85.329 1.14.42.479.152.915.13 1.26.079.384-.058 1.173-.478 1.338-.939.166-.462.166-.856.116-.939-.05-.083-.182-.133-.38-.233Z"/></svg>
+        </a>
+    @endif
     <style>
         [x-cloak] {
             display: none !important;

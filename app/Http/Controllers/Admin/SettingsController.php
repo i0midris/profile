@@ -42,6 +42,10 @@ class SettingsController extends Controller
             'linkedin' => 'nullable|url|max:255',
             'youtube' => 'nullable|url|max:255',
             'whatsapp' => 'nullable|string|max:50',
+            'working_hours_ar' => 'nullable|string|max:1000',
+            'working_hours_en' => 'nullable|string|max:1000',
+            // Only Google Maps embed links (Share > Embed a map > copy the src URL)
+            'map_embed_url' => ['nullable', 'url', 'max:1000', 'regex:#^https://(www\.)?google\.com/maps/embed#'],
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'favicon' => 'nullable|image|mimes:ico,png,jpg|max:1024',
             'og_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',

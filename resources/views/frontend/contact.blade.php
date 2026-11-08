@@ -83,6 +83,18 @@
                         </div>
                     @endif
 
+                    @if($workingHours = $settings->localized('working_hours'))
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center flex-shrink-0">
+                                <svg aria-hidden="true" class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-white font-semibold mb-1">{{ __('frontend.working_hours') }}</h3>
+                                <p class="text-white/60 whitespace-pre-line">{{ $workingHours }}</p>
+                            </div>
+                        </div>
+                    @endif
+
                     <!-- Social Links -->
                     @if(($settings->facebook ?? false) || ($settings->twitter ?? false) || ($settings->instagram ?? false) || ($settings->linkedin ?? false) || $whatsappUrl)
                         <div class="pt-8 border-t border-white/10">
@@ -228,6 +240,12 @@
                     </div>
                 </div>
             </div>
+            @if($settings->map_embed_url)
+                <div class="mt-12 rounded-2xl overflow-hidden glass" data-animate="fade-up">
+                    <iframe src="{{ $settings->map_embed_url }}" title="{{ __('frontend.our_location') }}" class="w-full h-80 md:h-96 border-0"
+                        loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+                </div>
+            @endif
         </div>
     </section>
 

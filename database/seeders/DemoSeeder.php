@@ -90,7 +90,7 @@ class DemoSeeder extends Seeder
             'button_text' => 'Request a Demo',
             'button_text_en' => 'Request a Demo',
             'button_text_ar' => 'اطلب عرضاً تجريبياً',
-            'button_link' => '/contact',
+            'button_link' => '/demo',
             'button_text_secondary' => 'Browse Systems',
             'button_text_secondary_en' => 'Browse Systems',
             'button_text_secondary_ar' => 'استعرض الأنظمة',

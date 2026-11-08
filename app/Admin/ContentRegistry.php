@@ -3,7 +3,9 @@
 namespace App\Admin;
 
 use App\Models\ClientLogo;
+use App\Models\DemoRequest;
 use App\Models\Product;
+use App\Support\PhoneNumber;
 
 /**
  * Field definitions for the content types managed by the generic dashboard module
@@ -57,6 +59,31 @@ class ContentRegistry
                     ['name' => 'website_url', 'type' => 'url', 'label' => 'admin.fields.website_url'],
                     ['name' => 'sort_order', 'type' => 'number', 'label' => 'admin.sort_order'],
                     ['name' => 'is_active', 'type' => 'checkbox', 'default' => true, 'label' => 'admin.fields.published'],
+                ],
+            ],
+            'demo-requests' => [
+                'model' => DemoRequest::class,
+                'readonly' => true,
+                'readonly_view' => 'admin.content.demo_request_details',
+                'label' => 'admin.content.demo_requests',
+                'singular' => 'admin.content.demo_request',
+                'help' => 'admin.content.demo_requests_help',
+                'icon' => 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4',
+                'badge' => fn () => rescue(fn () => DemoRequest::pending()->count(), 0, false),
+                'title' => 'name',
+                'subtitle' => 'company',
+                'order_by' => ['created_at', 'desc'],
+                'columns' => [
+                    ['label' => 'admin.phone', 'ltr' => true, 'value' => fn ($r) => PhoneNumber::display($r->phone)],
+                    ['label' => 'admin.content.product', 'value' => fn ($r) => $r->product],
+                    ['label' => 'admin.content.received', 'value' => fn ($r) => $r->created_at?->format('Y-m-d H:i')],
+                    ['label' => 'admin.status', 'value' => fn ($r) => $r->is_handled ? __('admin.content.handled') : __('admin.content.pending')],
+                ],
+                'row_actions' => [
+                    ['label' => 'admin.reply_whatsapp', 'url' => fn ($r) => PhoneNumber::whatsappUrl($r->phone)],
+                ],
+                'fields' => [
+                    ['name' => 'is_handled', 'type' => 'checkbox', 'label' => 'admin.content.mark_handled'],
                 ],
             ],
         ];

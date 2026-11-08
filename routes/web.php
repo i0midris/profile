@@ -62,6 +62,8 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => 'en|ar'], 'middlew
     Route::controller(PageController::class)->group(function () {
         Route::get('/jobs', 'jobs')->name('jobs');
         Route::get('/contact', 'contact')->name('contact');
+        Route::get('/demo', 'demo')->name('demo');
+        Route::post('/demo', 'sendDemoRequest')->middleware('throttle:contact-form')->name('demo.send');
         Route::post('/contact', 'sendMessage')->middleware('throttle:contact-form')->name('contact.send');
         Route::post('/jobs/apply', 'applyForJob')->name('jobs.apply');
     });
@@ -160,7 +162,7 @@ $redirectToPreferredLocale = function (Request $request, string $page = '') {
 
 Route::get('/', fn (Request $request) => $redirectToPreferredLocale($request));
 Route::get('/{page}', fn (Request $request, string $page) => $redirectToPreferredLocale($request, $page))
-    ->where('page', '(about|services|products|team|jobs|portfolio|testimonials|contact)(/[a-z0-9-]+)?');
+    ->where('page', '(about|services|products|team|jobs|portfolio|testimonials|contact|demo)(/[a-z0-9-]+)?');
 
 /*
 |--------------------------------------------------------------------------

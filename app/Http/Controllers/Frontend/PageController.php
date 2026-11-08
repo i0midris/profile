@@ -8,6 +8,7 @@ use App\Models\AboutSection;
 use App\Models\ClientLogo;
 use App\Models\CompanySetting;
 use App\Models\ContactMessage;
+use App\Models\DemoRequest;
 use App\Models\HeroSection;
 use App\Models\JobApplication;
 use App\Models\JobOpening;
@@ -183,6 +184,66 @@ class PageController extends Controller
         return view('frontend.contact', $this->getCommonData());
     }
 
+    public function demo(Request $request)
+    {
+        $products = Product::published()->ordered()->get();
+        $selected = $products->firstWhere('slug', (string) $request->query('product'))?->name;
+
+        return view('frontend.demo', array_merge($this->getCommonData(), [
+            'products' => $products,
+            'selectedProduct' => $selected,
+        ]));
+    }
+
+    public function sendDemoRequest(Request $request)
+    {
+        // Same spam protection as the contact form: honeypot field + minimum fill time.
+        if ($request->filled('website')) {
+            return back()->with('success', __('frontend.demo_success'));
+        }
+        $formStartedAt = (int) $request->input('form_started_at', 0);
+        if ($formStartedAt <= 0 || now()->timestamp - $formStartedAt < 3) {
+            return back()->withErrors(['demo' => __('frontend.contact_submit_too_fast')])->withInput();
+        }
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'company' => 'nullable|string|max:255',
+            'phone' => ['required', 'string', 'max:50', 'regex:/^[0-9+\-\s()]{6,}$/'],
+            'email' => 'nullable|email|max:255',
+            'product' => 'nullable|string|max:255',
+            'preferred_contact' => 'required|in:' . implode(',', DemoRequest::CONTACT_METHODS),
+            'message' => 'nullable|string|max:2000',
+        ], [
+            'phone.regex' => __('frontend.contact_phone_invalid'),
+        ]);
+
+        $demoRequest = DemoRequest::create($validated + ['locale' => app()->getLocale()]);
+
+        $recipient = CompanySetting::getSettings()->email;
+        if (!empty($recipient) && filter_var($recipient, FILTER_VALIDATE_EMAIL)) {
+            try {
+                config(['mail.mailers.smtp.timeout' => 4]);
+                Mail::mailer('smtp')->raw(
+                    collect([
+                        'Name' => $demoRequest->name,
+                        'Company' => $demoRequest->company,
+                        'Phone' => $demoRequest->phone,
+                        'Email' => $demoRequest->email,
+                        'Product' => $demoRequest->product,
+                        'Preferred contact' => $demoRequest->preferred_contact,
+                        'Message' => $demoRequest->message,
+                    ])->filter()->map(fn ($v, $k) => "{$k}: {$v}")->implode("\n"),
+                    fn ($mail) => $mail->to($recipient)->subject(__('frontend.demo_email_subject', ['name' => $demoRequest->name]))
+                );
+            } catch (\Throwable $exception) {
+                Log::error('Failed to send demo request notification email.', ['demo_request_id' => $demoRequest->id, 'error' => $exception->getMessage()]);
+            }
+        }
+
+        return back()->with('success', __('frontend.demo_success'))->with('lead', 'demo_request');
+    }
+
     public function sendMessage(Request $request)
     {
         $this->ensurePageIsVisible('contact');
@@ -243,7 +304,7 @@ class PageController extends Controller
             }
         }
 
-        return back()->with('success', __('frontend.contact_form_success'));
+        return back()->with('success', __('frontend.contact_form_success'))->with('lead', 'contact_form');
     }
 
     public function applyForJob(Request $request)
