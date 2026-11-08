@@ -42,11 +42,16 @@ class SiteExtrasTest extends TestCase
 
     public function test_finder_supports_other_activity_and_thinking_step(): void
     {
-        $this->get('/ar')
+        $html = $this->get('/ar')
             ->assertSee('id="finder-other"', false)
-            ->assertSee('نحلل نشاطك…')
-            ->assertSee('المصانع والورش')
-            ->assertSee('الصيدليات والقطاع الطبي');
+            ->assertSee('finder-brain', false)
+            ->getContent();
+
+        // These strings live in the Alpine data: @js() emits JSON.parse('…') with non-ASCII
+        // characters escaped twice (\\uXXXX).
+        foreach (['نحلل نشاطك…', 'المصانع والورش', 'الصيدليات والقطاع الطبي', 'مخبز'] as $text) {
+            $this->assertStringContainsString(str_replace('\\', '\\\\', trim(json_encode($text), '"')), $html, $text);
+        }
     }
 
     public function test_web_manifest_is_valid_json_with_icons(): void
