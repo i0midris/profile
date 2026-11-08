@@ -131,6 +131,9 @@ class ContentController extends Controller
                 case 'checkbox':
                     $rules[$name] = ['nullable', 'boolean'];
                     break;
+                case 'select':
+                    $rules[$name] = [!empty($field['required']) ? 'required' : 'nullable', Rule::in($field['options'])];
+                    break;
                 case 'url':
                     $rules[$name] = [$required ? 'required' : 'nullable', 'url', 'max:500'];
                     break;
@@ -170,6 +173,9 @@ class ContentController extends Controller
                     break;
                 case 'checkbox':
                     $data[$name] = $request->boolean($name);
+                    break;
+                case 'select':
+                    $data[$name] = $request->input($name) ?: ($field['default'] ?? null);
                     break;
                 case 'slug':
                     $source = $request->input($field['source'] ?? '') ?: $request->input(str_replace('_en', '_ar', $field['source'] ?? ''));

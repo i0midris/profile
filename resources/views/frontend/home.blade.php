@@ -378,7 +378,7 @@
 </section>
 @endif
 
-@include('frontend.partials.faq')
+@include('frontend.partials.faq_teaser')
 
 <!-- CTA Section -->
 <section class="py-24">

@@ -133,6 +133,7 @@ class CompanySetting extends Model
     public const CONTENT_PAGES = [
         'products' => Product::class,
         'blog' => Post::class,
+        'faq' => Faq::class,
     ];
 
     public static function hasPublishedContent(string $page): bool

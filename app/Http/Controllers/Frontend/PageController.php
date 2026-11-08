@@ -68,7 +68,7 @@ class PageController extends Controller
                 ? Product::published()->ordered()->take(6)->get()
                 : collect(),
             'clientLogos' => ClientLogo::published()->ordered()->get(),
-            'faqs' => Faq::published()->where('show_on_home', true)->ordered()->take(8)->get(),
+            'faqs' => Faq::published()->where('show_on_home', true)->ordered()->take(3)->get(),
         ]);
 
         return view('frontend.home', $data);
@@ -114,6 +114,15 @@ class PageController extends Controller
         return view('frontend.products.show', array_merge($this->getCommonData(), [
             'product' => $product,
             'related' => Product::published()->ordered()->whereKeyNot($product->getKey())->take(3)->get(),
+        ]));
+    }
+
+    public function faq()
+    {
+        $this->ensurePageIsVisible('faq');
+
+        return view('frontend.faq', array_merge($this->getCommonData(), [
+            'faqs' => Faq::published()->ordered()->get(),
         ]));
     }
 
@@ -204,7 +213,7 @@ class PageController extends Controller
         $this->ensurePageIsVisible('contact');
 
         return view('frontend.contact', array_merge($this->getCommonData(), [
-            'faqs' => Faq::published()->ordered()->get(),
+            'faqs' => Faq::published()->where('show_on_home', true)->ordered()->take(3)->get(),
         ]));
     }
 

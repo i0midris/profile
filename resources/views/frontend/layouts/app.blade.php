@@ -6,7 +6,7 @@
         $route = request()->route();
         $routeName = $route?->getName();
         $currentLocale = app()->getLocale();
-        $frontendRouteNames = ['home', 'about', 'services', 'products', 'products.show', 'blog', 'blog.show', 'team', 'jobs', 'portfolio', 'portfolio.show', 'testimonials', 'contact', 'demo'];
+        $frontendRouteNames = ['home', 'about', 'services', 'products', 'products.show', 'blog', 'blog.show', 'faq', 'team', 'jobs', 'portfolio', 'portfolio.show', 'testimonials', 'contact', 'demo'];
 
         $canonicalUrl = url()->current();
         $alternateEnUrl = null;
@@ -168,13 +168,13 @@
                             class="text-white/80 hover:text-white transition-colors {{ request()->routeIs('blog*') ? 'text-white font-medium' : '' }}">{{ __('frontend.blog') }}</a>
                     @endif
                     @php
-                        $morePages = collect(['team' => 'frontend.team', 'portfolio' => 'frontend.portfolio', 'testimonials' => 'frontend.testimonials', 'jobs' => 'frontend.jobs'])
-                            ->filter(fn ($label, $page) => $visiblePages[$page] ?? true);
+                        $morePages = collect(['faq' => 'frontend.faq_title', 'team' => 'frontend.team', 'portfolio' => 'frontend.portfolio', 'testimonials' => 'frontend.testimonials', 'jobs' => 'frontend.jobs'])
+                            ->filter(fn ($label, $page) => $visiblePages[$page] ?? ($page !== 'faq'));
                     @endphp
                     @if($morePages->isNotEmpty())
                         <div class="relative" x-data="{ more: false }" @click.outside="more = false" @keydown.escape.window="more = false">
                             <button type="button" @click="more = !more" :aria-expanded="more.toString()" aria-haspopup="menu"
-                                class="inline-flex items-center gap-1 text-white/80 hover:text-white transition-colors {{ request()->routeIs('team', 'portfolio*', 'testimonials', 'jobs') ? 'text-white font-medium' : '' }}">
+                                class="inline-flex items-center gap-1 text-white/80 hover:text-white transition-colors {{ request()->routeIs('faq', 'team', 'portfolio*', 'testimonials', 'jobs') ? 'text-white font-medium' : '' }}">
                                 {{ __('frontend.more') }}
                                 <svg aria-hidden="true" class="w-4 h-4 transition-transform" :class="{ 'rotate-180': more }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                             </button>
@@ -295,6 +295,10 @@
                     @if($visiblePages['blog'] ?? false)
                         <a href="{{ route('blog', ['locale' => app()->getLocale()]) }}"
                             class="px-4 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/5 transition-colors">{{ __('frontend.blog') }}</a>
+                    @endif
+                    @if($visiblePages['faq'] ?? false)
+                        <a href="{{ route('faq', ['locale' => app()->getLocale()]) }}"
+                            class="px-4 py-2 rounded-lg text-white/80 hover:text-white hover:bg-white/5 transition-colors">{{ __('frontend.faq_title') }}</a>
                     @endif
                     @if($visiblePages['team'] ?? true)
                         <a href="{{ route('team', ['locale' => app()->getLocale()]) }}"
@@ -417,6 +421,9 @@
                         @endif
                         @if($visiblePages['blog'] ?? false)
                             <li><a href="{{ route('blog', ['locale' => app()->getLocale()]) }}" class="site-footer-link">{{ __('frontend.blog') }}</a></li>
+                        @endif
+                        @if($visiblePages['faq'] ?? false)
+                            <li><a href="{{ route('faq', ['locale' => app()->getLocale()]) }}" class="site-footer-link">{{ __('frontend.faq_title') }}</a></li>
                         @endif
                         @if($visiblePages['jobs'] ?? true)
                             <li><a href="{{ route('jobs', ['locale' => app()->getLocale()]) }}" class="site-footer-link">{{ __('frontend.jobs') }}</a></li>

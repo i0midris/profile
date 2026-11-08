@@ -18,30 +18,39 @@ class FaqTest extends TestCase
         CompanySetting::create(['company_name' => 'Test']);
     }
 
-    public function test_faq_section_is_hidden_without_questions(): void
+    public function test_faq_page_and_teaser_are_hidden_without_questions(): void
     {
-        $this->get('/ar')->assertDontSee('"@type":"FAQPage"', false);
-        $this->get('/ar/contact')->assertDontSee('id="faq"', false);
+        $this->get('/ar/faq')->assertNotFound();
+        $this->get('/ar')->assertDontSee('/ar/faq', false);
+        $this->get('/ar/contact')->assertDontSee('/ar/faq', false);
     }
 
-    public function test_published_questions_show_with_schema(): void
+    public function test_faq_page_lists_questions_by_category_with_schema(): void
     {
-        Faq::create(['question_ar' => 'هل يعمل النظام بدون إنترنت؟', 'answer_ar' => 'نعم، ويُزامن عند عودة الاتصال.', 'question_en' => 'Does it work offline?', 'answer_en' => 'Yes.']);
-        Faq::create(['question_ar' => 'سؤال للصفحة فقط', 'answer_ar' => 'جواب', 'show_on_home' => false]);
+        $q = Faq::create(['category' => 'products', 'question_ar' => 'هل يعمل النظام بدون إنترنت؟', 'answer_ar' => 'نعم، ويُزامن عند عودة الاتصال.', 'question_en' => 'Does it work offline?', 'answer_en' => 'Yes.', 'image' => 'faq/x.webp']);
+        Faq::create(['category' => 'support', 'question_ar' => 'سؤال للصفحة فقط', 'answer_ar' => 'جواب', 'show_on_home' => false]);
         Faq::create(['question_ar' => 'سؤال غير منشور', 'answer_ar' => 'جواب', 'is_active' => false]);
 
-        $this->get('/ar')->assertSee('هل يعمل النظام بدون إنترنت؟')->assertSee('"@type":"FAQPage"', false)
-            ->assertDontSee('سؤال للصفحة فقط')->assertDontSee('سؤال غير منشور');
-        $this->get('/ar/contact')->assertSee('سؤال للصفحة فقط')->assertDontSee('سؤال غير منشور');
-        $this->get('/en')->assertSee('Does it work offline?');
+        $this->get('/ar/faq')->assertOk()
+            ->assertSee('هل يعمل النظام بدون إنترنت؟')->assertSee('سؤال للصفحة فقط')->assertDontSee('سؤال غير منشور')
+            ->assertSee('"@type":"FAQPage"', false)
+            ->assertSee('الأنظمة والمنتجات')->assertSee('الدعم والأمان')
+            ->assertSee('storage/faq/x.webp', false);
+
+        // Home and contact show only the short teaser that links to the page
+        $this->get('/ar')->assertSee('/ar/faq#q-' . $q->id, false)->assertDontSee('سؤال للصفحة فقط')->assertDontSee('"@type":"FAQPage"', false);
+        $this->get('/ar/contact')->assertSee('/ar/faq', false);
+        $this->get('/ar')->assertSee('/ar/faq"', false); // "More" menu + footer
+        $this->get('/en/faq')->assertSee('Does it work offline?');
     }
 
     public function test_admin_can_add_a_question(): void
     {
         $this->actingAs(User::factory()->create())->post('/admin/content/faqs', [
-            'question_ar' => 'كم مدة التركيب؟', 'answer_ar' => 'يومان في الغالب.', 'is_active' => '1', 'show_on_home' => '1',
+            'category' => 'setup', 'question_ar' => 'كم مدة التركيب؟', 'answer_ar' => 'يومان في الغالب.', 'is_active' => '1', 'show_on_home' => '1',
         ])->assertSessionHasNoErrors();
 
         $this->assertSame('كم مدة التركيب؟', Faq::firstOrFail()->question_ar);
+        $this->assertSame('setup', Faq::firstOrFail()->category);
     }
 }

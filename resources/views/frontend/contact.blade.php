@@ -249,7 +249,7 @@
         </div>
     </section>
 
-    @include('frontend.partials.faq')
+    @include('frontend.partials.faq_teaser')
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

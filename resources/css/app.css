@@ -1167,3 +1167,11 @@
 @keyframes sc-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1.5px); } }
 @keyframes sc-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
 @media (prefers-reduced-motion: reduce) { .sector-scene * { animation: none !important; } }
+
+/* -- FAQ page & teaser -- */
+.faq-q-icon { display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; width: 34px; height: 34px; border-radius: 11px;
+    font-weight: 800; color: #fff; background: linear-gradient(135deg, var(--color-primary-500), var(--color-accent-500)); }
+.faq-q-icon-lg { width: 52px; height: 52px; border-radius: 16px; font-size: 1.5rem; }
+.faq-card { border: 1px solid transparent; transition: border-color .2s ease, transform .2s ease; }
+.faq-card.is-open { border-color: color-mix(in srgb, var(--color-primary-400) 55%, transparent); }
+.faq-card:hover { transform: translateY(-2px); }

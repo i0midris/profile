@@ -99,7 +99,8 @@ class PreviewContent extends Command
         }
 
         foreach ($data['faqs'] as $i => $f) {
-            $remember(Faq::create($f + ['sort_order' => $i + 1, 'show_on_home' => true, 'is_active' => true]));
+            $f['image'] = !empty($f['image']) ? $copy($f['image'], 'faq') : null;
+            $remember(Faq::create($f + ['sort_order' => $i + 1, 'show_on_home' => $i < 3, 'is_active' => true]));
         }
 
         foreach ($data['posts'] as $p) {

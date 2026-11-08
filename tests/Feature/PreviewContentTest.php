@@ -24,11 +24,12 @@ class PreviewContentTest extends TestCase
 
         $this->assertSame(5, Product::count());
         $this->assertSame(3, Post::count());
-        $this->assertSame(6, Faq::count());
+        $this->assertSame(9, Faq::count());
+        $this->get('/ar/faq')->assertOk()->assertSee('هل يعمل النظام بدون إنترنت؟');
         $this->assertTrue(CompanySetting::first()->show_team_page);
         $this->get('/ar/products/pos-system')->assertOk();
         $this->get('/ar/blog/working-offline')->assertOk();
-        $this->get('/ar')->assertSee('حلول تناسب قطاعك')->assertDontSee('يثق بنا')->assertSee('الأسئلة الشائعة');
+        $this->get('/ar')->assertSee('حلول تناسب قطاعك')->assertDontSee('يثق بنا')->assertSee('لديك سؤال؟');
 
         $this->artisan('preview:content')->assertFailed(); // not twice
 

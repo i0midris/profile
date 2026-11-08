@@ -137,6 +137,17 @@
                             <input type="number" id="{{ $name }}" name="{{ $name }}" value="{{ $val($name, 0) }}" min="0" class="form-input">
                         </div>
 
+                    @elseif($field['type'] === 'select')
+                        <div class="max-w-sm">
+                            <label for="{{ $name }}" class="form-label">{{ $label }}</label>
+                            <select id="{{ $name }}" name="{{ $name }}" class="form-input">
+                                @foreach($field['options'] as $option)
+                                    <option value="{{ $option }}" @selected($val($name, $field['default'] ?? null) === $option)>{{ __(($field['option_label'] ?? '') . $option) }}</option>
+                                @endforeach
+                            </select>
+                            @error($name)<p class="mt-1 text-sm text-red-400">{{ $message }}</p>@enderror
+                        </div>
+
                     @elseif($field['type'] === 'checkbox')
                         <label class="flex items-center gap-2 cursor-pointer">
                             <input type="hidden" name="{{ $name }}" value="0">

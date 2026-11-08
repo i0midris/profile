@@ -72,8 +72,10 @@ class ContentRegistry
                 'title' => 'question',
                 'order_by' => ['sort_order', 'asc'],
                 'fields' => [
+                    ['name' => 'category', 'type' => 'select', 'options' => Faq::CATEGORIES, 'option_label' => 'frontend.faq_cat_', 'default' => 'general', 'label' => 'admin.fields.category'],
                     ['name' => 'question', 'type' => 'text', 'localized' => true, 'required' => true, 'label' => 'admin.fields.question'],
                     ['name' => 'answer', 'type' => 'textarea', 'localized' => true, 'required' => true, 'label' => 'admin.fields.answer'],
+                    ['name' => 'image', 'type' => 'image', 'max_width' => 1200, 'label' => 'admin.fields.faq_image', 'help' => 'admin.fields.faq_image_help'],
                     ['name' => 'show_on_home', 'type' => 'checkbox', 'default' => true, 'label' => 'admin.fields.show_on_home'],
                     ['name' => 'sort_order', 'type' => 'number', 'label' => 'admin.sort_order'],
                     ['name' => 'is_active', 'type' => 'checkbox', 'default' => true, 'label' => 'admin.fields.published'],

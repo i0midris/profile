@@ -337,6 +337,9 @@ return array (
     'body_help' => 'Supports Markdown: ## Subheading, - list item, **bold**, [link text](https://...).',
     'published_at' => 'Publish date',
     'published_at_help' => 'Leave empty to publish now, or pick a future date to schedule it.',
+    'category' => 'Category',
+    'faq_image' => 'Illustration (optional)',
+    'faq_image_help' => 'Shown next to the answer, e.g. a screenshot of the step.',
   ),
   'case_study' => array(
     'title' => 'Case study (optional)',

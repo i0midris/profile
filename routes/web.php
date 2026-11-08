@@ -23,6 +23,7 @@ use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use App\Models\AboutSection;
 use App\Models\CompanySetting;
+use App\Models\Faq;
 use App\Models\HeroSection;
 use App\Models\JobOpening;
 use App\Models\Portfolio;
@@ -54,6 +55,7 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => 'en|ar'], 'middlew
             Route::get('/products', 'products')->name('products');
             Route::get('/products/{product:slug}', 'product')->name('products.show');
             Route::get('/blog', 'blog')->name('blog');
+            Route::get('/faq', 'faq')->name('faq');
             Route::get('/blog/{post:slug}', 'post')->name('blog.show');
             Route::get('/team', 'team')->name('team');
             Route::get('/portfolio', 'portfolio')->name('portfolio');
@@ -82,6 +84,7 @@ Route::get('/sitemap.xml', function () {
         'services'     => ['0.9', 'weekly',  [Service::class]],
         'products'     => ['0.9', 'weekly',  [Product::class]],
         'blog'         => ['0.7', 'weekly',  [Post::class]],
+        'faq'          => ['0.6', 'monthly', [Faq::class]],
         'portfolio'    => ['0.8', 'weekly',  [Portfolio::class]],
         'team'         => ['0.6', 'monthly', [TeamMember::class]],
         'jobs'         => ['0.7', 'weekly',  [JobOpening::class]],
@@ -185,7 +188,7 @@ $redirectToPreferredLocale = function (Request $request, string $page = '') {
 
 Route::get('/', fn (Request $request) => $redirectToPreferredLocale($request));
 Route::get('/{page}', fn (Request $request, string $page) => $redirectToPreferredLocale($request, $page))
-    ->where('page', '(about|services|products|blog|team|jobs|portfolio|testimonials|contact|demo)(/[a-z0-9-]+)?');
+    ->where('page', '(about|services|products|blog|faq|team|jobs|portfolio|testimonials|contact|demo)(/[a-z0-9-]+)?');
 
 /*
 |--------------------------------------------------------------------------

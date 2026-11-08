@@ -11,7 +11,9 @@ class Faq extends Model
     use FlushesPageCache;
     use HasLocalizedAttributes;
 
-    protected $fillable = ['question_ar', 'question_en', 'answer_ar', 'answer_en', 'show_on_home', 'sort_order', 'is_active'];
+    public const CATEGORIES = ['general', 'products', 'setup', 'support'];
+
+    protected $fillable = ['category', 'question_ar', 'question_en', 'answer_ar', 'answer_en', 'image', 'show_on_home', 'sort_order', 'is_active'];
 
     protected $casts = [
         'show_on_home' => 'boolean',
@@ -37,5 +39,10 @@ class Faq extends Model
     public function getAnswerAttribute(): ?string
     {
         return $this->localized('answer');
+    }
+
+    public function getImageUrlAttribute(): ?string
+    {
+        return $this->image ? asset('storage/' . $this->image) : null;
     }
 }
