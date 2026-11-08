@@ -1224,3 +1224,60 @@
 /* Decorative, small and slow: these loops keep running even when the OS asks for reduced motion
    (Windows "Animation effects" off). Page-wide entrance slides (AOS) still respect that setting. */
 .faq-q-num { font-size: 15px; font-variant-numeric: tabular-nums; }
+
+/* -- Systems marquee under the hero -- */
+.systems-marquee { position: relative; overflow: hidden; padding: 18px 0; border-block: 1px solid rgb(255 255 255 / .07);
+    background: linear-gradient(90deg, rgb(26 46 109 / .25), rgb(228 25 31 / .08), rgb(26 46 109 / .25));
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.systems-marquee-track { display: flex; width: max-content; animation: marquee 38s linear infinite; }
+[dir="rtl"] .systems-marquee-track { animation-name: marquee-rtl; }
+.systems-marquee:hover .systems-marquee-track { animation-play-state: paused; }
+.systems-marquee-list { display: flex; gap: 14px; padding-inline-end: 14px; list-style: none; margin: 0; }
+.systems-marquee-list li { display: inline-flex; align-items: center; gap: 10px; white-space: nowrap; padding: 9px 18px; border-radius: 999px;
+    color: rgb(255 255 255 / .85); font-weight: 600; font-size: .95rem; background: rgb(255 255 255 / .05); border: 1px solid rgb(255 255 255 / .09); }
+.systems-marquee-icon { width: 30px; height: 30px; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; color: #fff;
+    background: linear-gradient(135deg, var(--color-primary-500), var(--color-accent-500)); }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes marquee-rtl { from { transform: translateX(0); } to { transform: translateX(50%); } }
+.theme-light .systems-marquee-list li { color: rgb(var(--brand-main-rgb) / .9); background: #fff; border-color: rgb(var(--brand-main-rgb) / .1); }
+
+/* -- System finder wizard -- */
+.finder-option { display: flex; align-items: center; gap: 12px; width: 100%; padding: 14px 16px; border-radius: 16px; text-align: start;
+    color: rgb(255 255 255 / .9); font-weight: 600; background: rgb(255 255 255 / .04); border: 1px solid rgb(255 255 255 / .1);
+    transition: transform .2s ease, border-color .2s ease, background .2s ease; }
+.finder-option:hover { transform: translateY(-3px); border-color: var(--color-primary-400); background: rgb(255 255 255 / .07); }
+.finder-option.is-picked { border-color: var(--color-accent-500); background: rgb(228 25 31 / .12); }
+.finder-emoji { width: 38px; height: 38px; flex-shrink: 0; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; color: #fff;
+    background: linear-gradient(135deg, var(--color-primary-500), color-mix(in srgb, var(--color-primary-500) 50%, black)); }
+.finder-option.is-picked .finder-emoji, .finder-option:hover .finder-emoji { background: linear-gradient(135deg, var(--color-accent-500), color-mix(in srgb, var(--color-accent-500) 55%, black)); }
+.finder-num { font-weight: 800; font-size: .85rem; }
+.finder-in { transition: opacity .35s ease, transform .35s ease; }
+.finder-from { opacity: 0; transform: translateY(14px); }
+.finder-to { opacity: 1; transform: translateY(0); }
+.finder-check { width: 64px; height: 64px; border-radius: 22px; display: flex; align-items: center; justify-content: center; color: #fff;
+    background: linear-gradient(135deg, #22a06b, #157a4f); box-shadow: 0 10px 30px rgb(34 160 107 / .4); animation: finder-pop .5s ease-out; }
+@keyframes finder-pop { 0% { transform: scale(.4); opacity: 0; } 70% { transform: scale(1.1); } 100% { transform: scale(1); opacity: 1; } }
+.theme-light .finder-option { color: rgb(var(--brand-main-rgb) / .92); background: #fff; border-color: rgb(var(--brand-main-rgb) / .12); }
+
+/* -- Reading progress + back to top -- */
+.scroll-progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 70; pointer-events: none; }
+.scroll-progress span { display: block; height: 100%; transform: scaleX(0); transform-origin: right;
+    background: linear-gradient(90deg, var(--color-primary-500), var(--color-accent-500)); box-shadow: 0 0 10px rgb(228 25 31 / .5); }
+[dir="ltr"] .scroll-progress span { transform-origin: left; }
+.back-to-top { position: fixed; bottom: 92px; inset-inline-end: 22px; z-index: 44; width: 46px; height: 46px; border-radius: 14px; display: flex; align-items: center; justify-content: center;
+    color: #fff; background: linear-gradient(135deg, var(--color-primary-500), var(--color-accent-500)); box-shadow: 0 10px 26px rgb(0 0 0 / .3);
+    opacity: 0; transform: translateY(16px) scale(.9); pointer-events: none; transition: opacity .3s ease, transform .3s ease; }
+.back-to-top.is-visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+.back-to-top:hover { transform: translateY(-3px); }
+@media (max-width: 767px) { .back-to-top { bottom: 84px; inset-inline-end: 14px; width: 42px; height: 42px; } }
+
+/* -- Light sweep on cards -- */
+.global-card { position: relative; overflow: hidden; }
+.global-card::after { content: ""; position: absolute; inset: 0; pointer-events: none; transform: translateX(-120%) skewX(-18deg);
+    background: linear-gradient(90deg, transparent, rgb(255 255 255 / .09), transparent); transition: transform .9s ease; }
+.global-card:hover::after { transform: translateX(120%) skewX(-18deg); }
+
+/* -- Skip link -- */
+.skip-link { position: fixed; top: -60px; inset-inline-start: 12px; z-index: 100; padding: 10px 16px; border-radius: 10px; color: #fff; font-weight: 700;
+    background: var(--color-accent-500); transition: top .2s ease; }
+.skip-link:focus { top: 12px; }

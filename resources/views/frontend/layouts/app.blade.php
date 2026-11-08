@@ -54,6 +54,9 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0e1a44">
+    <link rel="manifest" href="{{ asset('site.webmanifest') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/icons/icon-192.png') }}">
     <meta name="description" content="{{ $pageDescription }}">
     <meta name="ahrefs-site-verification" content="8612ba2161fb0cb28e8b4941a5842b4ebb4e8dc31ede567922fc151640f311c7">
     <script src="https://analytics.ahrefs.com/analytics.js" data-key="zxwGslkfws+WzfA0w9dGNA" async></script>
@@ -124,6 +127,8 @@
 </head>
 
 <body class="min-h-screen flex flex-col overflow-x-hidden has-mobile-bar">
+    <a href="#main-content" class="skip-link">{{ __('frontend.skip_to_content') }}</a>
+    <div class="scroll-progress" aria-hidden="true"><span id="scroll-progress-bar"></span></div>
     <!-- Navigation -->
     <nav class="glass-dark fixed top-0 left-0 right-0 z-50" x-data="{ open: false }">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -335,7 +340,7 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="flex-1 pt-16 sm:pt-20">
+    <main id="main-content" tabindex="-1" class="flex-1 pt-16 sm:pt-20 outline-none">
         @yield('content')
     </main>
 
@@ -500,6 +505,9 @@
             <svg aria-hidden="true" class="w-7 h-7" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.854 7.854 0 0 0 8.01 0C3.65 0 .095 3.55.094 7.91c0 1.394.365 2.753 1.058 3.95L0 16l4.203-1.102a7.938 7.938 0 0 0 3.806.98h.003c4.36 0 7.916-3.55 7.917-7.91a7.85 7.85 0 0 0-2.328-5.642ZM8.013 14.6h-.003a6.65 6.65 0 0 1-3.394-.93l-.243-.145-2.493.654.666-2.433-.158-.25a6.61 6.61 0 0 1-1.013-3.542c.002-3.655 2.98-6.63 6.64-6.63a6.6 6.6 0 0 1 4.715 1.958 6.6 6.6 0 0 1 1.944 4.72c-.001 3.656-2.98 6.63-6.64 6.63Z"/><path d="M11.67 9.756c-.2-.1-1.173-.578-1.354-.644-.18-.067-.312-.1-.444.1-.132.2-.51.644-.625.778-.115.133-.23.15-.428.05-.2-.1-.842-.31-1.603-.987-.592-.527-.992-1.178-1.108-1.378-.115-.2-.012-.307.087-.406.09-.09.2-.233.297-.35.1-.116.133-.2.2-.333.066-.133.033-.25-.017-.35-.05-.1-.444-1.066-.608-1.46-.16-.383-.323-.33-.444-.336l-.378-.006c-.133 0-.35.05-.534.25s-.7.683-.7 1.666.716 1.934.816 2.067c.1.133 1.41 2.15 3.416 3.015.477.206.85.329 1.14.42.479.152.915.13 1.26.079.384-.058 1.173-.478 1.338-.939.166-.462.166-.856.116-.939-.05-.083-.182-.133-.38-.233Z"/></svg>
         </a>
     @endif
+    <button type="button" id="back-to-top" class="back-to-top" aria-label="{{ __('frontend.back_to_top') }}">
+        <svg aria-hidden="true" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" d="M5 15l7-7 7 7"/></svg>
+    </button>
     <nav class="mobile-contact-bar" aria-label="{{ __('frontend.quick_contact') }}">
         @if($settings->phone ?? false)
             <a href="{{ \App\Support\PhoneNumber::telUrl($settings->phone) }}">

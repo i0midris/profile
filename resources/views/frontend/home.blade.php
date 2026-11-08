@@ -65,6 +65,8 @@
     </div>
 </section>
 
+@include('frontend.partials.systems_marquee')
+
 <!-- Services Preview -->
 @if($services->count() > 0)
 <section class="py-24 relative">
@@ -100,6 +102,8 @@
 @include('frontend.partials.how_we_work')
 
 @include('frontend.partials.sectors')
+
+@include('frontend.partials.system_finder')
 
 <!-- Products Preview (appears once products are published from the dashboard) -->
 @if($products->count() > 0)

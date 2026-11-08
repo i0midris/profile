@@ -138,3 +138,22 @@ document.addEventListener('click', (event) => {
         track('email_click', { page: location.pathname });
     }
 });
+
+// -- Reading progress bar + back-to-top button ----------------------------------
+document.addEventListener('DOMContentLoaded', () => {
+    const bar = document.getElementById('scroll-progress-bar');
+    const top = document.getElementById('back-to-top');
+    let ticking = false;
+    const update = () => {
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        const ratio = max > 0 ? Math.min(1, window.scrollY / max) : 0;
+        if (bar) bar.style.transform = `scaleX(${ratio})`;
+        if (top) top.classList.toggle('is-visible', window.scrollY > 600);
+        ticking = false;
+    };
+    window.addEventListener('scroll', () => {
+        if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
+    top?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    update();
+});
