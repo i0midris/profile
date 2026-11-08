@@ -1053,3 +1053,12 @@
 [data-aos][data-aos="fade-down"] { transform: translate3d(0, -24px, 0); }
 [data-aos][data-aos="fade-left"] { transform: translate3d(24px, 0, 0); }
 [data-aos][data-aos="fade-right"] { transform: translate3d(-24px, 0, 0); }
+
+/* -- Client logos strip (step 3.2): white tiles keep any logo legible in both themes -- */
+.client-logo-tile {
+    display: flex; align-items: center; justify-content: center;
+    width: 150px; height: 84px; padding: 14px 16px; border-radius: 16px;
+    background: #fff; box-shadow: 0 6px 20px rgb(0 0 0 / 0.12);
+    filter: grayscale(1); opacity: .85; transition: filter .2s, opacity .2s, transform .2s;
+}
+.client-logo-tile:hover { filter: none; opacity: 1; transform: translateY(-2px); }

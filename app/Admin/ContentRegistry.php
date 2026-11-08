@@ -2,6 +2,7 @@
 
 namespace App\Admin;
 
+use App\Models\ClientLogo;
 use App\Models\Product;
 
 /**
@@ -37,6 +38,23 @@ class ContentRegistry
                     ['name' => 'sectors', 'type' => 'list', 'localized' => true, 'label' => 'admin.fields.sectors', 'help' => 'admin.fields.sectors_help'],
                     ['name' => 'cover_image', 'type' => 'image', 'max_width' => 1600, 'label' => 'admin.fields.cover_image'],
                     ['name' => 'screenshots', 'type' => 'gallery', 'max_width' => 1600, 'label' => 'admin.fields.screenshots', 'help' => 'admin.fields.screenshots_help'],
+                    ['name' => 'sort_order', 'type' => 'number', 'label' => 'admin.sort_order'],
+                    ['name' => 'is_active', 'type' => 'checkbox', 'default' => true, 'label' => 'admin.fields.published'],
+                ],
+            ],
+            'client-logos' => [
+                'model' => ClientLogo::class,
+                'label' => 'admin.content.client_logos',
+                'singular' => 'admin.content.client_logo',
+                'help' => 'admin.content.client_logos_help',
+                'icon' => 'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4',
+                'title' => 'name',
+                'thumbnail' => 'logo',
+                'order_by' => ['sort_order', 'asc'],
+                'fields' => [
+                    ['name' => 'name', 'type' => 'text', 'required' => true, 'label' => 'admin.fields.client_name'],
+                    ['name' => 'logo', 'type' => 'image', 'required' => true, 'max_width' => 400, 'label' => 'admin.fields.logo', 'help' => 'admin.fields.logo_help'],
+                    ['name' => 'website_url', 'type' => 'url', 'label' => 'admin.fields.website_url'],
                     ['name' => 'sort_order', 'type' => 'number', 'label' => 'admin.sort_order'],
                     ['name' => 'is_active', 'type' => 'checkbox', 'default' => true, 'label' => 'admin.fields.published'],
                 ],

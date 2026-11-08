@@ -6,7 +6,7 @@
         $route = request()->route();
         $routeName = $route?->getName();
         $currentLocale = app()->getLocale();
-        $frontendRouteNames = ['home', 'about', 'services', 'products', 'products.show', 'team', 'jobs', 'portfolio', 'testimonials', 'contact'];
+        $frontendRouteNames = ['home', 'about', 'services', 'products', 'products.show', 'team', 'jobs', 'portfolio', 'portfolio.show', 'testimonials', 'contact'];
 
         $canonicalUrl = url()->current();
         $alternateEnUrl = null;

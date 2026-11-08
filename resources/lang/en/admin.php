@@ -289,6 +289,9 @@ return array (
     'remove_image' => 'Remove image',
     'keep' => 'Keep',
     'visibility_note' => 'This section appears on the website automatically once its first item is published, and stays hidden while there is no published content.',
+    'client_logos' => 'Client Logos',
+    'client_logo' => 'client logo',
+    'client_logos_help' => 'Shown on the home and About pages under "Trusted by". Only add clients who agreed to show their logo.',
   ),
   'fields' => array(
     'name' => 'Name',
@@ -302,5 +305,16 @@ return array (
     'screenshots' => 'Screenshots',
     'screenshots_help' => 'You can select several images at once. Untick "Keep" to remove an existing screenshot.',
     'published' => 'Published (visible on the website)',
+    'client_name' => 'Client name',
+    'logo' => 'Logo',
+    'logo_help' => 'A logo with a transparent background (PNG or SVG) works best.',
+    'website_url' => 'Client website (optional)',
+  ),
+  'case_study' => array(
+    'title' => 'Case study (optional)',
+    'help' => 'Filling in any of these gives the project its own "Case study" page on the website.',
+    'challenge' => 'Challenge',
+    'solution' => 'Solution',
+    'results' => 'Results',
   ),
 );

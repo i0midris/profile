@@ -159,4 +159,10 @@ return array (
   'whatsapp_general_message' => 'Hello, I would like to ask about Albaseet Soft systems',
   'close' => 'Close',
   'seo_products_description' => 'Albaseet Soft systems: POS, ERP & accounting, HR, e-commerce stores and sales-rep apps for businesses in Yemen.',
+  'case_study' => 'Case study',
+  'the_challenge' => 'The challenge',
+  'our_solution' => 'Our solution',
+  'the_results' => 'The results',
+  'view_case_study' => 'Read the case study',
+  'trusted_by' => 'Trusted by',
 );

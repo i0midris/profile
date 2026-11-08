@@ -54,6 +54,7 @@ Route::group(['prefix' => '{locale}', 'where' => ['locale' => 'en|ar'], 'middlew
             Route::get('/products/{product:slug}', 'product')->name('products.show');
             Route::get('/team', 'team')->name('team');
             Route::get('/portfolio', 'portfolio')->name('portfolio');
+            Route::get('/portfolio/{portfolio}', 'portfolioItem')->whereNumber('portfolio')->name('portfolio.show');
             Route::get('/testimonials', 'testimonials')->name('testimonials');
         });
 

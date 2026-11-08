@@ -114,6 +114,8 @@
 </section>
 @endif
 
+@include('frontend.partials.client_logos')
+
 <!-- About Preview -->
 @if($about)
 <section class="py-24 relative">

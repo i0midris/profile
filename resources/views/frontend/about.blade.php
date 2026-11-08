@@ -181,4 +181,5 @@
             </div>
         </section>
     @endif
+    @include('frontend.partials.client_logos')
 @endsection

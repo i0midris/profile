@@ -99,6 +99,8 @@
                     </div>
                 </div>
 
+                @include('admin.portfolio._case_study', ['portfolio' => $portfolio ?? null])
+
                 <div>
                     <label for="image" class="form-label">{{ __('admin.image') }} {{ isset($portfolio) ? '' : '*' }}</label>
                     @if(isset($portfolio) && $portfolio->image_url)

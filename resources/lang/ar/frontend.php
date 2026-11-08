@@ -159,4 +159,10 @@ return array (
   'whatsapp_general_message' => 'مرحباً، أرغب في الاستفسار عن أنظمة البسيط سوفت',
   'close' => 'إغلاق',
   'seo_products_description' => 'أنظمة البسيط سوفت: نقاط البيع، ERP والمحاسبة، الموارد البشرية، المتاجر الإلكترونية، وتطبيقات المندوبين للشركات في اليمن.',
+  'case_study' => 'دراسة حالة',
+  'the_challenge' => 'التحدي',
+  'our_solution' => 'الحل',
+  'the_results' => 'النتائج',
+  'view_case_study' => 'اقرأ دراسة الحالة',
+  'trusted_by' => 'يثق بنا',
 );

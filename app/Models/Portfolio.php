@@ -27,6 +27,12 @@ class Portfolio extends Model
         'image',
         'gallery',
         'project_url',
+        'challenge_ar',
+        'challenge_en',
+        'solution_ar',
+        'solution_en',
+        'results_ar',
+        'results_en',
         'completed_at',
         'sort_order',
         'is_featured',
@@ -114,5 +120,20 @@ class Portfolio extends Model
             ->filter()
             ->unique()
             ->values();
+    }
+
+    /**
+     * A portfolio item becomes a case study (with its own page) once the challenge,
+     * solution or results are filled in from the dashboard.
+     */
+    public function isCaseStudy(): bool
+    {
+        foreach (['challenge', 'solution', 'results'] as $field) {
+            if ($this->localized($field)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

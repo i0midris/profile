@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Mail\ContactMessageNotification;
 use App\Models\AboutSection;
+use App\Models\ClientLogo;
 use App\Models\CompanySetting;
 use App\Models\ContactMessage;
 use App\Models\HeroSection;
@@ -63,6 +64,7 @@ class PageController extends Controller
             'products' => $visiblePages['products']
                 ? Product::published()->ordered()->take(6)->get()
                 : collect(),
+            'clientLogos' => ClientLogo::published()->ordered()->get(),
         ]);
 
         return view('frontend.home', $data);
@@ -75,6 +77,7 @@ class PageController extends Controller
         $data = array_merge($this->getCommonData(), [
             'about' => AboutSection::active()->first(),
             'team' => TeamMember::active()->ordered()->take(4)->get(),
+            'clientLogos' => ClientLogo::published()->ordered()->get(),
         ]);
 
         return view('frontend.about', $data);
@@ -131,6 +134,16 @@ class PageController extends Controller
         ]);
 
         return view('frontend.portfolio', $data);
+    }
+
+    public function portfolioItem(string $locale, Portfolio $portfolio)
+    {
+        $this->ensurePageIsVisible('portfolio');
+        abort_unless($portfolio->is_active && $portfolio->isCaseStudy(), 404);
+
+        return view('frontend.portfolio_show', array_merge($this->getCommonData(), [
+            'portfolio' => $portfolio,
+        ]));
     }
 
     public function testimonials()

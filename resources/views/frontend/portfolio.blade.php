@@ -84,6 +84,11 @@
                                 @if($portfolio->client_name)
                                     <p class="text-white/40 text-sm mt-3">{{ __('frontend.client') }}: {{ $portfolio->client_name }}</p>
                                 @endif
+                                @if($portfolio->isCaseStudy())
+                                    <a href="{{ route('portfolio.show', ['locale' => app()->getLocale(), 'portfolio' => $portfolio->id]) }}"
+                                        class="inline-flex items-center mt-4 text-primary-400 hover:text-primary-300 font-medium">{{ __('frontend.view_case_study') }}
+                                        <svg aria-hidden="true" class="w-4 h-4 ms-2 rtl-flip" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></a>
+                                @endif
                             </div>
                         </div>
                     </div>
