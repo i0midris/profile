@@ -12,7 +12,7 @@
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div class="text-center" data-aos="fade-up">
+            <div class="text-center" data-animate="fade-up">
                 <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{{ __('frontend.get_in_touch') }}</h1>
                 <p class="text-white/60 max-w-2xl mx-auto">{{ __('frontend.have_project_mind') }}</p>
             </div>
@@ -28,7 +28,7 @@
 
             <div class="grid lg:grid-cols-3 gap-12">
                 <!-- Contact Info -->
-                <div class="lg:col-span-1 space-y-8" data-aos="fade-right">
+                <div class="lg:col-span-1 space-y-8" data-animate="fade-right">
                     <div>
                         <h2 class="text-2xl font-bold text-white mb-6">{{ __('frontend.contact_information') }}</h2>
                         <p class="text-white/60 mb-8">{{ __('frontend.feel_free_reach_out') }}</p>
@@ -142,7 +142,7 @@
                 </div>
 
                 <!-- Contact Form -->
-                <div class="lg:col-span-2" data-aos="fade-left">
+                <div class="lg:col-span-2" data-animate="fade-left">
                     <div class="glass rounded-2xl p-8">
                         @if(session('success'))
                             <div class="mb-6 p-4 rounded-lg bg-green-500/20 border border-green-500/30 text-green-400">

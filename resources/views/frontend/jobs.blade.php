@@ -11,7 +11,7 @@
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div class="text-center" data-aos="fade-up">
+            <div class="text-center" data-animate="fade-up">
                 <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{{ __('frontend.join_our_team') }}</h1>
                 <p class="text-white/60 max-w-2xl mx-auto">{{ __('frontend.jobs_page_description') }}</p>
             </div>
@@ -22,10 +22,10 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid lg:grid-cols-3 gap-12">
                 <div class="lg:col-span-2 space-y-6">
-                    <h2 class="text-2xl md:text-3xl font-bold text-white" data-aos="fade-up">{{ __('frontend.open_positions') }}</h2>
+                    <h2 class="text-2xl md:text-3xl font-bold text-white" data-animate="fade-up">{{ __('frontend.open_positions') }}</h2>
 
                     @forelse($jobs as $index => $job)
-                        <article class="global-card rounded-2xl p-6 md:p-8" data-aos="fade-up" data-aos-delay="{{ $index * 80 }}">
+                        <article class="global-card rounded-2xl p-6 md:p-8" data-animate="fade-up" data-aos-delay="{{ $index * 80 }}">
                             <div class="flex flex-wrap items-start justify-between gap-3 mb-5">
                                 <div>
                                     <h3 class="global-card-title text-2xl font-bold text-white">{{ $job->title }}</h3>
@@ -69,13 +69,13 @@
                             @endif
                         </article>
                     @empty
-                        <div class="glass rounded-2xl p-8 text-center text-white/60" data-aos="fade-up">
+                        <div class="glass rounded-2xl p-8 text-center text-white/60" data-animate="fade-up">
                             {{ __('frontend.no_open_positions') }}
                         </div>
                     @endforelse
                 </div>
 
-                <div class="lg:col-span-1" id="apply-form" data-aos="fade-left">
+                <div class="lg:col-span-1" id="apply-form" data-animate="fade-left">
                     <div class="glass rounded-2xl p-6 md:p-8 sticky top-24">
                         <h2 class="text-2xl font-bold text-white mb-2">{{ __('frontend.apply_for_job') }}</h2>
                         <p class="text-white/60 mb-6">{{ __('frontend.apply_form_hint') }}</p>

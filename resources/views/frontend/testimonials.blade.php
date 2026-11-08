@@ -11,7 +11,7 @@
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div class="text-center" data-aos="fade-up">
+            <div class="text-center" data-animate="fade-up">
                 <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{{ __('frontend.client_testimonials') }}</h1>
                 <p class="text-white/60 max-w-2xl mx-auto">{{ __('frontend.see_clients_say') }}</p>
             </div>
@@ -23,7 +23,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @forelse($testimonials as $index => $testimonial)
-                    <div class="glass global-card rounded-2xl p-8 hover-lift" data-aos="fade-up" data-aos-delay="{{ ($index % 3) * 100 }}">
+                    <div class="glass global-card rounded-2xl p-8 hover-lift" data-animate="fade-up" data-aos-delay="{{ ($index % 3) * 100 }}">
                         <!-- Rating Stars -->
                         <div class="flex items-center gap-1 mb-4">
                             @for($i = 0; $i < 5; $i++)
@@ -73,7 +73,7 @@
     <!-- CTA -->
     <section class="pb-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="glass rounded-3xl p-12 text-center" data-aos="fade-up">
+            <div class="glass rounded-3xl p-12 text-center" data-animate="fade-up">
                 <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">{{ __('frontend.ready_join_happy_clients') }}</h2>
                 <p class="text-white/70 max-w-xl mx-auto mb-8">{{ __('frontend.lets_discuss_help_goals') }}</p>
                 <a href="{{ route('contact', ['locale' => app()->getLocale()]) }}"

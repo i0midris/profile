@@ -1045,3 +1045,11 @@
         box-shadow: 0 8px 16px rgb(var(--brand-main-rgb) / 0.22), 0 6px 12px rgb(var(--brand-secondary-rgb) / 0.2);
     }
 }
+
+/* ── Entrance animations (step 2.5) ─────────────────────────────────────────
+   AOS slides blocks in from 100px away, which pushes content past the screen
+   edge on phones. Use a short, subtle distance instead. */
+[data-aos][data-aos="fade-up"] { transform: translate3d(0, 24px, 0); }
+[data-aos][data-aos="fade-down"] { transform: translate3d(0, -24px, 0); }
+[data-aos][data-aos="fade-left"] { transform: translate3d(24px, 0, 0); }
+[data-aos][data-aos="fade-right"] { transform: translate3d(-24px, 0, 0); }

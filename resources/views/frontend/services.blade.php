@@ -16,7 +16,7 @@
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div class="text-center" data-aos="fade-up">
+            <div class="text-center" data-animate="fade-up">
                 <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{{ __('frontend.our_services') }}</h1>
                 <p class="text-white/60 max-w-2xl mx-auto">{{ __('frontend.services_description') }}</p>
             </div>
@@ -28,7 +28,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @forelse($services as $index => $service)
-                    <div class="glass global-card rounded-2xl p-8 h-full flex flex-col hover-lift" data-aos="fade-up" data-aos-delay="{{ ($index % 3) * 100 }}">
+                    <div class="glass global-card rounded-2xl p-8 h-full flex flex-col hover-lift" data-animate="fade-up" data-aos-delay="{{ ($index % 3) * 100 }}">
                         <div class="global-card-icon w-16 h-16 rounded-2xl gradient-primary flex items-center justify-center mb-6">
                             @include('frontend.partials.icon', ['icon' => $service->icon ?? 'code'])
                         </div>
@@ -79,7 +79,7 @@
     <!-- CTA -->
     <section class="pb-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="glass rounded-3xl p-12 text-center relative overflow-hidden" data-aos="fade-up">
+            <div class="glass rounded-3xl p-12 text-center relative overflow-hidden" data-animate="fade-up">
                 <div class="absolute inset-0 gradient-primary opacity-10"></div>
                 <div class="relative">
                     <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">{{ __('frontend.need_custom_solution') }}</h2>

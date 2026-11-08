@@ -69,14 +69,14 @@
 @if($services->count() > 0)
 <section class="py-24 relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16" data-aos="fade-up">
+        <div class="text-center mb-16" data-animate="fade-up">
             <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">{{ __('frontend.our_services') }}</h2>
             <p class="text-white/60 max-w-2xl mx-auto">{{ __('frontend.services_description') }}</p>
         </div>
         
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach($services as $index => $service)
-                <div class="glass global-card rounded-2xl p-8 hover-lift" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
+                <div class="glass global-card rounded-2xl p-8 hover-lift" data-animate="fade-up" data-aos-delay="{{ $index * 100 }}">
                     <div class="global-card-icon w-14 h-14 rounded-xl gradient-primary flex items-center justify-center mb-6">
                         @include('frontend.partials.icon', ['icon' => $service->icon ?? 'code'])
                     </div>
@@ -106,7 +106,7 @@
     
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div class="grid lg:grid-cols-2 gap-16 items-center">
-            <div data-aos="fade-right">
+            <div data-animate="fade-right">
                 @if($about->image_url)
                     <img src="{{ $about->image_url }}" alt="{{ __('frontend.about_image_alt') }}" class="rounded-3xl shadow-2xl">
                 @else
@@ -221,7 +221,7 @@
                 @endif
             </div>
             
-            <div data-aos="fade-left">
+            <div data-animate="fade-left">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">{{ $about->title }}</h2>
                 <p class="text-white/70 mb-8 leading-relaxed">{{ Str::limit($about->content, 300) }}</p>
                 
@@ -272,14 +272,14 @@
 @if($portfolios->count() > 0)
 <section class="py-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16" data-aos="fade-up">
+        <div class="text-center mb-16" data-animate="fade-up">
             <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">{{ __('frontend.featured_work') }}</h2>
             <p class="text-white/60 max-w-2xl mx-auto">{{ __('frontend.featured_work_description') }}</p>
         </div>
         
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach($portfolios as $index => $portfolio)
-                <div class="group relative overflow-hidden rounded-2xl" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
+                <div class="group relative overflow-hidden rounded-2xl" data-animate="fade-up" data-aos-delay="{{ $index * 100 }}">
                     @if($portfolio->image_url)
                         <img src="{{ $portfolio->image_url }}" alt="{{ $portfolio->title }}" class="w-full h-72 object-cover transition-transform duration-500 group-hover:scale-110">
                     @else
@@ -319,14 +319,14 @@
     </div>
     
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div class="text-center mb-16" data-aos="fade-up">
+        <div class="text-center mb-16" data-animate="fade-up">
             <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">{{ __('frontend.what_clients_say') }}</h2>
             <p class="text-white/60 max-w-2xl mx-auto">{{ __('frontend.clients_say_description') }}</p>
         </div>
         
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach($testimonials as $index => $testimonial)
-                <div class="glass rounded-2xl p-8" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
+                <div class="glass rounded-2xl p-8" data-animate="fade-up" data-aos-delay="{{ $index * 100 }}">
                     <div class="flex items-center gap-1 mb-4">
                         @for($i = 0; $i < $testimonial->rating; $i++)
                             <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
@@ -358,7 +358,7 @@
 <!-- CTA Section -->
 <section class="py-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="glass rounded-3xl p-12 md:p-16 text-center relative overflow-hidden" data-aos="fade-up">
+        <div class="glass rounded-3xl p-12 md:p-16 text-center relative overflow-hidden" data-animate="fade-up">
             <div class="absolute inset-0 gradient-primary opacity-10"></div>
             <div class="relative">
                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">{{ __('frontend.ready_start_project') }}</h2>

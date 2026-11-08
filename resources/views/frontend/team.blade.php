@@ -11,7 +11,7 @@
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div class="text-center" data-aos="fade-up">
+            <div class="text-center" data-animate="fade-up">
                 <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{{ __('frontend.our_team') }}</h1>
                 <p class="text-white/60 max-w-2xl mx-auto">{{ __('frontend.meet_talented_individuals') }}</p>
             </div>
@@ -23,7 +23,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                 @forelse($members as $index => $member)
-                    <div class="glass global-card rounded-2xl p-6 text-center hover-lift" data-aos="fade-up"
+                    <div class="glass global-card rounded-2xl p-6 text-center hover-lift" data-animate="fade-up"
                         data-aos-delay="{{ ($index % 4) * 100 }}">
                         @if($member->photo_url)
                             <img src="{{ $member->photo_url }}" alt="{{ $member->name }}"

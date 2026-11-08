@@ -11,7 +11,7 @@
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <div class="text-center" data-aos="fade-up">
+            <div class="text-center" data-animate="fade-up">
                 <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">{{ __('frontend.about_us') }}</h1>
                 <p class="text-white/60 max-w-2xl mx-auto">{{ __('frontend.learn_about_story') }}</p>
             </div>
@@ -23,7 +23,7 @@
         <section class="pb-24">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid lg:grid-cols-2 gap-16 items-center mb-24">
-                    <div data-aos="fade-right">
+                    <div data-animate="fade-right">
                         @if($about->image_url)
                             <img src="{{ $about->image_url }}" alt="{{ __('frontend.about_image_alt') }}" class="rounded-3xl shadow-2xl">
                         @else
@@ -38,7 +38,7 @@
                         @endif
                     </div>
 
-                    <div data-aos="fade-left">
+                    <div data-animate="fade-left">
                         <h2 class="text-3xl font-bold text-white mb-6">{{ $about->title }}</h2>
                         <p class="text-white/70 leading-relaxed whitespace-pre-line">{{ $about->content }}</p>
                     </div>
@@ -48,7 +48,7 @@
                 @if($about->mission_title || $about->vision_title)
                     <div class="grid md:grid-cols-2 gap-8 mb-24">
                         @if($about->mission_title)
-                            <div class="glass global-card rounded-2xl p-8 h-full flex flex-col hover-lift" data-aos="fade-up">
+                            <div class="glass global-card rounded-2xl p-8 h-full flex flex-col hover-lift" data-animate="fade-up">
                                 <div class="global-card-icon w-14 h-14 rounded-xl gradient-primary flex items-center justify-center mb-6">
                                     <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -61,7 +61,7 @@
                         @endif
 
                         @if($about->vision_title)
-                            <div class="glass global-card rounded-2xl p-8 h-full flex flex-col hover-lift" data-aos="fade-up" data-aos-delay="100">
+                            <div class="glass global-card rounded-2xl p-8 h-full flex flex-col hover-lift" data-animate="fade-up" data-aos-delay="100">
                                 <div class="global-card-icon w-14 h-14 rounded-xl gradient-primary flex items-center justify-center mb-6">
                                     <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -79,7 +79,7 @@
 
                 <!-- Stats -->
                 @if($about->years_experience || $about->projects_completed || $about->happy_clients || $about->team_members)
-                    <div class="glass rounded-3xl p-8 md:p-12" data-aos="fade-up">
+                    <div class="glass rounded-3xl p-8 md:p-12" data-animate="fade-up">
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                             @if($about->years_experience)
                                 <div>
@@ -124,14 +124,14 @@
     @if($team->count() > 0)
         <section class="py-24 border-t border-white/10">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16" data-aos="fade-up">
+                <div class="text-center mb-16" data-animate="fade-up">
                     <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">{{ __('frontend.meet_our_team') }}</h2>
                     <p class="text-white/60 max-w-2xl mx-auto">{{ __('frontend.talented_people') }}</p>
                 </div>
 
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                     @foreach($team as $index => $member)
-                        <div class="text-center" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
+                        <div class="text-center" data-animate="fade-up" data-aos-delay="{{ $index * 100 }}">
                             @if($member->photo_url)
                                 <img src="{{ $member->photo_url }}" alt="{{ $member->name }}"
                                     class="w-32 h-32 mx-auto rounded-full object-cover mb-4 ring-4 ring-primary-500/30">
