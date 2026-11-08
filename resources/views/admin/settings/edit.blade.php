@@ -219,6 +219,28 @@
                 </div>
             </div>
 
+            <!-- Google (plan step 3.7) -->
+            <div class="admin-card p-6">
+                <h3 class="text-lg font-semibold text-white mb-1">{{ __('admin.google_tools') }}</h3>
+                <p class="text-white/50 text-sm mb-4">{{ __('admin.google_tools_help') }}</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="google_site_verification" class="form-label">{{ __('admin.google_site_verification') }}</label>
+                        <input type="text" id="google_site_verification" name="google_site_verification" dir="ltr" class="form-input"
+                            value="{{ old('google_site_verification', $settings->google_site_verification) }}" placeholder="abc123XYZ...">
+                        <p class="text-white/50 text-sm mt-1">{{ __('admin.google_site_verification_help') }}</p>
+                        @error('google_site_verification')<p class="mt-1 text-sm text-red-400">{{ $message }}</p>@enderror
+                    </div>
+                    <div>
+                        <label for="ga_measurement_id" class="form-label">{{ __('admin.ga_measurement_id') }}</label>
+                        <input type="text" id="ga_measurement_id" name="ga_measurement_id" dir="ltr" class="form-input"
+                            value="{{ old('ga_measurement_id', $settings->ga_measurement_id) }}" placeholder="G-XXXXXXXXXX">
+                        <p class="text-white/50 text-sm mt-1">{{ __('admin.ga_measurement_id_help') }}</p>
+                        @error('ga_measurement_id')<p class="mt-1 text-sm text-red-400">{{ $message }}</p>@enderror
+                    </div>
+                </div>
+            </div>
+
             <!-- Social Links -->
             <div class="admin-card p-6">
                 <h3 class="text-lg font-semibold text-white mb-4">{{ __('admin.social_media_links') }}</h3>

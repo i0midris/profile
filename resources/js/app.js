@@ -108,3 +108,33 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(counter);
     });
 });
+
+// -- Analytics events (plan step 3.7) -----------------------------------------
+// Sent only when Google Analytics is configured in the dashboard (window.gtag exists).
+const track = (name, params = {}) => {
+    if (typeof window.gtag === 'function') {
+        window.gtag('event', name, params);
+    }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    const lead = document.querySelector('meta[name="lead-event"]');
+    if (lead) {
+        track('generate_lead', { form: lead.getAttribute('content') });
+    }
+});
+
+document.addEventListener('click', (event) => {
+    const link = event.target.closest('a[href]');
+    if (!link) {
+        return;
+    }
+    const href = link.getAttribute('href') || '';
+    if (href.includes('wa.me/')) {
+        track('whatsapp_click', { page: location.pathname, placement: link.id || link.dataset.track || 'link' });
+    } else if (href.startsWith('tel:')) {
+        track('phone_click', { page: location.pathname });
+    } else if (href.startsWith('mailto:')) {
+        track('email_click', { page: location.pathname });
+    }
+});

@@ -4,6 +4,30 @@
 @section('subtitle', __('admin.welcome_back', ['name' => auth()->user()->name]))
 
 @section('content')
+    <!-- Leads (plan step 3.7) -->
+    <div class="admin-card p-6 mb-8">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+            <div>
+                <h2 class="text-white font-semibold text-lg">{{ __('admin.leads_this_month') }}</h2>
+                <p class="text-white/50 text-sm">{{ __('admin.leads_help') }}</p>
+            </div>
+            <div class="flex flex-wrap gap-8">
+                <div>
+                    <p class="text-white/50 text-sm">{{ __('admin.content.demo_requests') }}</p>
+                    <p class="text-3xl font-bold text-white">{{ $stats['demo_requests_month'] }}</p>
+                </div>
+                <div>
+                    <p class="text-white/50 text-sm">{{ __('admin.messages') }}</p>
+                    <p class="text-3xl font-bold text-white">{{ $stats['messages_month'] }}</p>
+                </div>
+                <div>
+                    <p class="text-white/50 text-sm">{{ __('admin.content.pending') }}</p>
+                    <a href="{{ route('admin.content.index', 'demo-requests') }}" class="text-3xl font-bold {{ $stats['demo_requests_pending'] ? 'text-primary-400' : 'text-white' }}">{{ $stats['demo_requests_pending'] }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Stats Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <div class="stat-card">

@@ -50,6 +50,8 @@ class CompanySetting extends Model
         'working_hours_ar',
         'working_hours_en',
         'map_embed_url',
+        'google_site_verification',
+        'ga_measurement_id',
         'show_about_page',
         'show_services_page',
         'show_team_page',

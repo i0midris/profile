@@ -21,6 +21,14 @@ class SettingsController extends Controller
 
     public function update(Request $request)
     {
+        // Accept what people usually paste: the whole Search Console <meta> tag or a GA snippet.
+        if (preg_match('/content=["\']([^"\']+)["\']/', (string) $request->input('google_site_verification'), $m)) {
+            $request->merge(['google_site_verification' => $m[1]]);
+        }
+        if (preg_match('/\bG-[A-Z0-9]{4,20}\b/i', (string) $request->input('ga_measurement_id'), $m)) {
+            $request->merge(['ga_measurement_id' => strtoupper($m[0])]);
+        }
+
         $validated = $request->validate([
             'company_name' => 'nullable|required_without_all:company_name_en,company_name_ar|string|max:255',
             'company_name_en' => 'nullable|required_without_all:company_name,company_name_ar|string|max:255',
@@ -43,6 +51,8 @@ class SettingsController extends Controller
             'youtube' => 'nullable|url|max:255',
             'whatsapp' => 'nullable|string|max:50',
             'working_hours_ar' => 'nullable|string|max:1000',
+            'google_site_verification' => ['nullable', 'string', 'max:200', 'regex:/^[A-Za-z0-9_\-]+$/'],
+            'ga_measurement_id' => ['nullable', 'string', 'regex:/^G-[A-Z0-9]{4,20}$/'],
             'working_hours_en' => 'nullable|string|max:1000',
             // Only Google Maps embed links (Share > Embed a map > copy the src URL)
             'map_embed_url' => ['nullable', 'url', 'max:1000', 'regex:#^https://(www\.)?google\.com/maps/embed#'],

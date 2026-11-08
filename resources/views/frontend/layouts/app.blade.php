@@ -58,6 +58,22 @@
     <meta name="ahrefs-site-verification" content="8612ba2161fb0cb28e8b4941a5842b4ebb4e8dc31ede567922fc151640f311c7">
     <script src="https://analytics.ahrefs.com/analytics.js" data-key="zxwGslkfws+WzfA0w9dGNA" async></script>
     <title>{{ $pageTitle }}</title>
+    @if($settings->google_site_verification ?? false)
+        <meta name="google-site-verification" content="{{ $settings->google_site_verification }}">
+    @endif
+    @if($settings->ga_measurement_id ?? false)
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ $settings->ga_measurement_id }}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', @json($settings->ga_measurement_id));
+        </script>
+    @endif
+    @if(request()->hasSession() && session('lead'))
+        {{-- A form was just sent successfully: app.js reports it to Analytics as a lead. --}}
+        <meta name="lead-event" content="{{ session('lead') }}">
+    @endif
 
     <link rel="canonical" href="{{ $canonicalUrl }}">
     @if($alternateEnUrl && $alternateArUrl)

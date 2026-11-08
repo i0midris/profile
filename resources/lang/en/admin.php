@@ -351,4 +351,12 @@ return array (
   'working_hours_placeholder_en' => 'Sat – Thu: 8 AM – 4 PM',
   'map_embed_url' => 'Google Maps embed link',
   'map_embed_help' => 'In Google Maps: Share → Embed a map → copy only the URL inside src.',
+  'google_tools' => 'Google tools',
+  'google_tools_help' => 'Connect the site to Google Search Console and Google Analytics. No code is added to the site while a field is empty.',
+  'google_site_verification' => 'Search Console verification code',
+  'google_site_verification_help' => 'Search Console → Add property → HTML tag. You can paste the whole tag; the code is extracted automatically.',
+  'ga_measurement_id' => 'Google Analytics (GA4) measurement ID',
+  'ga_measurement_id_help' => 'Starts with G-, from Analytics → Admin → Data streams. Form submissions and WhatsApp/phone clicks are tracked automatically.',
+  'leads_this_month' => 'Leads this month',
+  'leads_help' => 'Demo requests and contact messages since the start of the month. WhatsApp and phone clicks appear in Google Analytics.',
 );

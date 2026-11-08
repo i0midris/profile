@@ -36,11 +36,11 @@ class SecurityHeaders
 
         $directives = [
             'default-src' => ["'self'"],
-            'script-src' => ["'self'", "'unsafe-inline'", "'unsafe-eval'", 'https://analytics.ahrefs.com', ...$devServer],
+            'script-src' => ["'self'", "'unsafe-inline'", "'unsafe-eval'", 'https://analytics.ahrefs.com', 'https://www.googletagmanager.com', ...$devServer],
             'style-src' => ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com', ...$devServer],
             'font-src' => ["'self'", 'data:', 'https://fonts.gstatic.com'],
             'img-src' => ["'self'", 'data:', 'blob:', 'https:'],
-            'connect-src' => ["'self'", 'https://analytics.ahrefs.com', ...$devServer, ...($devServer ? ['ws:'] : [])],
+            'connect-src' => ["'self'", 'https://analytics.ahrefs.com', 'https://www.googletagmanager.com', 'https://*.google-analytics.com', 'https://*.analytics.google.com', ...$devServer, ...($devServer ? ['ws:'] : [])],
             'frame-src' => ["'self'", 'https://www.google.com', 'https://maps.google.com'],
             'object-src' => ["'none'"],
             'base-uri' => ["'self'"],

@@ -351,4 +351,12 @@ return array (
   'working_hours_placeholder_en' => 'Sat – Thu: 8 AM – 4 PM',
   'map_embed_url' => 'رابط خريطة Google (للتضمين)',
   'map_embed_help' => 'من خرائط Google: مشاركة ← تضمين خريطة ← انسخ الرابط الموجود داخل src فقط.',
+  'google_tools' => 'أدوات Google',
+  'google_tools_help' => 'لربط الموقع بـ Google Search Console و Google Analytics. لا يُضاف أي كود إلى الموقع ما دام الحقل فارغاً.',
+  'google_site_verification' => 'رمز التحقق في Search Console',
+  'google_site_verification_help' => 'من Search Console ← إضافة موقع ← وسم HTML. يمكنك لصق الوسم كاملاً وسيُستخرج الرمز تلقائياً.',
+  'ga_measurement_id' => 'معرّف Google Analytics (GA4)',
+  'ga_measurement_id_help' => 'يبدأ بـ G-، من Analytics ← المسؤول ← مصادر البيانات. تُقاس تلقائياً: الطلبات المرسلة من النماذج، والنقر على واتساب والهاتف.',
+  'leads_this_month' => 'العملاء المحتملون هذا الشهر',
+  'leads_help' => 'طلبات العرض التجريبي ورسائل التواصل منذ بداية الشهر. نقرات واتساب والهاتف تظهر في Google Analytics.',
 );
