@@ -44,6 +44,24 @@ class FaqTest extends TestCase
         $this->get('/en/faq')->assertSee('Does it work offline?');
     }
 
+    public function test_every_answer_gets_a_fitting_illustration(): void
+    {
+        $chosen = Faq::create(['category' => 'general', 'illustration' => 'security', 'question_ar' => 'هل بياناتي آمنة؟', 'answer_ar' => 'نعم']);
+        $auto = Faq::create(['category' => 'setup', 'question_ar' => 'هل تدربون الموظفين؟', 'answer_ar' => 'نعم']);
+        $withImage = Faq::create(['category' => 'support', 'illustration' => 'support', 'image' => 'faq/real.webp', 'question_ar' => 'سؤال بصورة', 'answer_ar' => 'نعم']);
+        $none = Faq::create(['illustration' => 'none', 'question_ar' => 'سؤال بلا رسم', 'answer_ar' => 'نعم']);
+
+        $this->assertSame('security', $chosen->illustration_key);
+        $this->assertSame('training', $auto->fresh()->illustration_key);   // auto: from the "setup" category
+        $this->assertNull($withImage->illustration_key);                    // a real image wins
+        $this->assertNull($none->illustration_key);
+
+        $html = $this->get('/ar/faq')->assertOk()->getContent();
+        $this->assertSame(2, substr_count($html, 'class="faq-illustration"'));
+        $this->assertStringContainsString('الصلاحيات', $html);     // label inside the security drawing
+        $this->assertStringContainsString('storage/faq/real.webp', $html);
+    }
+
     public function test_admin_can_add_a_question(): void
     {
         $this->actingAs(User::factory()->create())->post('/admin/content/faqs', [

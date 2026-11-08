@@ -1175,3 +1175,50 @@
 .faq-card { border: 1px solid transparent; transition: border-color .2s ease, transform .2s ease; }
 .faq-card.is-open { border-color: color-mix(in srgb, var(--color-primary-400) 55%, transparent); }
 .faq-card:hover { transform: translateY(-2px); }
+
+/* -- FAQ answer illustrations (same language as the hero panel) -- */
+.faq-illustration { display: block; width: 100%; height: auto; border-radius: 18px; box-shadow: 0 14px 40px rgb(0 0 0 / .35); }
+.faq-illustration .fi-breathe { transform-box: fill-box; transform-origin: center; animation: fi-breathe 7s ease-in-out infinite; }
+.faq-illustration .fi-float { animation: fi-float 5s ease-in-out infinite; }
+.faq-illustration .fi-dash { animation: fi-dash 1.2s linear infinite; }
+.faq-illustration .fi-queue { animation: fi-queue 2.7s ease-in-out infinite; }
+.faq-illustration .fi-wifi-off { animation: fi-blink 1.6s ease-in-out infinite; }
+.faq-illustration .fi-pop { transform-box: fill-box; transform-origin: center; animation: fi-pop 2.4s ease-in-out infinite; }
+.faq-illustration .fi-bar { transform-box: fill-box; transform-origin: bottom; animation: fi-bar 2.6s ease-in-out infinite; }
+.faq-illustration .fi-spin-slow { transform-box: fill-box; transform-origin: center; animation: fi-spin 24s linear infinite; }
+.faq-illustration .fi-spin { transform-box: fill-box; transform-origin: center; animation: fi-spin 6s linear infinite; }
+.faq-illustration .fi-scanline { animation: fi-scan 1.8s ease-in-out infinite; }
+.faq-illustration .fi-beam { animation: fi-blink 1.8s ease-in-out infinite; }
+.faq-illustration .fi-blink { animation: fi-blink 1.4s ease-in-out infinite; }
+.faq-illustration .fi-print { animation: fi-print 3.2s ease-in-out infinite; }
+.faq-illustration .fi-point { transform-box: fill-box; transform-origin: bottom right; animation: fi-point 2.6s ease-in-out infinite; }
+.faq-illustration .fi-check { transform-box: fill-box; transform-origin: center; animation: fi-check 2.4s ease-in-out infinite; }
+.faq-illustration .fi-progress { transform-box: fill-box; transform-origin: right; animation: fi-progress 3.6s ease-in-out infinite; }
+.faq-illustration .fi-node { transform-box: fill-box; transform-origin: center; animation: fi-node 3.6s ease-in-out infinite; }
+.faq-illustration .fi-swap-a { animation: fi-swap-a 5s ease-in-out infinite; }
+.faq-illustration .fi-swap-b { animation: fi-swap-b 5s ease-in-out infinite; }
+.faq-illustration .fi-toggle { animation: fi-toggle 2.4s ease-in-out infinite; }
+.faq-illustration .fi-pulse { animation: fi-pulse-s 2.2s ease-in-out infinite; }
+.faq-illustration .fi-ring { animation: fi-ring 2.2s ease-out infinite; }
+.faq-illustration .fi-msg { animation: fi-msg 6s ease-in-out infinite; }
+@keyframes fi-breathe { 0%, 100% { opacity: .7; transform: scale(1); } 50% { opacity: 1; transform: scale(1.12); } }
+@keyframes fi-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes fi-dash { to { stroke-dashoffset: -22; } }
+@keyframes fi-queue { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+@keyframes fi-pop { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+@keyframes fi-bar { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(.6); } }
+@keyframes fi-spin { to { transform: rotate(360deg); } }
+@keyframes fi-scan { 0%, 100% { transform: translateY(-12px); opacity: .4; } 50% { transform: translateY(14px); opacity: 1; } }
+@keyframes fi-blink { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+@keyframes fi-print { 0% { transform: translateY(-30px); } 45%, 80% { transform: translateY(0); } 100% { transform: translateY(0); opacity: 0; } }
+@keyframes fi-point { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-8deg); } }
+@keyframes fi-check { 0%, 15% { transform: scale(0); opacity: 0; } 30%, 100% { transform: scale(1); opacity: 1; } }
+@keyframes fi-progress { 0% { transform: scaleX(0); } 70%, 100% { transform: scaleX(1); } }
+@keyframes fi-node { 0%, 20% { opacity: .35; } 35%, 100% { opacity: 1; } }
+@keyframes fi-swap-a { 0%, 40%, 100% { transform: translateX(0); } 50%, 90% { transform: translateX(92px); } }
+@keyframes fi-swap-b { 0%, 40%, 100% { transform: translateX(0); } 50%, 90% { transform: translateX(-92px); } }
+@keyframes fi-toggle { 0%, 40% { transform: translateX(0); } 60%, 100% { transform: translateX(12px); } }
+@keyframes fi-pulse-s { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+@keyframes fi-ring { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(1.6); opacity: 0; } }
+@keyframes fi-msg { 0%, 8% { opacity: 0; transform: translateY(8px); } 16%, 88% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .faq-illustration *, .faq-illustration animateMotion, .faq-illustration animate { animation: none !important; } }

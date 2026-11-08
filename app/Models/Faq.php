@@ -13,7 +13,13 @@ class Faq extends Model
 
     public const CATEGORIES = ['general', 'products', 'setup', 'support'];
 
-    protected $fillable = ['category', 'question_ar', 'question_en', 'answer_ar', 'answer_en', 'image', 'show_on_home', 'sort_order', 'is_active'];
+    /** Built-in animated illustrations (resources/views/frontend/partials/faq_illustration.blade.php). */
+    public const ILLUSTRATIONS = ['auto', 'offline', 'branches', 'hardware', 'training', 'setup', 'customize', 'demo', 'security', 'support', 'none'];
+
+    /** Used when the illustration is "auto". */
+    private const CATEGORY_ILLUSTRATION = ['general' => 'demo', 'products' => 'branches', 'setup' => 'training', 'support' => 'support'];
+
+    protected $fillable = ['category', 'question_ar', 'question_en', 'answer_ar', 'answer_en', 'image', 'illustration', 'show_on_home', 'sort_order', 'is_active'];
 
     protected $casts = [
         'show_on_home' => 'boolean',
@@ -39,6 +45,20 @@ class Faq extends Model
     public function getAnswerAttribute(): ?string
     {
         return $this->localized('answer');
+    }
+
+    /**
+     * Key of the illustration to draw next to the answer, or null when an image was
+     * uploaded (the image is shown instead) or the admin chose "none".
+     */
+    public function getIllustrationKeyAttribute(): ?string
+    {
+        $key = $this->illustration ?: 'auto';
+        if ($this->image || $key === 'none') {
+            return null;
+        }
+
+        return $key === 'auto' ? (self::CATEGORY_ILLUSTRATION[$this->category] ?? 'demo') : $key;
     }
 
     public function getImageUrlAttribute(): ?string

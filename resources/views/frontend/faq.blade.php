@@ -77,11 +77,16 @@
                                 </button>
                             </h2>
                             <div id="a-{{ $faq->id }}" x-show="open == '{{ $faq->id }}'" x-transition.opacity.duration.200ms x-cloak>
-                                <div class="px-6 pb-6 grid gap-5 {{ $faq->image_url ? 'md:grid-cols-5 items-start' : '' }}">
-                                    <p class="text-white/80 leading-loose whitespace-pre-line {{ $faq->image_url ? 'md:col-span-3' : '' }}">{{ $faq->answer }}</p>
+                                @php $hasVisual = $faq->image_url || $faq->illustration_key; @endphp
+                                <div class="px-6 pb-6 grid gap-6 {{ $hasVisual ? 'md:grid-cols-5 items-center' : '' }}">
+                                    <p class="text-white/80 leading-loose whitespace-pre-line {{ $hasVisual ? 'md:col-span-3' : '' }}">{{ $faq->answer }}</p>
                                     @if($faq->image_url)
                                         <img loading="lazy" decoding="async" src="{{ $faq->image_url }}" alt="{{ $faq->question }}"
                                             class="md:col-span-2 w-full rounded-xl border border-white/10 shadow-lg">
+                                    @elseif($faq->illustration_key)
+                                        <div class="md:col-span-2">
+                                            @include('frontend.partials.faq_illustration', ['key' => $faq->illustration_key, 'uid' => $faq->id])
+                                        </div>
                                     @endif
                                 </div>
                             </div>

@@ -138,13 +138,14 @@
                         </div>
 
                     @elseif($field['type'] === 'select')
-                        <div class="max-w-sm">
+                        <div class="max-w-md">
                             <label for="{{ $name }}" class="form-label">{{ $label }}</label>
                             <select id="{{ $name }}" name="{{ $name }}" class="form-input">
                                 @foreach($field['options'] as $option)
                                     <option value="{{ $option }}" @selected($val($name, $field['default'] ?? null) === $option)>{{ __(($field['option_label'] ?? '') . $option) }}</option>
                                 @endforeach
                             </select>
+                            @if($help)<p class="text-white/50 text-sm mt-1">{{ $help }}</p>@endif
                             @error($name)<p class="mt-1 text-sm text-red-400">{{ $message }}</p>@enderror
                         </div>
 

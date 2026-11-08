@@ -75,6 +75,7 @@ class ContentRegistry
                     ['name' => 'category', 'type' => 'select', 'options' => Faq::CATEGORIES, 'option_label' => 'frontend.faq_cat_', 'default' => 'general', 'label' => 'admin.fields.category'],
                     ['name' => 'question', 'type' => 'text', 'localized' => true, 'required' => true, 'label' => 'admin.fields.question'],
                     ['name' => 'answer', 'type' => 'textarea', 'localized' => true, 'required' => true, 'label' => 'admin.fields.answer'],
+                    ['name' => 'illustration', 'type' => 'select', 'options' => Faq::ILLUSTRATIONS, 'option_label' => 'admin.illustrations.', 'default' => 'auto', 'label' => 'admin.fields.illustration', 'help' => 'admin.fields.illustration_help'],
                     ['name' => 'image', 'type' => 'image', 'max_width' => 1200, 'label' => 'admin.fields.faq_image', 'help' => 'admin.fields.faq_image_help'],
                     ['name' => 'show_on_home', 'type' => 'checkbox', 'default' => true, 'label' => 'admin.fields.show_on_home'],
                     ['name' => 'sort_order', 'type' => 'number', 'label' => 'admin.sort_order'],

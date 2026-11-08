@@ -340,6 +340,8 @@ return array (
     'category' => 'Category',
     'faq_image' => 'Illustration (optional)',
     'faq_image_help' => 'Shown next to the answer, e.g. a screenshot of the step.',
+    'illustration' => 'Illustration next to the answer',
+    'illustration_help' => 'An animated, on-brand drawing of the answer\'s idea. "Auto" picks one from the category. An uploaded image is shown instead when present.',
   ),
   'case_study' => array(
     'title' => 'Case study (optional)',
@@ -362,4 +364,17 @@ return array (
   'ga_measurement_id_help' => 'Starts with G-, from Analytics → Admin → Data streams. Form submissions and WhatsApp/phone clicks are tracked automatically.',
   'leads_this_month' => 'Leads this month',
   'leads_help' => 'Demo requests and contact messages since the start of the month. WhatsApp and phone clicks appear in Google Analytics.',
+  'illustrations' => array(
+    'auto' => 'Auto (by category)',
+    'offline' => 'Offline work & sync',
+    'branches' => 'Branches connected to HQ',
+    'hardware' => 'Barcode & printer',
+    'training' => 'Team training',
+    'setup' => 'Setup & go-live steps',
+    'customize' => 'Custom screens & reports',
+    'demo' => 'Demo & appointment',
+    'security' => 'Security, permissions & backups',
+    'support' => 'Technical support',
+    'none' => 'No illustration',
+  ),
 );
