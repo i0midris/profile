@@ -23,6 +23,5 @@
             </div>
         </div>
     </section>
-    @include('frontend.partials.system_finder')
     @include('frontend.partials.sectors')
 @endsection

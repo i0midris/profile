@@ -17,12 +17,10 @@ class SiteExtrasTest extends TestCase
         CompanySetting::create(['company_name' => 'Test', 'whatsapp' => '777335118']);
     }
 
-    public function test_home_has_marquee_system_finder_and_polish(): void
+    public function test_home_has_marquee_and_polish(): void
     {
         $this->get('/ar')->assertOk()
             ->assertSee('systems-marquee', false)
-            ->assertSee('id="system-finder"', false)
-            ->assertSee('اختر النظام المناسب لعملك')
             ->assertSee('id="back-to-top"', false)
             ->assertSee('id="scroll-progress-bar"', false)
             ->assertSee('class="skip-link"', false)
@@ -30,27 +28,14 @@ class SiteExtrasTest extends TestCase
             ->assertSee('site.webmanifest', false);
     }
 
-    public function test_finder_links_to_published_products_and_demo(): void
+    public function test_system_finder_was_removed(): void
     {
-        Product::create(['slug' => 'pos-system', 'name_ar' => 'نظام نقاط البيع', 'description_ar' => 'x', 'is_active' => true]);
+        Product::create(['slug' => 'pos-system', 'name_ar' => 'نظام نقاط البيع', 'name_en' => 'POS', 'description_ar' => 'x', 'description_en' => 'x', 'is_active' => true]);
 
-        $html = $this->get('/ar')->getContent();
-        $this->assertStringContainsString('demo?product=erp-accounting', str_replace('\\/', '/', $html));
-        $this->assertStringContainsString('products/pos-system', str_replace('\\/', '/', $html));
-        $this->assertStringContainsString('wa.me/967777335118', str_replace('\\/', '/', $html));
-    }
-
-    public function test_finder_supports_other_activity_and_thinking_step(): void
-    {
-        $html = $this->get('/ar')
-            ->assertSee('id="finder-other"', false)
-            ->assertSee('finder-brain', false)
-            ->getContent();
-
-        // These strings live in the Alpine data: @js() emits JSON.parse('…') with non-ASCII
-        // characters escaped twice (\\uXXXX).
-        foreach (['نحلل نشاطك…', 'المصانع والورش', 'الصيدليات والقطاع الطبي', 'مخبز'] as $text) {
-            $this->assertStringContainsString(str_replace('\\', '\\\\', trim(json_encode($text), '"')), $html, $text);
+        foreach (['/ar', '/en', '/ar/products'] as $path) {
+            $this->get($path)->assertOk()
+                ->assertDontSee('id="system-finder"', false)
+                ->assertDontSee('finder-option', false);
         }
     }
 

@@ -103,8 +103,6 @@
 
 @include('frontend.partials.sectors')
 
-@include('frontend.partials.system_finder')
-
 <!-- Products Preview (appears once products are published from the dashboard) -->
 @if($products->count() > 0)
 <section class="py-24 relative">

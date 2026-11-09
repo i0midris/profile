@@ -1244,26 +1244,7 @@
     background: linear-gradient(135deg, var(--color-primary-500), var(--color-accent-500)); }
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @keyframes marquee-rtl { from { transform: translateX(0); } to { transform: translateX(50%); } }
-.theme-light .systems-marquee-list li { color: rgb(var(--brand-main-rgb) / .9); background: #fff; border-color: rgb(var(--brand-main-rgb) / .1); }
-
-/* -- System finder wizard -- */
-.finder-option { display: flex; align-items: center; gap: 12px; width: 100%; padding: 14px 16px; border-radius: 16px; text-align: start;
-    color: rgb(255 255 255 / .9); font-weight: 600; background: rgb(255 255 255 / .04); border: 1px solid rgb(255 255 255 / .1);
-    transition: transform .2s ease, border-color .2s ease, background .2s ease; }
-.finder-option:hover { transform: translateY(-3px); border-color: var(--color-primary-400); background: rgb(255 255 255 / .07); }
-.finder-option.is-picked { border-color: var(--color-accent-500); background: rgb(228 25 31 / .12); }
-.finder-emoji { width: 38px; height: 38px; flex-shrink: 0; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; color: #fff;
-    background: linear-gradient(135deg, var(--color-primary-500), color-mix(in srgb, var(--color-primary-500) 50%, black)); }
-.finder-option.is-picked .finder-emoji, .finder-option:hover .finder-emoji { background: linear-gradient(135deg, var(--color-accent-500), color-mix(in srgb, var(--color-accent-500) 55%, black)); }
-.finder-num { font-weight: 800; font-size: .85rem; }
-.finder-in { transition: opacity .35s ease, transform .35s ease; }
-.finder-from { opacity: 0; transform: translateY(14px); }
-.finder-to { opacity: 1; transform: translateY(0); }
-.finder-check { width: 64px; height: 64px; border-radius: 22px; display: flex; align-items: center; justify-content: center; color: #fff;
-    background: linear-gradient(135deg, #22a06b, #157a4f); box-shadow: 0 10px 30px rgb(34 160 107 / .4); animation: finder-pop .5s ease-out; }
-@keyframes finder-pop { 0% { transform: scale(.4); opacity: 0; } 70% { transform: scale(1.1); } 100% { transform: scale(1); opacity: 1; } }
-.theme-light .finder-option { color: rgb(var(--brand-main-rgb) / .92); background: #fff; border-color: rgb(var(--brand-main-rgb) / .12); }
-
+
 /* -- Reading progress + back to top -- */
 .scroll-progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 70; pointer-events: none; }
 .scroll-progress span { display: block; height: 100%; transform: scaleX(0); transform-origin: right;
@@ -1287,19 +1268,6 @@
     background: var(--color-accent-500); transition: top .2s ease; }
 .skip-link:focus { top: 12px; }
 
-/* -- System finder: "thinking" animation -- */
-.finder-brain { position: relative; width: 112px; height: 112px; display: flex; align-items: center; justify-content: center; }
-.finder-core { color: #fff; position: relative; z-index: 2; padding: 14px; width: 64px; height: 64px; border-radius: 22px;
-    background: linear-gradient(135deg, var(--color-primary-500), var(--color-accent-500)); box-shadow: 0 10px 34px rgb(228 25 31 / .35);
-    animation: finder-beat 1.2s ease-in-out infinite; }
-.finder-orbit { position: absolute; inset: 0; border-radius: 50%; border: 2px dashed rgb(96 165 250 / .45); animation: fi-spin 6s linear infinite; }
-.finder-orbit-2 { inset: 14px; border-style: solid; border-color: rgb(228 25 31 / .35) transparent rgb(228 25 31 / .35) transparent; animation-duration: 2.2s; animation-direction: reverse; }
-.finder-dot { position: absolute; top: 50%; left: 50%; width: 9px; height: 9px; margin: -4.5px; border-radius: 50%; background: #60a5fa;
-    transform: rotate(var(--a)) translateX(56px); animation: finder-dot-orbit 2.4s linear infinite; }
-@keyframes finder-dot-orbit { from { transform: rotate(var(--a)) translateX(56px); } to { transform: rotate(calc(var(--a) + 360deg)) translateX(56px); } }
-@keyframes finder-beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
-.finder-typing { width: 8px; height: 8px; border-radius: 50%; background: rgb(255 255 255 / .7); animation: finder-typing 1s ease-in-out infinite; }
-@keyframes finder-typing { 0%, 100% { opacity: .25; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-4px); } }
 .back-to-top svg { transition: transform .3s ease; }
 .back-to-top:hover svg { transform: translateY(-2px); }
 .back-to-top.is-launching svg { animation: btt-launch .7s ease-in-out infinite; }
