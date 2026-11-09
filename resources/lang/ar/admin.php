@@ -301,6 +301,7 @@ return array (
     'pending' => 'جديد',
     'mark_handled' => 'تم التواصل مع العميل',
     'preferred_contact' => 'طريقة التواصل المفضلة',
+    'business_type' => 'نوع النشاط',
     'contact_whatsapp' => 'واتساب',
     'contact_call' => 'اتصال هاتفي',
     'contact_email' => 'البريد الإلكتروني',

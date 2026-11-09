@@ -1,6 +1,7 @@
 {{--
     "Solutions for your sector" — animated workplace scenes with the systems that fit each sector.
-    Product chips link to the product page when that product is published, otherwise to the demo form.
+    Product chips link to the product page when that product is published. "Request a demo for your
+    sector" opens the demo form already filled with the sector and its main system (step 6.3).
 --}}
 @php
     $sectorList = [
@@ -27,9 +28,8 @@
                 @php
                     $key = $sector['scene'];
                     $firstProduct = collect($sector['products'])->map(fn ($slug) => $publishedProducts->get($slug))->filter()->first();
-                    $ctaUrl = $firstProduct
-                        ? route('products.show', ['locale' => app()->getLocale(), 'product' => $firstProduct])
-                        : route('demo', ['locale' => app()->getLocale()]);
+                    $demoUrl = route('demo', ['locale' => app()->getLocale(), 'sector' => $key, 'product' => $sector['products'][0]]);
+                    $productUrl = fn ($product) => route('products.show', ['locale' => app()->getLocale(), 'product' => $product, 'sector' => $key]);
                 @endphp
                 <article class="sector-card glass global-card rounded-2xl overflow-hidden flex flex-col" data-animate="fade-up" data-aos-delay="{{ ($i % 3) * 100 }}">
                     <div class="sector-scene-wrap">
@@ -41,17 +41,22 @@
                         <div class="flex flex-wrap gap-2 mb-5">
                             @foreach($sector['products'] as $slug)
                                 @if($product = $publishedProducts->get($slug))
-                                    <a href="{{ route('products.show', ['locale' => app()->getLocale(), 'product' => $product]) }}"
+                                    <a href="{{ $productUrl($product) }}"
                                         class="px-3 py-1 rounded-full text-xs bg-white/5 border border-white/10 text-white/80 hover:text-white hover:border-primary-400 transition-colors">{{ $product->localized('name') }}</a>
                                 @else
                                     <span class="px-3 py-1 rounded-full text-xs bg-white/5 border border-white/10 text-white/80">{{ __('frontend.system_' . str_replace('-', '_', $slug)) }}</span>
                                 @endif
                             @endforeach
                         </div>
-                        <a href="{{ $ctaUrl }}" class="mt-auto inline-flex items-center text-primary-400 hover:text-primary-300 font-medium">
-                            {{ $firstProduct ? __('frontend.sector_cta_product') : __('frontend.request_demo') }}
-                            <svg aria-hidden="true" class="w-4 h-4 ms-2 rtl-flip" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                        </a>
+                        <div class="mt-auto flex flex-wrap items-center justify-between gap-3">
+                            <a href="{{ $demoUrl }}" class="px-4 py-2.5 rounded-xl gradient-primary text-white text-sm font-semibold hover:shadow-lg hover:shadow-primary-500/30 transition-all">{{ __('frontend.sector_cta_demo') }}</a>
+                            @if($firstProduct)
+                                <a href="{{ $productUrl($firstProduct) }}" class="inline-flex items-center text-primary-400 hover:text-primary-300 font-medium text-sm">
+                                    {{ __('frontend.sector_cta_product') }}
+                                    <svg aria-hidden="true" class="w-4 h-4 ms-1.5 rtl-flip" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                </a>
+                            @endif
+                        </div>
                     </div>
                 </article>
             @endforeach

@@ -20,6 +20,7 @@ use App\Models\Service;
 use App\Models\TeamMember;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
@@ -220,11 +221,30 @@ class PageController extends Controller
     public function demo(Request $request)
     {
         $products = Product::published()->ordered()->get();
-        $selected = $products->firstWhere('slug', (string) $request->query('product'))?->name;
+
+        // Links into the form ("Request a demo" on a product page or a sector card) carry
+        // ?product=slug and/or ?sector=key, so the form arrives filled in: the system, the type
+        // of business and a ready message the visitor can edit. Only known values are used.
+        $slug = (string) $request->query('product');
+        $selected = $products->firstWhere('slug', $slug)?->name;
+        if (!$selected && $slug !== '' && Lang::has($key = 'frontend.system_' . str_replace('-', '_', $slug))) {
+            $selected = __($key);
+        }
+        $sector = in_array($request->query('sector'), DemoRequest::SECTORS, true) ? $request->query('sector') : null;
+        $sectorLabel = $sector !== 'other' ? DemoRequest::sectorLabel($sector) : null;
+
+        $message = match (true) {
+            $sectorLabel && $selected => __('frontend.demo_prefill_sector_product', ['sector' => $sectorLabel, 'product' => $selected]),
+            (bool) $sectorLabel => __('frontend.demo_prefill_sector', ['sector' => $sectorLabel]),
+            (bool) $selected => __('frontend.demo_prefill_product', ['product' => $selected]),
+            default => null,
+        };
 
         return view('frontend.demo', array_merge($this->getCommonData(), [
             'products' => $products,
             'selectedProduct' => $selected,
+            'selectedSector' => $sector,
+            'prefillMessage' => $message,
         ]));
     }
 
@@ -245,6 +265,7 @@ class PageController extends Controller
             'phone' => ['required', 'string', 'max:50', 'regex:/^[0-9+\-\s()]{6,}$/'],
             'email' => 'nullable|email|max:255',
             'product' => 'nullable|string|max:255',
+            'sector' => 'nullable|in:' . implode(',', DemoRequest::SECTORS),
             'preferred_contact' => 'required|in:' . implode(',', DemoRequest::CONTACT_METHODS),
             'message' => 'nullable|string|max:2000',
         ], [
@@ -264,6 +285,7 @@ class PageController extends Controller
                         'Phone' => $demoRequest->phone,
                         'Email' => $demoRequest->email,
                         'Product' => $demoRequest->product,
+                        'Business type' => DemoRequest::sectorLabel($demoRequest->sector),
                         'Preferred contact' => $demoRequest->preferred_contact,
                         'Message' => $demoRequest->message,
                     ])->filter()->map(fn ($v, $k) => "{$k}: {$v}")->implode("\n"),

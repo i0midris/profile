@@ -183,3 +183,65 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     update();
 });
+
+// -- Remember the visitor's contact details (step 6.3) --------------------------
+// After a visitor sends the demo or contact form, their name, company, phone and email are
+// kept in this browser only (localStorage). Next time, empty fields are filled in for them,
+// with a note and a link to clear the saved details.
+const REMEMBER_KEY = 'albaseet:contact-details';
+
+const readRemembered = () => {
+    try {
+        return JSON.parse(localStorage.getItem(REMEMBER_KEY) || '{}') || {};
+    } catch {
+        return {};
+    }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('form[data-remember-form]');
+    if (!form) {
+        return;
+    }
+    const fields = [...form.querySelectorAll('[data-remember]')];
+    const saved = readRemembered();
+    const filled = [];
+
+    fields.forEach((field) => {
+        const value = saved[field.dataset.remember];
+        if (!field.value && typeof value === 'string' && value) {
+            field.value = value;
+            filled.push(field);
+        }
+    });
+
+    const notice = document.querySelector('[data-remembered-notice]');
+    if (notice && filled.length) {
+        notice.hidden = false;
+        notice.querySelector('[data-remembered-clear]')?.addEventListener('click', () => {
+            try {
+                localStorage.removeItem(REMEMBER_KEY);
+            } catch {
+                /* storage unavailable */
+            }
+            filled.forEach((field) => { field.value = ''; });
+            notice.hidden = true;
+            filled[0]?.focus();
+        });
+    }
+
+    form.addEventListener('submit', () => {
+        const details = readRemembered();
+        fields.forEach((field) => {
+            const value = field.value.trim();
+            if (value) {
+                details[field.dataset.remember] = value.slice(0, 120);
+            }
+        });
+        try {
+            localStorage.setItem(REMEMBER_KEY, JSON.stringify(details));
+        } catch {
+            /* private mode or storage blocked: the form still works normally */
+        }
+    });
+});

@@ -301,6 +301,7 @@ return array (
     'pending' => 'New',
     'mark_handled' => 'Customer has been contacted',
     'preferred_contact' => 'Preferred contact',
+    'business_type' => 'Business type',
     'contact_whatsapp' => 'WhatsApp',
     'contact_call' => 'Phone call',
     'contact_email' => 'Email',

@@ -11,7 +11,9 @@
         $whatsappUrl = \App\Support\PhoneNumber::whatsappUrl($settings->whatsapp ?: $settings->phone);
         $whatsappLink = $whatsappUrl ? $whatsappUrl . '?text=' . rawurlencode(__('frontend.whatsapp_product_message', ['product' => $product->name])) : null;
         $demoUrl = Route::has('demo')
-            ? route('demo', ['locale' => app()->getLocale(), 'product' => $product->slug])
+            ? route('demo', array_filter(['locale' => app()->getLocale(), 'product' => $product->slug,
+                // Visitors who came from a sector card keep their sector, so the form is filled with both.
+                'sector' => in_array(request('sector'), \App\Models\DemoRequest::SECTORS, true) ? request('sector') : null]))
             : route('contact', ['locale' => app()->getLocale()]);
         $productSchema = array_filter([
             '@context' => 'https://schema.org',

@@ -29,7 +29,18 @@
                     <div class="mb-6 p-4 rounded-lg bg-red-500/20 border border-red-500/30 text-red-300" role="alert">{{ $errors->first('demo') }}</div>
                 @endif
 
-                <form method="POST" action="{{ route('demo.send', ['locale' => app()->getLocale()]) }}" class="space-y-6" data-lead-form="demo_request">
+                @if(!session('success') && ($selectedProduct || $selectedSector))
+                    <div class="demo-prefilled mb-6 p-4 rounded-xl flex items-start gap-3" role="status">
+                        <span class="demo-prefilled-icon" aria-hidden="true"><svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+                        <div>
+                            <p class="font-semibold text-white">{{ __('frontend.demo_prefilled_title') }}</p>
+                            <p class="text-white/70 text-sm leading-relaxed">{{ __('frontend.demo_prefilled_text') }}</p>
+                        </div>
+                    </div>
+                @endif
+                @include('frontend.partials.remembered_notice')
+
+                <form method="POST" action="{{ route('demo.send', ['locale' => app()->getLocale()]) }}" class="space-y-6" data-lead-form="demo_request" data-remember-form>
                     @csrf
                     <input type="hidden" name="form_started_at" value="{{ now()->timestamp }}">
                     <div class="hidden" aria-hidden="true">
@@ -40,26 +51,27 @@
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
                             <label for="name" class="block text-sm font-medium text-white/80 mb-2">{{ __('frontend.your_name') }} <span class="text-red-400">*</span></label>
-                            <input type="text" id="name" name="name" value="{{ old('name') }}" required autocomplete="name" class="{{ $inputClass }}">
+                            <input type="text" id="name" name="name" value="{{ old('name') }}" required autocomplete="name" data-remember="name" class="{{ $inputClass }}">
                             @error('name')<p class="mt-1 text-sm text-red-400">{{ $message }}</p>@enderror
                         </div>
                         <div>
                             <label for="company" class="block text-sm font-medium text-white/80 mb-2">{{ __('frontend.company_name_field') }}</label>
-                            <input type="text" id="company" name="company" value="{{ old('company') }}" autocomplete="organization" class="{{ $inputClass }}">
+                            <input type="text" id="company" name="company" value="{{ old('company') }}" autocomplete="organization" data-remember="company" class="{{ $inputClass }}">
                         </div>
                         <div>
                             <label for="phone" class="block text-sm font-medium text-white/80 mb-2">{{ __('frontend.phone_number') }} <span class="text-red-400">*</span></label>
-                            <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" required dir="ltr" inputmode="tel" autocomplete="tel"
+                            <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" required dir="ltr" inputmode="tel" autocomplete="tel" data-remember="phone"
                                 placeholder="{{ __('frontend.placeholder_phone') }}" class="{{ $inputClass }} {{ app()->isLocale('ar') ? 'text-right' : '' }}">
                             @error('phone')<p class="mt-1 text-sm text-red-400">{{ $message }}</p>@enderror
                         </div>
                         <div>
                             <label for="email" class="block text-sm font-medium text-white/80 mb-2">{{ __('frontend.email_address') }}</label>
-                            <input type="email" id="email" name="email" value="{{ old('email') }}" autocomplete="email" class="{{ $inputClass }}">
+                            <input type="email" id="email" name="email" value="{{ old('email') }}" autocomplete="email" data-remember="email" class="{{ $inputClass }}">
                             @error('email')<p class="mt-1 text-sm text-red-400">{{ $message }}</p>@enderror
                         </div>
                     </div>
 
+                    <div class="grid md:grid-cols-2 gap-6">
                     <div>
                         <label for="product" class="block text-sm font-medium text-white/80 mb-2">{{ __('frontend.demo_product') }}</label>
                         @if($products->count())
@@ -73,6 +85,16 @@
                             <input type="text" id="product" name="product" value="{{ old('product', $selectedProduct) }}"
                                 placeholder="{{ __('frontend.demo_product_placeholder') }}" class="{{ $inputClass }}">
                         @endif
+                    </div>
+                    <div>
+                        <label for="sector" class="block text-sm font-medium text-white/80 mb-2">{{ __('frontend.demo_sector') }}</label>
+                        <select id="sector" name="sector" class="{{ $inputClass }}">
+                            <option value="">{{ __('frontend.demo_sector_any') }}</option>
+                            @foreach(\App\Models\DemoRequest::SECTORS as $sectorKey)
+                                <option value="{{ $sectorKey }}" @selected(old('sector', $selectedSector) === $sectorKey)>{{ \App\Models\DemoRequest::sectorLabel($sectorKey) }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     </div>
 
                     <fieldset>
@@ -90,7 +112,7 @@
                     <div>
                         <label for="message" class="block text-sm font-medium text-white/80 mb-2">{{ __('frontend.demo_message') }}</label>
                         <textarea id="message" name="message" rows="4" class="{{ $inputClass }} resize-none"
-                            placeholder="{{ __('frontend.demo_message_placeholder') }}">{{ old('message') }}</textarea>
+                            placeholder="{{ __('frontend.demo_message_placeholder') }}">{{ old('message', session('success') ? null : $prefillMessage) }}</textarea>
                     </div>
 
                     <button type="submit" class="w-full py-4 rounded-xl gradient-primary text-white font-semibold hover:shadow-lg hover:shadow-primary-500/30 transition-all">

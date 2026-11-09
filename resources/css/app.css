@@ -1276,3 +1276,13 @@
 /* WhatsApp-green buttons: dark text keeps contrast >= 4.5:1 (white on #25D366 is only ~2:1) */
 .btn-whatsapp { background: #25D366 !important; color: #052e16 !important; }
 .mobile-contact-bar a.is-whatsapp { color: #052e16; }
+
+/* -- Demo form arrives prefilled (step 6.3) -- */
+.demo-prefilled { background: rgb(34 160 107 / .12); border: 1px solid rgb(34 160 107 / .35); }
+.demo-prefilled-icon { flex-shrink: 0; width: 34px; height: 34px; border-radius: 11px; display: inline-flex; align-items: center; justify-content: center;
+    color: #fff; background: linear-gradient(135deg, #22a06b, #157a4f); box-shadow: 0 6px 18px rgb(34 160 107 / .35); animation: prefill-pop .5s ease-out; }
+@keyframes prefill-pop { 0% { transform: scale(.5); opacity: 0; } 70% { transform: scale(1.1); } 100% { transform: scale(1); opacity: 1; } }
+.remembered-notice { background: rgb(96 165 250 / .1); border: 1px solid rgb(96 165 250 / .3); }
+.remembered-notice[hidden] { display: none !important; }
+.theme-light .demo-prefilled { background: #e9f7f0; border-color: #a7dcc2; }
+.theme-light .remembered-notice { background: #eef4fd; border-color: #bcd3f3; }

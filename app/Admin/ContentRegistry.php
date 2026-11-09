@@ -121,6 +121,7 @@ class ContentRegistry
                 'columns' => [
                     ['label' => 'admin.phone', 'ltr' => true, 'value' => fn ($r) => PhoneNumber::display($r->phone)],
                     ['label' => 'admin.cms.product', 'value' => fn ($r) => $r->product],
+                    ['label' => 'admin.cms.business_type', 'value' => fn ($r) => DemoRequest::sectorLabel($r->sector)],
                     ['label' => 'admin.cms.received', 'value' => fn ($r) => $r->created_at?->format('Y-m-d H:i')],
                     ['label' => 'admin.status', 'value' => fn ($r) => $r->is_handled ? __('admin.cms.handled') : __('admin.cms.pending')],
                 ],

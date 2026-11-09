@@ -167,7 +167,8 @@
                             </div>
                         @endif
 
-                        <form id="contact-form" method="POST" action="{{ route('contact.send', ['locale' => app()->getLocale()]) }}" class="space-y-6">
+                        @include('frontend.partials.remembered_notice')
+                        <form id="contact-form" method="POST" action="{{ route('contact.send', ['locale' => app()->getLocale()]) }}" class="space-y-6" data-remember-form>
                             @csrf
                             <input type="hidden" name="form_started_at" value="{{ now()->timestamp }}">
                             <div class="hidden" aria-hidden="true">
@@ -180,7 +181,7 @@
                                 <div>
                                     <label for="name" class="block text-sm font-medium text-white/80 mb-2">{{ __('frontend.your_name') }} <span
                                             class="text-red-400">*</span></label>
-                                    <input type="text" id="name" name="name" value="{{ old('name') }}" required
+                                    <input type="text" id="name" name="name" value="{{ old('name') }}" required data-remember="name"
                                         class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all"
                                         placeholder="{{ __('frontend.placeholder_name') }}">
                                     @error('name')<p class="mt-1 text-sm text-red-400">{{ $message }}</p>@enderror
@@ -188,7 +189,7 @@
                                 <div>
                                     <label for="phone" class="block text-sm font-medium text-white/80 mb-2">{{ __('frontend.phone_number') }}
                                         <span class="text-white/40 text-xs">({{ __('frontend.whatsapp') }})</span></label>
-                                    <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" dir="ltr" inputmode="tel" autocomplete="tel"
+                                    <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" dir="ltr" inputmode="tel" autocomplete="tel" data-remember="phone"
                                         aria-describedby="contact-method-hint"
                                         class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all {{ app()->isLocale('ar') ? 'text-right' : '' }}"
                                         placeholder="{{ __('frontend.placeholder_phone') }}">
@@ -199,7 +200,7 @@
                             <div class="grid md:grid-cols-2 gap-6">
                                 <div>
                                     <label for="email" class="block text-sm font-medium text-white/80 mb-2">{{ __('frontend.email_address') }}</label>
-                                    <input type="email" id="email" name="email" value="{{ old('email') }}" autocomplete="email"
+                                    <input type="email" id="email" name="email" value="{{ old('email') }}" autocomplete="email" data-remember="email"
                                         aria-describedby="contact-method-hint"
                                         class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all"
                                         placeholder="{{ __('frontend.placeholder_email') }}">

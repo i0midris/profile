@@ -40,6 +40,89 @@ class DemoRequestTest extends TestCase
             ->assertSee('name="_token"', false);
     }
 
+    public function test_sector_link_fills_the_form_before_products_are_published(): void
+    {
+        $html = $this->get('/ar/demo?sector=restaurant&product=pos-system')->assertOk()
+            ->assertSee('<option value="restaurant" selected', false)
+            ->assertSee('value="نقاط البيع"', false)
+            ->assertSee('جهّزنا طلبك')
+            ->getContent();
+
+        $this->assertStringContainsString('نعمل في مجال المطاعم والكافيهات، ونرغب بتجربة نقاط البيع.</textarea>', $html);
+    }
+
+    public function test_product_and_sector_prefill_uses_published_product_name(): void
+    {
+        Product::create(['slug' => 'pos-system', 'name_ar' => 'نظام نقاط البيع POS', 'description_ar' => 'x', 'is_active' => true]);
+
+        $this->get('/ar/demo?product=pos-system&sector=pharmacy')->assertOk()
+            ->assertSee('<option value="نظام نقاط البيع POS" selected', false)
+            ->assertSee('<option value="pharmacy" selected', false)
+            ->assertSee('نعمل في مجال الصيدليات، ونرغب بتجربة نظام نقاط البيع POS.</textarea>', false);
+
+        $this->get('/en/demo?sector=school')->assertOk()
+            ->assertSee('Our business: Schools &amp; organisations. We would like to know which system suits us.</textarea>', false);
+    }
+
+    public function test_unknown_or_missing_values_leave_the_form_empty(): void
+    {
+        $this->get('/ar/demo?sector=<script>&product=nope')->assertOk()
+            ->assertDontSee('جهّزنا طلبك')
+            ->assertDontSee('<option value="restaurant" selected', false)
+            ->assertSee('></textarea>', false);
+
+        $this->get('/ar/demo')->assertOk()->assertDontSee('جهّزنا طلبك');
+    }
+
+    public function test_sector_is_saved_and_shown_to_admin(): void
+    {
+        $this->submit(['sector' => 'warehouse', 'message' => 'نعمل في مجال المستودعات'])->assertSessionHasNoErrors();
+        $request = DemoRequest::firstOrFail();
+        $this->assertSame('warehouse', $request->sector);
+
+        $this->submit(['sector' => 'casino'])->assertSessionHasErrors('sector');
+
+        $this->actingAs(User::factory()->create())->get("/admin/content/demo-requests/{$request->id}/edit")
+            ->assertOk()->assertSee('المستودعات والمخازن');
+    }
+
+    public function test_sector_cards_link_to_a_prefilled_demo_form(): void
+    {
+        $html = str_replace('&amp;', '&', $this->get('/ar')->assertOk()->getContent());
+
+        $this->assertStringContainsString('/ar/demo?sector=restaurant&product=pos-system', $html);
+        $this->assertStringContainsString('/ar/demo?sector=distribution&product=sales-rep-app', $html);
+        $this->assertStringContainsString('اطلب عرضاً لقطاعك', $html);
+    }
+
+    public function test_product_page_passes_the_sector_on_to_the_demo_form(): void
+    {
+        Product::create(['slug' => 'pos-system', 'name_ar' => 'نقاط البيع', 'description_ar' => 'x', 'is_active' => true]);
+
+        $html = str_replace('&amp;', '&', $this->get('/ar/products/pos-system?sector=pharmacy')->assertOk()->getContent());
+        $this->assertStringContainsString('/ar/demo?product=pos-system&sector=pharmacy', $html);
+        $this->assertMatchesRegularExpression('#<link rel="canonical" href="[^"?]+/ar/products/pos-system">#', $html);
+
+        $html = str_replace('&amp;', '&', $this->get('/ar/products/pos-system?sector=bad')->getContent());
+        $this->assertStringContainsString('/ar/demo?product=pos-system"', $html);
+    }
+
+    public function test_forms_remember_only_contact_fields_on_this_device(): void
+    {
+        foreach (['/ar/demo', '/ar/contact'] as $path) {
+            $this->get($path)->assertOk()
+                ->assertSee('data-remember-form', false)
+                ->assertSee('data-remembered-notice', false)
+                ->assertSee('data-remember="name"', false)
+                ->assertSee('data-remember="phone"', false);
+        }
+
+        // The contact form's hidden "company" field is a spam trap: it must never be filled in.
+        $contact = $this->get('/ar/contact')->getContent();
+        $this->assertDoesNotMatchRegularExpression('/name="company"[^>]*data-remember/', $contact);
+        $this->assertStringContainsString('data-remember="company"', $this->get('/ar/demo')->getContent());
+    }
+
     public function test_visitor_can_request_a_demo(): void
     {
         $this->submit(['company' => 'مطعم الريف', 'product' => 'نظام نقاط البيع'])

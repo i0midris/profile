@@ -6,6 +6,7 @@
         <div><dt class="text-white/50 text-sm">{{ __('admin.phone') }}</dt><dd class="text-white" dir="ltr">{{ \App\Support\PhoneNumber::display($item->phone) ?: $item->phone }}</dd></div>
         <div><dt class="text-white/50 text-sm">{{ __('admin.email') }}</dt><dd class="text-white">{{ $item->email ?: '-' }}</dd></div>
         <div><dt class="text-white/50 text-sm">{{ __('admin.cms.product') }}</dt><dd class="text-white">{{ $item->product ?: '-' }}</dd></div>
+        <div><dt class="text-white/50 text-sm">{{ __('admin.cms.business_type') }}</dt><dd class="text-white">{{ \App\Models\DemoRequest::sectorLabel($item->sector) ?: '-' }}</dd></div>
         <div><dt class="text-white/50 text-sm">{{ __('admin.cms.preferred_contact') }}</dt><dd class="text-white">{{ __('admin.cms.contact_' . $item->preferred_contact) }}</dd></div>
         <div><dt class="text-white/50 text-sm">{{ __('admin.cms.received') }}</dt><dd class="text-white">{{ $item->created_at->format('Y-m-d H:i') }}</dd></div>
     </dl>
