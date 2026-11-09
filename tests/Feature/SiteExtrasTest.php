@@ -28,6 +28,13 @@ class SiteExtrasTest extends TestCase
             ->assertSee('site.webmanifest', false);
     }
 
+    public function test_how_we_work_line_flows_from_step_one_in_both_languages(): void
+    {
+        // Dashes travel from x1 to x2; step 1 sits on the right in Arabic and on the left in English.
+        $this->get('/ar')->assertSee('<line x1="960" y1="10" x2="40"', false);
+        $this->get('/en')->assertSee('<line x1="40" y1="10" x2="960"', false);
+    }
+
     public function test_system_finder_was_removed(): void
     {
         Product::create(['slug' => 'pos-system', 'name_ar' => 'نظام نقاط البيع', 'name_en' => 'POS', 'description_ar' => 'x', 'description_en' => 'x', 'is_active' => true]);

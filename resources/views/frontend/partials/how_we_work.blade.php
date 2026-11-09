@@ -18,9 +18,11 @@
         </div>
 
         <ol class="hww-steps grid sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
-            {{-- animated connector line behind the cards (desktop) --}}
+            {{-- animated connector line behind the cards (desktop). The dashes travel from x1 to x2,
+                 so the line starts at step 1: on the right in Arabic, on the left in English. --}}
+            @php $hwwRtl = app()->isLocale('ar'); @endphp
             <svg class="hww-line hidden lg:block" viewBox="0 0 1000 20" preserveAspectRatio="none" aria-hidden="true">
-                <line x1="40" y1="10" x2="960" y2="10" stroke="rgba(228,25,31,.45)" stroke-width="2" stroke-dasharray="8 7">
+                <line x1="{{ $hwwRtl ? 960 : 40 }}" y1="10" x2="{{ $hwwRtl ? 40 : 960 }}" y2="10" stroke="rgba(228,25,31,.45)" stroke-width="2" stroke-dasharray="8 7">
                     <animate attributeName="stroke-dashoffset" from="0" to="-30" dur="1.6s" repeatCount="indefinite"/>
                 </line>
             </svg>
