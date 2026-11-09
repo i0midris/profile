@@ -245,3 +245,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+// -- About illustration: gentle 3D tilt that follows the pointer (step 6.4) ------
+document.querySelectorAll('[data-eco]').forEach((eco) => {
+    if (window.matchMedia && window.matchMedia('(hover: none)').matches) {
+        return;
+    }
+    let frame = 0;
+    eco.addEventListener('pointermove', (event) => {
+        cancelAnimationFrame(frame);
+        frame = requestAnimationFrame(() => {
+            const rect = eco.getBoundingClientRect();
+            eco.style.setProperty('--mx', (((event.clientX - rect.left) / rect.width) * 2 - 1).toFixed(3));
+            eco.style.setProperty('--my', (((event.clientY - rect.top) / rect.height) * 2 - 1).toFixed(3));
+        });
+    });
+    eco.addEventListener('pointerleave', () => {
+        cancelAnimationFrame(frame);
+        eco.style.setProperty('--mx', '0');
+        eco.style.setProperty('--my', '0');
+    });
+});

@@ -35,6 +35,24 @@ class SiteExtrasTest extends TestCase
         $this->get('/en')->assertSee('<line x1="40" y1="10" x2="960"', false);
     }
 
+    public function test_about_ecosystem_illustration_renders_in_both_languages(): void
+    {
+        $settings = CompanySetting::first();
+
+        app()->setLocale('ar');
+        $ar = view('frontend.partials.about_ecosystem', ['settings' => $settings])->render();
+        $this->assertStringContainsString('data-eco', $ar);
+        $this->assertSame(6, substr_count($ar, 'class="eco-sat"'));
+        $this->assertStringContainsString('بياناتك في أمان', $ar);
+        $this->assertStringContainsString('eco-hub-mark', $ar); // no logo uploaded: brand mark fallback
+
+        app()->setLocale('en');
+        $settings->logo = 'settings/logo.png';
+        $en = view('frontend.partials.about_ecosystem', ['settings' => $settings])->render();
+        $this->assertStringContainsString('Safe &amp; secure', $en);
+        $this->assertStringContainsString('storage/settings/logo.png', $en);
+    }
+
     public function test_system_finder_was_removed(): void
     {
         Product::create(['slug' => 'pos-system', 'name_ar' => 'نظام نقاط البيع', 'name_en' => 'POS', 'description_ar' => 'x', 'description_en' => 'x', 'is_active' => true]);

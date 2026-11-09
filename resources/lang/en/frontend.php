@@ -273,4 +273,12 @@ return array (
   'demo_prefilled_text' => 'We filled in what we know from the page you came from. Check it, then just add your name and number.',
   'remembered_text' => 'We filled in your details from your last request on this device.',
   'remembered_clear' => 'Not you? Clear them',
+  'eco_erp_label' => 'ERP systems',
+  'eco_erp_title' => 'All in one',
+  'eco_cloud_label' => 'Cloud solutions',
+  'eco_cloud_title' => 'Work anywhere',
+  'eco_cloud_status' => 'All devices in sync',
+  'eco_sec_label' => 'Security',
+  'eco_sec_title' => 'Safe & secure',
+  'eco_sec_status' => 'Protected',
 );

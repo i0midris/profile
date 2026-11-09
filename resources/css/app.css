@@ -1286,3 +1286,134 @@
 .remembered-notice[hidden] { display: none !important; }
 .theme-light .demo-prefilled { background: #e9f7f0; border-color: #a7dcc2; }
 .theme-light .remembered-notice { background: #eef4fd; border-color: #bcd3f3; }
+
+/* =====================================================================
+   About section — "Albaseet ecosystem" illustration (step 6.4)
+   A 520-unit square stage; 1em = 10 units, so everything scales with the container.
+   ===================================================================== */
+.eco { container-type: inline-size; width: 100%; max-width: 520px; margin: 0 auto; --mx: 0; --my: 0; }
+.eco-stage { position: relative; width: 100%; aspect-ratio: 52 / 60; font-size: calc(100cqw / 52); direction: ltr; isolation: isolate;
+    transform: perspective(90em) rotateX(calc(var(--my) * -4deg)) rotateY(calc(var(--mx) * 5deg)); transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+.eco-depth-1 { translate: calc(var(--mx) * .4em) calc(var(--my) * .4em); transition: translate .6s cubic-bezier(.2,.7,.2,1); }
+.eco-depth-2 { translate: calc(var(--mx) * .9em) calc(var(--my) * .9em); transition: translate .6s cubic-bezier(.2,.7,.2,1); }
+.eco-depth-3 { translate: calc(var(--mx) * 1.7em) calc(var(--my) * 1.7em); transition: translate .6s cubic-bezier(.2,.7,.2,1); }
+
+/* backdrop */
+.eco-glow { position: absolute; border-radius: 50%; filter: blur(3em); pointer-events: none; animation: eco-breathe 8s ease-in-out infinite; }
+.eco-glow-a { width: 30em; height: 30em; left: 11em; top: 15em; background: radial-gradient(circle, rgb(59 111 212 / .38), transparent 65%); }
+.eco-glow-b { width: 20em; height: 20em; left: 28em; top: 34em; background: radial-gradient(circle, rgb(228 25 31 / .22), transparent 65%); animation-delay: -4s; }
+.eco-dots { position: absolute; inset: 3%; pointer-events: none; background-image: radial-gradient(rgb(255 255 255 / .16) 1px, transparent 1.3px); background-size: 2.2em 2.2em;
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 18%, transparent 66%); mask-image: radial-gradient(circle at 50% 50%, #000 18%, transparent 66%); }
+.eco-rings, .eco-beams { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.eco-beams { z-index: 3; }
+.eco-ring-orbit { stroke: rgb(255 255 255 / .09); }
+.eco-spin-slow { transform-box: view-box; transform-origin: 260px 300px; animation: eco-rot 70s linear infinite; }
+.eco-glow-dot { filter: drop-shadow(0 0 4px #E4191F); }
+.eco-particle { position: absolute; width: .55em; height: .55em; border-radius: 50%; background: #60a5fa; box-shadow: 0 0 1em #60a5fa; opacity: 0; pointer-events: none;
+    animation: eco-drift 6.5s ease-in-out infinite; animation-delay: var(--d); }
+.eco-particle:nth-of-type(even) { background: #ff5a5f; box-shadow: 0 0 1em #ff5a5f; }
+
+/* orbiting systems */
+.eco-orbit { position: absolute; left: 26em; top: 30em; width: 0; height: 0; z-index: 2; animation: eco-rot 48s linear infinite; }
+.eco-sat { position: absolute; transform: rotate(var(--a)) translateX(10.2em) rotate(calc(-1 * var(--a))); }
+.eco-sat-chip { position: absolute; width: 3.4em; height: 3.4em; left: -1.7em; top: -1.7em; border-radius: 1.1em; display: flex; align-items: center; justify-content: center;
+    color: #fff; animation: eco-rot 48s linear infinite reverse; }
+.eco-sat-chip svg { width: 1.65em; height: 1.65em; }
+
+/* hub */
+.eco-hub { position: absolute; left: 26em; top: 30em; width: 0; height: 0; z-index: 5; }
+.eco-hub-core { position: absolute; width: 10.4em; height: 10.4em; left: -5.2em; top: -5.2em; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    background: radial-gradient(circle at 32% 26%, #3d6fd6, #1A2E6D 72%);
+    box-shadow: 0 0 0 .8em rgb(26 46 109 / .28), 0 0 4.5em rgb(59 111 212 / .6), inset 0 0 1.6em rgb(255 255 255 / .18); }
+.eco-hub-ring { position: absolute; width: 13em; height: 13em; left: -6.5em; top: -6.5em; border-radius: 50%;
+    background: conic-gradient(from 0deg, #E4191F, transparent 28%, #60a5fa 52%, transparent 78%, #E4191F);
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - .32em), #000 calc(100% - .28em)); mask: radial-gradient(farthest-side, transparent calc(100% - .32em), #000 calc(100% - .28em));
+    animation: eco-rot 5s linear infinite; filter: drop-shadow(0 0 .6em rgb(228 25 31 / .6)); }
+.eco-hub-logo { width: 6.2em; height: 6.2em; border-radius: 1.7em; background: #fff; padding: .9em; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 .6em 1.8em rgb(0 0 0 / .35); animation: eco-beat 3.2s ease-in-out infinite; }
+.eco-hub-logo img { width: 100%; height: 100%; object-fit: contain; }
+.eco-hub-mark { width: 5.2em; height: 5.2em; animation: eco-beat 3.2s ease-in-out infinite; }
+.eco-wave { position: absolute; width: 10.4em; height: 10.4em; left: -5.2em; top: -5.2em; border-radius: 50%; border: .2em solid rgb(228 25 31 / .55); animation: eco-wave 3.2s ease-out infinite; }
+.eco-wave-2 { border-color: rgb(96 165 250 / .55); animation-delay: -1.6s; }
+.eco-hub-label { position: absolute; top: 5.5em; left: 0; translate: -50% 0; white-space: nowrap; font-size: 1.3em; font-weight: 700; color: #fff; padding: .3em 1.1em; border-radius: 999px;
+    background: rgb(10 20 60 / .82); border: 1px solid rgb(96 165 250 / .35); box-shadow: 0 .4em 1.4em rgb(0 0 0 / .35); backdrop-filter: blur(8px); }
+
+/* cards */
+.eco-card { position: absolute; z-index: 6; padding: 1.4em; border-radius: 1.8em; overflow: hidden;
+    background: linear-gradient(160deg, rgb(22 36 88 / .94), rgb(8 16 46 / .95)); border: 1px solid rgb(255 255 255 / .11);
+    box-shadow: 0 1.8em 4.2em rgb(0 0 0 / .45), inset 0 1px 0 rgb(255 255 255 / .08); backdrop-filter: blur(14px); animation: eco-float 7s ease-in-out infinite; }
+.eco-card::before { content: ""; position: absolute; top: 0; left: 12%; right: 12%; height: 2px; border-radius: 2px; background: linear-gradient(90deg, transparent, var(--eco-accent, #E4191F), transparent); }
+.eco-card::after { content: ""; position: absolute; inset: 0; pointer-events: none; transform: translateX(-130%) skewX(-18deg);
+    background: linear-gradient(90deg, transparent, rgb(255 255 255 / .07), transparent); animation: eco-sheen 7s ease-in-out infinite; animation-delay: inherit; }
+[dir="rtl"] .eco-card { direction: rtl; }
+.eco-card-erp { left: 0; top: 0; width: 22em; }
+.eco-card-cloud { right: 0; top: 2.6em; width: 22em; animation-delay: -2.3s; --eco-accent: #60a5fa; }
+.eco-card-sec { left: 50%; bottom: .6em; width: 31em; margin-left: -15.5em; animation-delay: -4.6s; }
+.eco-card-head { display: flex; align-items: center; gap: 1em; margin-bottom: 1.1em; }
+.eco-icon { width: 4.2em; height: 4.2em; border-radius: 1.1em; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff; }
+.eco-icon svg { width: 2.1em; height: 2.1em; }
+.eco-tone-red { background: linear-gradient(135deg, #ff3b41, #8a0b10); box-shadow: 0 .5em 1.6em rgb(228 25 31 / .45); }
+.eco-tone-blue { background: linear-gradient(135deg, #4f86ea, #1A2E6D); box-shadow: 0 .5em 1.6em rgb(59 111 212 / .45); }
+.eco-tone-navy { background: linear-gradient(135deg, #2c438e, #111d4c); border: 1px solid rgb(255 255 255 / .14); box-shadow: 0 .5em 1.6em rgb(0 0 0 / .35); }
+.eco-label { display: block; font-size: 1.25em; line-height: 1.35; color: rgb(255 255 255 / .66); }
+.eco-title { display: block; font-size: 1.75em; line-height: 1.3; font-weight: 700; color: #fff; }
+.eco-grow { flex: 1; min-width: 0; }
+
+.eco-chart { position: relative; height: 4.8em; display: flex; align-items: flex-end; gap: .55em; margin-bottom: 1.1em; padding-bottom: .2em; border-bottom: 1px solid rgb(255 255 255 / .08); }
+.eco-bar { flex: 1; height: 100%; border-radius: .45em .45em .1em .1em; transform-origin: bottom; transform: scaleY(var(--from));
+    background: linear-gradient(to top, rgb(255 255 255 / .07), rgb(255 255 255 / .3)); animation: eco-bar 3.4s ease-in-out infinite; animation-delay: var(--d); }
+.eco-bar.is-hot { background: linear-gradient(to top, #7a0a0d, #ff4d52); box-shadow: 0 0 1.4em rgb(228 25 31 / .65); }
+.eco-spark { position: absolute; inset: 0 0 .2em; width: 100%; height: calc(100% - .2em); overflow: visible; }
+.eco-spark polyline { stroke-dasharray: 100 100; animation: eco-draw 4.4s ease-in-out infinite; filter: drop-shadow(0 0 3px #60a5fa); }
+[dir="rtl"] .eco-spark { transform: scaleX(-1); }
+.eco-tags { display: flex; flex-wrap: wrap; gap: .5em; }
+.eco-tag { font-size: 1.22em; padding: .18em .75em; border-radius: 999px; color: rgb(255 255 255 / .86); background: rgb(255 255 255 / .06); border: 1px solid rgb(255 255 255 / .1); }
+
+.eco-sync { display: block; width: 100%; height: 4.9em; color: rgb(255 255 255 / .82); margin-bottom: .9em; }
+.eco-sync-dev { animation: eco-glow-soft 2.4s ease-in-out infinite; }
+.eco-status { display: flex; align-items: center; gap: .55em; font-size: 1.32em; font-weight: 700; color: #4ade80; }
+.eco-live { position: relative; width: .62em; height: .62em; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+.eco-live::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: currentColor; animation: eco-ping 1.8s ease-out infinite; }
+.eco-badge { display: inline-flex; align-items: center; gap: .45em; font-size: 1.2em; font-weight: 800; white-space: nowrap; color: #4ade80; padding: .25em .75em; border-radius: .7em;
+    background: rgb(74 222 128 / .12); border: 1px solid rgb(74 222 128 / .35); }
+
+.eco-sec-body { display: flex; align-items: center; gap: 1.5em; }
+.eco-shield { width: 5.8em; flex-shrink: 0; filter: drop-shadow(0 .6em 1.4em rgb(228 25 31 / .45)); }
+.eco-shield svg { display: block; width: 100%; height: auto; }
+.eco-scan { animation: eco-scan 2.8s ease-in-out infinite; }
+.eco-shield-tick { stroke-dasharray: 32; stroke-dashoffset: 32; animation: eco-tick 2.8s ease-in-out infinite; }
+.eco-checks { list-style: none; margin: 0; padding: 0; display: grid; gap: .5em; flex: 1; min-width: 0; }
+.eco-checks li { display: flex; align-items: center; gap: .6em; font-size: 1.32em; color: rgb(255 255 255 / .88); white-space: nowrap; }
+.eco-check { width: 1.35em; height: 1.35em; border-radius: .42em; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: #4ade80;
+    background: rgb(74 222 128 / .15); animation: eco-check 3.6s ease-in-out infinite; animation-delay: var(--d); }
+.eco-check svg { width: .85em; height: .85em; }
+
+@keyframes eco-rot { to { transform: rotate(360deg); } }
+@keyframes eco-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-.9em); } }
+@keyframes eco-breathe { 0%, 100% { opacity: .55; transform: scale(1); } 50% { opacity: 1; transform: scale(1.08); } }
+@keyframes eco-wave { 0% { transform: scale(1); opacity: .9; } 100% { transform: scale(2.15); opacity: 0; } }
+@keyframes eco-beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+@keyframes eco-bar { 0%, 100% { transform: scaleY(var(--from)); } 50% { transform: scaleY(var(--to)); } }
+@keyframes eco-draw { 0% { stroke-dashoffset: 100; } 45%, 80% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -100; } }
+@keyframes eco-scan { 0% { transform: translateY(0); } 100% { transform: translateY(64px); } }
+@keyframes eco-tick { 0%, 20% { stroke-dashoffset: 32; } 45%, 88% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 32; } }
+@keyframes eco-check { 0%, 10% { transform: scale(.5); opacity: .35; } 22% { transform: scale(1.18); opacity: 1; } 32%, 100% { transform: scale(1); opacity: 1; } }
+@keyframes eco-ping { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(2.8); opacity: 0; } }
+@keyframes eco-glow-soft { 0%, 100% { opacity: .75; } 50% { opacity: 1; } }
+@keyframes eco-sheen { 0%, 70% { transform: translateX(-130%) skewX(-18deg); } 100% { transform: translateX(130%) skewX(-18deg); } }
+@keyframes eco-drift { 0% { transform: translate(0, 0); opacity: 0; } 25% { opacity: .9; } 100% { transform: translate(1.6em, -4.5em); opacity: 0; } }
+
+/* light theme */
+.theme-light .eco-card { background: linear-gradient(160deg, rgb(255 255 255 / .97), rgb(240 244 252 / .97)); border-color: rgb(26 46 109 / .12); box-shadow: 0 1.8em 4.2em rgb(26 46 109 / .16); }
+.theme-light .eco-card::after { background: linear-gradient(90deg, transparent, rgb(26 46 109 / .05), transparent); }
+.theme-light .eco-label { color: rgb(26 46 109 / .66); }
+.theme-light .eco-title { color: #1A2E6D; }
+.theme-light .eco-tag { color: rgb(26 46 109 / .88); background: rgb(26 46 109 / .05); border-color: rgb(26 46 109 / .12); }
+.theme-light .eco-bar:not(.is-hot) { background: linear-gradient(to top, rgb(26 46 109 / .08), rgb(26 46 109 / .28)); }
+.theme-light .eco-chart { border-color: rgb(26 46 109 / .1); }
+.theme-light .eco-sync { color: rgb(26 46 109 / .75); }
+.theme-light .eco-status, .theme-light .eco-badge, .theme-light .eco-check { color: #15803d; }
+.theme-light .eco-badge { background: rgb(21 128 61 / .08); border-color: rgb(21 128 61 / .3); }
+.theme-light .eco-checks li { color: rgb(26 46 109 / .9); }
+.theme-light .eco-dots { background-image: radial-gradient(rgb(26 46 109 / .2) 1px, transparent 1.3px); }
+.theme-light .eco-ring-orbit { stroke: rgb(26 46 109 / .12); }

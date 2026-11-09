@@ -273,4 +273,12 @@ return array (
   'demo_prefilled_text' => 'عبّأنا ما نعرفه من الصفحة التي جئت منها. راجعه وأكمل اسمك ورقمك فقط.',
   'remembered_text' => 'عبّأنا بياناتك من طلبك السابق على هذا الجهاز.',
   'remembered_clear' => 'ليست بياناتك؟ امسحها',
+  'eco_erp_label' => 'أنظمة ERP',
+  'eco_erp_title' => 'إدارة أعمالك',
+  'eco_cloud_label' => 'حلول سحابية',
+  'eco_cloud_title' => 'معك أينما كنت',
+  'eco_cloud_status' => 'كل الأجهزة متزامنة',
+  'eco_sec_label' => 'أمن المعلومات',
+  'eco_sec_title' => 'بياناتك في أمان',
+  'eco_sec_status' => 'محمي',
 );
