@@ -348,24 +348,26 @@
     <!-- Footer -->
     <footer class="site-footer mt-auto">
         <div class="site-footer-glow" aria-hidden="true"></div>
-        <div class="site-footer-inner max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-6 sm:pt-16 sm:pb-7">
-            <div class="site-footer-grid grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-6">
+        <div class="site-footer-inner max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-5 sm:pt-12 sm:pb-6">
+            {{-- One compact panel: brand · quick links (side by side) · contact (step 6.5) --}}
+            <div class="site-footer-block site-footer-panel">
+            <div class="site-footer-grid grid grid-cols-1 lg:grid-cols-12">
                 <!-- Company Info -->
-                <div class="site-footer-block site-footer-brand md:col-span-2">
+                <div class="site-footer-col site-footer-brand lg:col-span-4">
                     @php
                         $footerWhatsappUrl = \App\Support\PhoneNumber::whatsappUrl($settings->whatsapp ?: $settings->phone);
                     @endphp
 
-                    <div class="flex items-center gap-3 mb-4">
+                    <div class="flex items-center gap-3 mb-3">
                         @if($settings->logo_url ?? false)
-                            <img loading="lazy" decoding="async" src="{{ $settings->logo_url }}" alt="{{ $settings->company_name }}" class="h-8">
+                            <span class="site-footer-logo"><img loading="lazy" decoding="async" src="{{ $settings->logo_url }}" alt="{{ $settings->company_name }}"></span>
                         @endif
                         <span class="site-footer-brand-name">{{ $settings->company_name ?? __('frontend.company_fallback') }}</span>
                     </div>
                     <p class="site-footer-description">{{ $settings->description ?? '' }}</p>
 
                     <!-- Social Links -->
-                    <div class="site-footer-social flex items-center gap-3.5">
+                    <div class="site-footer-social flex flex-wrap items-center gap-2.5">
                         @if($footerWhatsappUrl)
                             <a href="{{ $footerWhatsappUrl }}" target="_blank" rel="noopener noreferrer" class="site-footer-social-link" aria-label="{{ __('frontend.whatsapp') }}">
                                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
@@ -411,10 +413,10 @@
                     </div>
                 </div>
 
-                <!-- Quick Links -->
-                <div class="site-footer-block">
+                <!-- Quick Links: chips side by side -->
+                <nav class="site-footer-col lg:col-span-5" aria-label="{{ __('frontend.quick_links') }}">
                     <h3 class="site-footer-heading">{{ __('frontend.quick_links') }}</h3>
-                    <ul class="site-footer-links space-y-2.5">
+                    <ul class="site-footer-links">
                         <li><a href="{{ route('home', ['locale' => app()->getLocale()]) }}" class="site-footer-link">{{ __('frontend.home') }}</a></li>
                         @if($visiblePages['about'] ?? true)
                             <li><a href="{{ route('about', ['locale' => app()->getLocale()]) }}" class="site-footer-link">{{ __('frontend.about') }}</a></li>
@@ -444,12 +446,12 @@
                             <li><a href="{{ route('contact', ['locale' => app()->getLocale()]) }}" class="site-footer-link">{{ __('frontend.contact') }}</a></li>
                         @endif
                     </ul>
-                </div>
+                </nav>
 
                 <!-- Contact Info -->
-                <div class="site-footer-block">
+                <div class="site-footer-col lg:col-span-3">
                     <h3 class="site-footer-heading">{{ __('frontend.contact_information') }}</h3>
-                    <ul class="site-footer-contact space-y-3">
+                    <ul class="site-footer-contact">
                         @if($settings->email ?? false)
                             <li class="site-footer-contact-item">
                                 <span class="site-footer-contact-icon" aria-hidden="true">
@@ -474,7 +476,7 @@
                         @endif
                         @if($settings->address ?? false)
                             <li class="site-footer-contact-item">
-                                <span class="site-footer-contact-icon mt-0.5" aria-hidden="true">
+                                <span class="site-footer-contact-icon" aria-hidden="true">
                                     <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -486,11 +488,18 @@
                             </li>
                         @endif
                     </ul>
+                    @if(Route::has('demo'))
+                        <a href="{{ route('demo', ['locale' => app()->getLocale()]) }}" class="site-footer-cta">
+                            {{ __('frontend.request_demo') }}
+                            <svg aria-hidden="true" class="w-4 h-4 rtl-flip" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                        </a>
+                    @endif
                 </div>
+            </div>
             </div>
 
             <!-- Copyright -->
-            <div class="site-footer-bottom mt-10 pt-6 text-center text-sm">
+            <div class="site-footer-bottom mt-5 pt-4 text-center text-sm">
                 © {{ date('Y') }} {{ $settings->company_name ?? __('frontend.company_fallback') }}. {{ __('frontend.all_rights_reserved') }}
             </div>
         </div>

@@ -53,6 +53,16 @@ class SiteExtrasTest extends TestCase
         $this->assertStringContainsString('storage/settings/logo.png', $en);
     }
 
+    public function test_footer_is_one_compact_panel_with_link_chips_and_demo_button(): void
+    {
+        $html = $this->get('/ar')->assertOk()->getContent();
+
+        $this->assertSame(1, substr_count($html, 'site-footer-block site-footer-panel'));
+        $this->assertSame(3, substr_count($html, 'class="site-footer-col'));
+        $this->assertStringContainsString('<ul class="site-footer-links">', $html);
+        $this->assertMatchesRegularExpression('#class="site-footer-cta">\s*اطلب عرضاً تجريبياً#u', $html);
+    }
+
     public function test_system_finder_was_removed(): void
     {
         Product::create(['slug' => 'pos-system', 'name_ar' => 'نظام نقاط البيع', 'name_en' => 'POS', 'description_ar' => 'x', 'description_en' => 'x', 'is_active' => true]);
