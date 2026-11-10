@@ -63,6 +63,15 @@ class SiteExtrasTest extends TestCase
         $this->assertMatchesRegularExpression('#class="site-footer-cta">\s*اطلب عرضاً تجريبياً#u', $html);
     }
 
+    public function test_stylesheet_keeps_light_theme_marquee_and_has_no_control_characters(): void
+    {
+        $css = file_get_contents(resource_path('css/app.css'));
+
+        // Without this rule the marquee text stays white on the light background (fixed in step 6.6).
+        $this->assertMatchesRegularExpression('/\.theme-light \.systems-marquee-list li \{[^}]*color: rgb\(var\(--brand-main-rgb\)/', $css);
+        $this->assertDoesNotMatchRegularExpression('/[\x00-\x08\x0B\x0C\x0E-\x1F]/', $css);
+    }
+
     public function test_system_finder_was_removed(): void
     {
         Product::create(['slug' => 'pos-system', 'name_ar' => 'نظام نقاط البيع', 'name_en' => 'POS', 'description_ar' => 'x', 'description_en' => 'x', 'is_active' => true]);
